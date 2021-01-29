@@ -1,0 +1,33 @@
+; clickandsleep_test3.txt
+
+//debugOn
+scriptcoordinates,3840,2160
+savewin
+openChrome,https://www.jvr.de
+//closeChrome
+//activateChrome
+
+openfirefox,https://www.autohotkey.com
+;winCon contains HWND afterwards (Firefox has multible HWND)
+//closefirefox, winCon must be false, i.e. "0" afterwards
+//activateFirefox
+
+//winConStop
+//winConExit
+
+openedge,https://www.autohotkey.com
+//activateEdge
+//closeedge
+
+//showvar,wincon
+//resetWinCon
+//setWinCon
+
+sleeplong,5,hopefully browser is open!
+sleep,3000,sleep is for short sleeptimes
+
+showHint,script finished!,2000
+restorewin
+showCasWin
+
+//loadset,clickandsleep
