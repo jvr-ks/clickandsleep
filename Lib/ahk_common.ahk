@@ -38,16 +38,14 @@ checkVersionFromGithub(){
 	global appVersion
 	global msgDefault
 	
-	msg := msgDefault
 	vers := getVersionFromGithub()
 	if (vers != "unknown"){
 		if (vers > appVersion){
 			msg := "New version available, this is: " . appVersion . " ,available on Github is: " . vers
+			showMessage(msg)
 		}
 	}
-	
-	showMessage(msg)
-				
+					
 	return
 }
 ;-------------------------------- showMessage --------------------------------
@@ -87,7 +85,7 @@ tipCreate(){
 	active = false
 	Gui, tip:New,-Caption +AlwaysOnTop
 	Gui, tip:Font, s11, Calibri
-	Gui, tip:Add, Text, vTip h18 w400 Center
+	Gui, tip:Add, Text, vTip h20 w400 Center
 	Gui,tip:Show, xCenter y0 Autosize NoActivate,tip-Window
 }
 ;------------------------------------ tip ------------------------------------

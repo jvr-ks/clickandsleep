@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.274"
+appVersion := "0.275"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -1112,6 +1112,7 @@ countDown(){
 		case 0:
 			downCounter := downCounter - 1
 			tip("Next execution in: " . formatTimeSeconds(downCounter))
+			Gui, guiMain:Hide
 		case 1:
 			tip("Next execution in (hold on): " . formatTimeSeconds(downCounter))
 		case 3:
@@ -1137,6 +1138,7 @@ countDown(){
 			casRunOnce()
 			downCounter := repeatTime
 			setTimer,countDown,delete
+			
 			setTimer,countDown,1000
 		}
 	}

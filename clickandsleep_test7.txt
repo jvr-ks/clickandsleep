@@ -1,12 +1,6 @@
 ; clickandsleep_test7.txt
 
-//  test tiptop redesign
-
-
-sleep,10000
-sleepLong,50,test tiptop redesign
+sleepLong,5,goto background test
 
 //loadset,clickandsleep
 
-
-	

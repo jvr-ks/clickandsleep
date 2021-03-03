@@ -370,6 +370,10 @@ Remove it in the tray or restart Windows instead.
   
 * Only a single instance of "clickandsleep.exe" is allowed.
   
+##### Hotkeys
+[Overview of all default Hotkeys used by my Autohotkey "tools"](https://github.com/jvr-ks/cmdlinedev/blob/master/hotkeys.md)
+  
+
 #### License: MIT  
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sub license, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -382,6 +386,6 @@ Copyright (c) 2020 J. v. Roos
 
 
 ##### Viruscheck at Virustotal 
-[Check here](https://www.virustotal.com/gui/url/6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798/detection/u-6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798-1611923423
+[Check here](https://www.virustotal.com/gui/url/6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798/detection/u-6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798-1614781318
 )  
 Use [CTRL] + Click to open in a new window! 

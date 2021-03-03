@@ -441,6 +441,7 @@ doAction(commandsArr){
 	
 	if(eq(commandsArr[1], "mouseclickrandom3")){
 		Random, rnd , 1, 3
+
 		switch rnd
 		{
 			case 1:
