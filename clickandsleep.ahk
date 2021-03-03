@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.276"
+appVersion := "0.277"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -227,7 +227,6 @@ case "off":
 	mainWindow()
 case "runRepeated":
 	readIni()
-	msgbox, RunRepeated
 	casRunStartRepeated()
 case "runAfterDelay":
 	readIni()
