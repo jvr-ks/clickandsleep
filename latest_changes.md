@@ -1,6 +1,12 @@
 #### Latest changes: [-> README](README.md)
 
-
+* [run] section of Config-file, autorun= can be
+* * off
+* * runRepeated  
+* * runAfterDelay  
+* * runStandby  
+* * runAfterDelayStandby  
+* * otherwise equals to off 
 * "mouseClickLikelinessTimesDelay" parameter order changed, comment field added (displayed in TopTip)
 * "mouseclicklikeliness" comment field added (displayed in TopTip)
 * SingleStep corrected
@@ -18,8 +24,8 @@ To stop the Mouserecord-mode, push the hotkey again or make a right-click anywhe
 \*1) Checks the colors in a 20 X 16 pixel area.  
 "ca-value" is each mean-sum of R|G|B colors of the screen-pixels.  
 Slow operation! (if in Config-file recordlikeliness="ON")
-
-* Memory-leaks removed
+ 
+* Memory-leaks removed  
 * New Button "Toggle comment ;"  
 * Button "hide" removed  
 * "showcaswin" command removed  
