@@ -15,6 +15,7 @@ In the following ClickAndSleep is called "app" or "CAS/cas".
 #### Start:
 "clickandsleep.exe" \[command-file (or path to)]  \[configuration-file (or path to)]  
 **First file must be the command-file.**  
+"autorun" values are NOT commandline parameters but part of the Configuration-file (see blow).  
   
 Path to the command-file can be relativ (subdirectory of running directorie) i.e. "\dirXYZ\clickandsleep.txt" or  
 absolut, i.e. "C:\dir1\dir2\clickandsleep.txt"  
@@ -74,7 +75,7 @@ They are delimited by a comma or a tab.
 For more advanced scripts you should consider to use a native Autohotkey script.  
    
 #### Standby:   
-* Wondows cannot go to standby-mode if hibernate-mode is enabled.  
+* Windows cannot go to standby-mode if hibernate-mode is enabled.  
 Use "hibernate_off.cmd" as admin to switch hibernate-mode "off".
   
 * If you want to use the standby/wakeup-feature,  
