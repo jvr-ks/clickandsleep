@@ -1,6 +1,6 @@
 #### Latest changes: [-> README](README.md)
 
-* "autorun" is inhibited if Capslock-key is pactivated during app-start!
+* "autorun" is inhibited if Capslock-key is activated during app-start!
 * Next excution time-display is transparent
 * [run] section of Config-file, autorun= can be
 * * off

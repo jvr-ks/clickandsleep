@@ -325,7 +325,7 @@ Allowed "autorun" values are:
 * runStandby  
 * runAfterDelayStandby  
 
-**"autorun" is inhibited if Capslock-key is pactivated during app-start!**
+**"autorun" is inhibited if Capslock-key is activated during app-start!**
   
 #### Startparameter  
 "clickandsleep.exe" \[command-file]  \[configuration-file]  
