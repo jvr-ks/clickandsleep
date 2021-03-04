@@ -57,6 +57,7 @@ OwnPID := DllCall("GetCurrentProcessId")
 
 FileEncoding, UTF-8-RAW
 activeWin := 0
+tipHwnd := 0
 
 ;  doAction():
 #Include, %A_ScriptDir%\cascommands.ahk
@@ -95,7 +96,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.277"
+appVersion := "0.278"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -1108,12 +1109,14 @@ countDown(){
 	global runCas
 	global runCasOnceOnly
 	global repeatTime
+	global tipHwnd
 
 	switch getKeyboardState()
 	{
 		case 0:
 			downCounter := downCounter - 1
 			tip("Next execution in: " . formatTimeSeconds(downCounter))
+			WinSet, Transparent, 150, ahk_id %tipHwnd%
 			Gui, guiMain:Hide
 		case 1:
 			tip("Next execution in (hold on): " . formatTimeSeconds(downCounter))

@@ -91,6 +91,7 @@ tipCreate(){
 ;------------------------------------ tip ------------------------------------
 tip(msg){
 	global Tip
+	global tipHwnd
 
 	tipHwnd := WinExist("tip-Window")
 	if ( tipHwnd == 0){

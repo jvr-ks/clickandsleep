@@ -1,5 +1,6 @@
 #### Latest changes: [-> README](README.md)
 
+* Next excution time-display is transparent
 * [run] section of Config-file, autorun= can be
 * * off
 * * runRepeated  
