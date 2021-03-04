@@ -53,12 +53,13 @@ doAction(commandsArr){
 		switch getKeyboardState()
 		{
 			case 1:
-				tip("ClickandSleep paused ...")
+				tipRefreshed("ClickandSleep paused ...")
 				sleep,1000
 			case 3:
 				tip("Jumped over this command: " . commandsArr[1])
 				sleep,1000
 				enhancedCommand := true
+				tipRefreshedClose()
 				return
 			case 5:
 				tip("Operation aborted!")
@@ -68,6 +69,7 @@ doAction(commandsArr){
 				break capslockWaitLoop
 			default:
 				tipClose()
+				tipRefreshedClose()
 				break capslockWaitLoop
 		}
 
