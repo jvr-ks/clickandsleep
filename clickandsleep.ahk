@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.279"
+appVersion := "0.280"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -1126,10 +1126,12 @@ countDown(){
 			sleep,2000
 			downCounter := 0
 			tipClear()
+			Gui, guiMain:Show
 		case 5:
 			tipTopTranspRemove()
 			casRunStop()
 			tip("Operation aborted!")
+			Gui, guiMain:Show
 			showWindowRefreshed()
 			return
 	}	
