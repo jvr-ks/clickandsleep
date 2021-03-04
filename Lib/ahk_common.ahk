@@ -81,28 +81,23 @@ tipCreate(){
 
 	global Tip
 
-	active = false
 	Gui, tip:New,-Caption +AlwaysOnTop
 	Gui, tip:Font, s11, Calibri
-	Gui, tip:Add, Text, vTip h20 w400 Center
-	Gui,tip:Show, xCenter y0 Autosize NoActivate,tip-Window
 }
 ;------------------------------------ tip ------------------------------------
 tip(msg){
+	;allways create new
 	global Tip
 
 	tipHwnd := WinExist("tip-Window")
 	if ( tipHwnd == 0){
 		tipCreate()
+	} else {
+		Gui,tip:destroy
+		tipCreate()
 	}
-	
-	GuiControl,tip:,Tip,%msg%
-
-	return
-}
-;--------------------------------- tipClear ---------------------------------
-tipClear(){
-	tip("                                          ")
+	Gui, tip:Add, Text, vTip h20 Center,%msg%
+	Gui,tip:Show, xCenter y0 Autosize NoActivate,tip-Window
 
 	return
 }

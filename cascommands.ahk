@@ -352,22 +352,25 @@ doAction(commandsArr){
 			{
 				case 0:
 					sleepDownCounter := sleepDownCounter - 1
-					tip("Sleeplong: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
+					tipTop("Sleeplong: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
 				case 1:
+					tipTopClose()
 					tip("Sleeplong hold on: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
 				case 3:
+					tipTopClose()
 					tip("Sleeplong finished by user interaction!")
 					sleepDownCounter := 0
 					break sleepdown
 				case 5:
 					casRunStop()
+					tipTopClose()
 					tip("Operation aborted!")
 					sleep, 1000
 					break sleepdown
 			}
 
 			if (sleepDownCounter <= 0){
-				tipClear()
+				tipClose()
 				break sleepdown
 			} else {
 				sleep, 1000
@@ -1041,7 +1044,7 @@ doAction(commandsArr){
 				else
 					tip("Likeliness is bad: " . s . " should be: (" . commandsArr[4]  . ")")
 				sleep, %delay%
-				tipClear()
+				tipClose()
 			}
 		}
 		enhancedCommand := true

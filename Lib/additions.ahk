@@ -14,7 +14,7 @@ showHintColored(s, n, fg, bg){
 	Sleep, n
 	Gui, hintColored:Destroy
 	
-	return "showHintColored ok!"
+	return ""
 }
 
 showTextFile(f,n){
