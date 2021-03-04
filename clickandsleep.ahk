@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.282"
+appVersion := "0.283"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -219,25 +219,31 @@ Text5 := ""
 Lb1 := 0
 
 ; ********** autorun
-IniRead, autorun, %iniFile%, run, autorun , "off"
-	
-switch autorun
-{
-case "off":
-	mainWindow()
-case "runRepeated":
-	readIni()
-	casRunStartRepeated()
-case "runAfterDelay":
-	readIni()
-	casRunAfterDelay()
-case "runStandby":
-	readIni()
-	casRunStandby()
-case "runAfterDelayStandby":
-	readIni()
-	casRunAfterDelayStandby()
-default:
+if (getKeyboardState() != 1){
+;Capslock is off
+	IniRead, autorun, %iniFile%, run, autorun , "off"
+		
+	switch autorun
+	{
+	case "off":
+		mainWindow()
+	case "runRepeated":
+		readIni()
+		casRunStartRepeated()
+	case "runAfterDelay":
+		readIni()
+		casRunAfterDelay()
+	case "runStandby":
+		readIni()
+		casRunStandby()
+	case "runAfterDelayStandby":
+		readIni()
+		casRunAfterDelayStandby()
+	default:
+		mainWindow()
+	}
+} else {
+	msgbox, Capslock is activated, no autorun!
 	mainWindow()
 }
 
