@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.281"
+appVersion := "0.282"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -1121,18 +1121,16 @@ countDown(){
 		case 1:
 			tipTopTransp("Next execution in (hold on): " . formatTimeSeconds(downCounter), textWidth)
 		case 3:
-			tipTopTranspRemove()
+			tipTopTranspClose()
 			tip("Execution wait finished by user!")
 			sleep,2000
 			downCounter := 0
 			tipClose()
-			Gui, guiMain:Show
 		case 5:
-			tipTopTranspRemove()
-			casRunStop()
+			tipTopTranspClose()
 			tip("Operation aborted!")
-			Gui, guiMain:Show
-			showWindowRefreshed()
+			mainWindow()
+			casRunStop()
 			return
 	}	
 	
@@ -1245,11 +1243,11 @@ waitUntilCorrectTime(){
 						return
 					}
 					
-					tip("Wakeup early, waiting: " . formatTimeSeconds(counter))
+					tipRefreshed("Wakeup early, waiting: " . formatTimeSeconds(counter))
 				case 1:
-					tip("Wakeup early, waiting (hold on): " . formatTimeSeconds(counter))
+					tipRefreshed("Wakeup early, waiting (hold on): " . formatTimeSeconds(counter))
 				case 3:
-					tip("Wakeup early waiting finished by user interaction!")
+					tipTop("Wakeup early waiting finished by user interaction!")
 					break waitUntilCorrectTimeLoop
 				case 5:
 					casRunStop()
@@ -1311,9 +1309,9 @@ casRunAfterDelayCountdown(){
 		{
 			case 0:
 				delayDownCounter := delayDownCounter - 1
-				tip("Until Start: " . formatTimeSeconds(delayDownCounter))
+				tipRefreshed("Until Start: " . formatTimeSeconds(delayDownCounter))
 			case 1:
-				tip("Until Start (hold on): " . formatTimeSeconds(delayDownCounter))
+				tipRefreshed("Until Start (hold on): " . formatTimeSeconds(delayDownCounter))
 			case 3:
 				tip("Wait until start finished by user interaction!")
 				delayDownCounter := 0
@@ -1375,11 +1373,11 @@ casRunAfterDelayStandbyCountdown(){
 		{
 			case 0:
 				delayDownCounter := delayDownCounter - 1
-				tip("Until Start (with standby): " . formatTimeSeconds(delayDownCounter))
+				tipRefreshed("Until Start (with standby): " . formatTimeSeconds(delayDownCounter))
 			case 1:
-				tip("Until Start (with standby) (hold on): " . formatTimeSeconds(delayDownCounter))
+				tipRefreshed("Until Start (with standby) (hold on): " . formatTimeSeconds(delayDownCounter))
 			case 3:
-				tip("Wait until start (with standby) finished by user interaction!")
+				tipTop("Wait until start (with standby) finished by user interaction!")
 				delayDownCounter := 0
 			case 5:
 				casRunStop()
@@ -1824,9 +1822,9 @@ countDownShutdown(){
 		{
 			case 0:
 				downCounterShutdown := downCounterShutdown - 1
-				tip("Shutdown in: " . formatTimeSeconds(downCounterShutdown))
+				tipRefreshed("Shutdown in: " . formatTimeSeconds(downCounterShutdown))
 			case 1:
-				tip("Shutdown in (hold on), press Ctrl to cancel shutdown, Alt to immediately start shutdown: " . formatTimeSeconds(downCounterShutdown))
+				tipRefreshed("Shutdown in (hold on), press Ctrl to cancel shutdown, Alt to immediately start shutdown: " . formatTimeSeconds(downCounterShutdown))
 			case 3:
 				tip("Shutdown wait finished by user, immediate shutdown now!")
 				downCounterShutdown := 0
@@ -1952,7 +1950,8 @@ exit(){
 	Gui, guiMain:Destroy
 	showHint("""" . app . """ removed from memory!", hintTimeShort)
 	ToolTip
-	tipTopTranspRemove()
+	tipTopTranspClose()
+	tipRefreshedClose()
 	
 	ExitApp
 }

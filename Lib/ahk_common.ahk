@@ -108,6 +108,33 @@ tipClose(){
 	
 	return
 }
+;------------------------------- tipRefreshed -------------------------------
+tipRefreshed(msg){
+	;created only once,fixed width
+
+	tipHwnd := WinExist("tipRefreshedWindow")
+	if ( tipHwnd == 0){
+		tipRefreshedCreate()
+	}
+	Guicontrol,tipRefreshed:,TipRefreshed,%msg%
+	return
+}
+;---------------------------- tipRefreshedCreate ----------------------------
+tipRefreshedCreate(){
+	global TipRefreshed
+
+	Gui, tipRefreshed:New,-Caption +AlwaysOnTop
+	Gui, tipRefreshed:Font, s11, Calibri
+	Gui, tipRefreshed:Add, Text, vTipRefreshed h20 w300 Center
+	Gui,tipRefreshed:Show, xCenter y0 Autosize NoActivate,tipRefreshedWindow
+}
+;----------------------------- tipRefreshedClose -----------------------------
+tipRefreshedClose(){
+
+	Gui,tipRefreshed:Destroy
+	
+	return
+}
 ;********************************** tipTop **********************************
 tipTop(msg){
 	
@@ -173,7 +200,7 @@ tipTopTranspCreate(){
 	Gui, tipTopTransp:Font, s10, Calibri
 }
 ;---------------------------- tipTopTranspRemove ----------------------------
-tipTopTranspRemove(){
+tipTopTranspClose(){
 	global TipTopTransp
 
 	Gui, tipTopTransp:destroy

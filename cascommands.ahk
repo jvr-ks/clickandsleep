@@ -352,18 +352,17 @@ doAction(commandsArr){
 			{
 				case 0:
 					sleepDownCounter := sleepDownCounter - 1
-					tipTop("Sleeplong: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
+					tipRefreshed("Sleeplong: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
 				case 1:
-					tipTopClose()
-					tip("Sleeplong hold on: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
+					tipRefreshed("Sleeplong hold on: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
 				case 3:
-					tipTopClose()
+					tipRefreshedClose()
 					tip("Sleeplong finished by user interaction!")
 					sleepDownCounter := 0
 					break sleepdown
 				case 5:
 					casRunStop()
-					tipTopClose()
+					tipRefreshedClose()
 					tip("Operation aborted!")
 					sleep, 1000
 					break sleepdown
@@ -371,6 +370,7 @@ doAction(commandsArr){
 
 			if (sleepDownCounter <= 0){
 				tipClose()
+				tipRefreshedClose()
 				break sleepdown
 			} else {
 				sleep, 1000
