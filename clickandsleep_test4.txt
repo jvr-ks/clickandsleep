@@ -1,6 +1,6 @@
 ; clickandsleep_test4.txt
 
-sleepLong,10,Runrepeated Test
+sleepLong,4,Runrepeated Test
 
 
 //loadset,clickandsleep

@@ -57,7 +57,6 @@ OwnPID := DllCall("GetCurrentProcessId")
 
 FileEncoding, UTF-8-RAW
 activeWin := 0
-tipHwnd := 0
 
 ;  doAction():
 #Include, %A_ScriptDir%\cascommands.ahk
@@ -96,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.278"
+appVersion := "0.279"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -1109,23 +1108,26 @@ countDown(){
 	global runCas
 	global runCasOnceOnly
 	global repeatTime
-	global tipHwnd
 
+	textWidth := 200
+	
 	switch getKeyboardState()
 	{
 		case 0:
 			downCounter := downCounter - 1
-			tip("Next execution in: " . formatTimeSeconds(downCounter))
-			WinSet, Transparent, 150, ahk_id %tipHwnd%
+			msg := "Next execution in: " . formatTimeSeconds(downCounter)
+			tipTopTransp(msg, textWidth)
 			Gui, guiMain:Hide
 		case 1:
-			tip("Next execution in (hold on): " . formatTimeSeconds(downCounter))
+			tipTopTransp("Next execution in (hold on): " . formatTimeSeconds(downCounter), textWidth)
 		case 3:
+			tipTopTranspRemove()
 			tip("Execution wait finished by user!")
 			sleep,2000
 			downCounter := 0
 			tipClear()
 		case 5:
+			tipTopTranspRemove()
 			casRunStop()
 			tip("Operation aborted!")
 			showWindowRefreshed()
@@ -1948,6 +1950,7 @@ exit(){
 	Gui, guiMain:Destroy
 	showHint("""" . app . """ removed from memory!", hintTimeShort)
 	ToolTip
+	tipTopTranspRemove()
 	
 	ExitApp
 }

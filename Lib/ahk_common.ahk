@@ -8,7 +8,6 @@ Local LQ:=StrLen(Q), LI:=StrLen(I), LD:=StrLen(D), F:=0
 Return SubStr(Q:=(I)(D)StrReplace(Q,InStr(Q,(I)(D),,0-LQ+LI+LD)?(I)(D):InStr(Q,(D)(I),0,LQ
 -LI)?(D)(I):InStr(Q,(D)(I)(D),0)?(D)(I):"","",,1),1,(F:=InStr(Q,D,0,1,Max))?F-1:StrLen(Q))
 }
-
 ;--------------------------- getVersionFromGithub ---------------------------
 getVersionFromGithub(){
 	global appName
@@ -91,7 +90,6 @@ tipCreate(){
 ;------------------------------------ tip ------------------------------------
 tip(msg){
 	global Tip
-	global tipHwnd
 
 	tipHwnd := WinExist("tip-Window")
 	if ( tipHwnd == 0){
@@ -108,7 +106,6 @@ tipClear(){
 
 	return
 }
-
 ;--------------------------------- tipClose ---------------------------------
 tipClose(){
 
@@ -116,7 +113,6 @@ tipClose(){
 	
 	return
 }
-
 ;********************************** tipTop **********************************
 tipTop(msg){
 	
@@ -152,6 +148,40 @@ tipTopClose(){
 	ToolTip,,,,1
 	ToolTip,,,,2
 	ToolTip,,,,3
+}
+;------------------------------- tipTopTransp -------------------------------
+tipTopTransp(msg, widthPixel){
+	global TipTopTranspText
+	static tipTranspHwnd
+	
+	s := StrReplace(msg,"^",",")
+	tipTranspHwnd := WinExist("tipTopTranspWindow")
+	
+	if ( tipTranspHwnd == 0){
+		tipTopTranspCreate()
+		Gui, tipTopTransp:Add, Text, vTipTopTranspText Center h17 w%widthPixel%
+	}
+
+	GuiControl,tipTopTransp:,TipTopTranspText,%s%
+	Gui, tipTopTransp:Show, xCenter y0 Autosize NoActivate,tipTopTranspWindow
+	
+	tipTranspHwnd := WinExist("tipTopTranspWindow")
+	WinSet, Transparent, 150, ahk_id %tipTranspHwnd%
+
+	return
+}
+;---------------------------- tipTopTranspCreate ----------------------------
+tipTopTranspCreate(){
+	global TipTopTransp
+
+	Gui, tipTopTransp:New,-Caption +AlwaysOnTop
+	Gui, tipTopTransp:Font, s10, Calibri
+}
+;---------------------------- tipTopTranspRemove ----------------------------
+tipTopTranspRemove(){
+	global TipTopTransp
+
+	Gui, tipTopTransp:destroy
 }
 ;******************************** GuiGetSize ********************************
 GuiGetSize( ByRef W, ByRef H, GuiID=1 ) {
