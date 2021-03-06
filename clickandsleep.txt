@@ -1,32 +1,15 @@
 ; clickandsleep.txt
 
-;scriptcoordinates,3840,2160
-closeChrome
-openChrome,https://www.jvr.de/testimage.html
-sleepLong,5,Next test should fail ...
-mouseClickLikeliness,1197,847,105710,This test should fail!
-mouseClickLikelinessTimesDelay,1197,847,105710,This test should fail!,2,2000
-mouseMove,0,0,20
-mouseClickLikeliness,1197,847,116511,This test should be ok, i.e. click the button!
-sleepLong,3, Next click "Ok" ...
-mouseClick,2391,425
-sleepLong,3, mouseclickrandom3 ...
-mouseclickrandom3,0,0,1000,1000,2000,2000
-sleepLong,3,Finished! close Chrome
-closeChrome
-showHintColored, Script finished!, 3000, c00FF00, c000000
-
-
-//exit
-
+//loadset,clickandsleep_test0
 //loadset,clickandsleep_test1
 //loadset,clickandsleep_test2
 //loadset,clickandsleep_test3
 //loadset,clickandsleep_test4
+//loadset,clickandsleep_test4a
 //loadset,clickandsleep_test5
 //loadset,clickandsleep_test6
 //loadset,clickandsleep_test7
 
 //loadset,clickandsleep_email.txt
 
-
+//exit

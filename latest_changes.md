@@ -1,5 +1,6 @@
 #### Latest changes: [-> README](README.md)
 
+* **Sleep** and **sleeplong**: ToolTip only shown if the paramter "message" is not empty.
 * "autorun" is inhibited if Capslock-key is activated during app-start!
 * Next excution time-display is transparent
 * [run] section of Config-file, autorun= can be

@@ -4,7 +4,6 @@
 
 tipTop, file: clickandsleep_test1
 
-
 openfirefox,https://www.jvr.de/testimage.html
 sleepLong,5,Next test should fail ...
 mouseClickLikelinessTimesDelay,1197,847,105510,2,5000

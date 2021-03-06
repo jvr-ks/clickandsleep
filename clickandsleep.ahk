@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.284"
+appVersion := "0.285"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -844,6 +844,7 @@ singleOpEdit(){
 	global cmdFile
 	global hintTimeShort
 	global hintTimeMedium
+	global hintTime
 	global runDoLoop
 	global debug
 	global runSingleOp
@@ -864,24 +865,27 @@ singleOpEdit(){
 		SetTimer,MoveCursorToEnd,1
 		InputBox,inp,Edit command,,,,100,,,,,%cmd%
 
-		
-		;save
-		allcmdsArr[key1] := inp
-		
-		content := ""
-		
-		l := allcmdsArr.Length()
-		
-		Loop, %l%
-		{
-			content := content . allcmdsArr[A_Index] . "`n"
-		}
+		if(!ErrorLevel){
+			;save
+			allcmdsArr[key1] := inp
+			
+			content := ""
+			
+			l := allcmdsArr.Length()
+			
+			Loop, %l%
+			{
+				content := content . allcmdsArr[A_Index] . "`n"
+			}
 
-		FileDelete, %cmdFile%
-		FileAppend, %content%, %cmdFile%, UTF-8-RAW
-		listBoxEntry := key1
-		Gui, Input:Destroy
-		updateSingleStepButton()
+			FileDelete, %cmdFile%
+			FileAppend, %content%, %cmdFile%, UTF-8-RAW
+			listBoxEntry := key1
+			Gui, Input:Destroy
+			updateSingleStepButton()
+		} else {
+			showHint("Edit canceld!", hintTimeMedium)
+		}
 	}
 	
 	return

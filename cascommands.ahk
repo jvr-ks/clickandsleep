@@ -333,7 +333,9 @@ doAction(commandsArr){
 		if (commandsArr[2] != "")
 			dst := commandsArr[2]
 			
-		tip("Sleep " . dst . " milliseconds!" . " " . commandsArr[3])
+		if (commandsArr[3] != "")
+			tip("Sleep " . dst . " milliseconds!" . " " . commandsArr[3])
+			
 		Sleep, dst
 
 		tip("")
@@ -354,7 +356,8 @@ doAction(commandsArr){
 			{
 				case 0:
 					sleepDownCounter := sleepDownCounter - 1
-					tipRefreshed("Sleeplong: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
+					if (commandsArr[3] != "")
+						tipRefreshed("Sleeplong: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
 				case 1:
 					tipRefreshed("Sleeplong hold on: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
 				case 3:

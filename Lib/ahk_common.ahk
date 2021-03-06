@@ -116,7 +116,8 @@ tipRefreshed(msg){
 	if ( tipHwnd == 0){
 		tipRefreshedCreate()
 	}
-	Guicontrol,tipRefreshed:,TipRefreshed,%msg%
+	s := StrReplace(msg,"^",",")
+	Guicontrol,tipRefreshed:,TipRefreshed,%s%
 	return
 }
 ;---------------------------- tipRefreshedCreate ----------------------------

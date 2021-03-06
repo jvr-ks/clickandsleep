@@ -211,9 +211,9 @@ See [List of Keys](https://www.autohotkey.com/docs/KeyList.htm)
 Options: defaults to D  
 See [Options](https://www.autohotkey.com/docs/commands/KeyWait.htm)  
   
-\*1) A ToolTip with the delay time and the message is shown at the top/center of the screen if t > 10000.
-\*2) A ToolTip with remaining time and the message is shown at the top/center of the screen.
-Default is: 10 seconds. 
+\*1) A ToolTip with the delay time and the paramter "message" is shown at the top/center of the screen, if the paramter "message" is not empty.  
+\*2) A ToolTip with remaining time and the paramter "message" is shown at the top/center of the screen,  if the paramter "message" is not empty.  
+Default is: 10 seconds.  
 You can:  
 * pause sleeplong with "Capslock"-ON,*
 * end sleeplong with \[Capslock"]-ON and holding the \[ALT] key down for a few seconds *
@@ -387,6 +387,6 @@ Copyright (c) 2020 J. v. Roos
 
 
 ##### Viruscheck at Virustotal 
-[Check here](https://www.virustotal.com/gui/url/6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798/detection/u-6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798-1614895009
+[Check here](https://www.virustotal.com/gui/url/6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798/detection/u-6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798-1615038904
 )  
 Use [CTRL] + Click to open in a new window! 
