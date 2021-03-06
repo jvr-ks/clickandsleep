@@ -17,16 +17,7 @@ closeChrome
 showHintColored, Script finished!, 1500, c00FF00, c000000
 
 
-//exit
+//loadset,clickandsleep
 
-//loadset,clickandsleep_test1
-//loadset,clickandsleep_test2
-//loadset,clickandsleep_test3
-//loadset,clickandsleep_test4
-//loadset,clickandsleep_test5
-//loadset,clickandsleep_test6
-//loadset,clickandsleep_test7
-
-//loadset,clickandsleep_email.txt
 
 
