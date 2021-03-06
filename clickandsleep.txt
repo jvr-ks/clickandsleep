@@ -10,7 +10,7 @@
 //loadset,clickandsleep_test6
 //loadset,clickandsleep_test7
 
-//loadset,clickandsleep_email
+//loadset,clickandsleep_emailtome
 
 //exit
 
