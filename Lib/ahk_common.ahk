@@ -86,17 +86,14 @@ tipCreate(){
 }
 ;------------------------------------ tip ------------------------------------
 tip(msg){
-	;allways create new
-	global Tip
-
-	tipHwnd := WinExist("tip-Window")
-	if ( tipHwnd == 0){
-		tipCreate()
-	} else {
-		Gui,tip:destroy
-		tipCreate()
-	}
-	Gui, tip:Add, Text, vTip h20 Center,%msg%
+	; allways create new
+	
+	Gui, tip:destroy
+	Gui, tip:New,-Caption +AlwaysOnTop
+	Gui, tip:Font, s11, Calibri
+	
+	s := StrReplace(msg,"^",",")
+	Gui, tip:Add, Text, vTip h20 Center,%s%
 	Gui,tip:Show, xCenter y0 Autosize NoActivate,tip-Window
 
 	return

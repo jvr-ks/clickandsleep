@@ -958,7 +958,7 @@ doAction(commandsArr){
 			MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY)
 			tip("Likeliness is ok!")
 		} else {
-			tip("Likeliness is bad: " . s . " should be: " . commandsArr[5])
+			tip("Likeliness is bad: " . s . " should be: " . commandsArr[4])
 			sleep, %delay%
 		}
 
@@ -970,8 +970,8 @@ doAction(commandsArr){
 		posY := Floor(commandsArr[3] * scaleY)
 		;commandsArr[4] is a value
 		;commandsArr[5] is the displayed text
-		;commandsArr[6]
-		;commandsArr[7]
+		;commandsArr[6] is trials
+		;commandsArr[7] is delay
 		
 		deltaX := 20
 		deltaY := 16

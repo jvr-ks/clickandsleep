@@ -6,9 +6,9 @@ tipTop, file: clickandsleep_test1
 
 openfirefox,https://www.jvr.de/testimage.html
 sleepLong,5,Next test should fail ...
-mouseClickLikelinessTimesDelay,1197,847,105510,2,5000
+mouseClickLikelinessTimesDelay,1197,847,105510,should fail,2,3
 sleepLong,5,Next test should be ok ...
-mouseClickLikelinessTimesDelay,1197,847,105810
+mouseClickLikelinessTimesDelay,1197,847,105810,should be ok,2,3
 sleepLong,3, Finished!
 closeFirefox
 
