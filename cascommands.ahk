@@ -349,6 +349,8 @@ doAction(commandsArr){
 			
 		sleepDownCounter := 0 . dst
 		
+		tipRefreshedClose()
+		
 		sleepdown:
 		Loop
 		{
@@ -362,19 +364,18 @@ doAction(commandsArr){
 					tipRefreshed("Sleeplong hold on: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
 				case 3:
 					tipRefreshedClose()
-					tip("Sleeplong finished by user interaction!")
+					tipRefreshed("Sleeplong finished by user interaction!")
 					sleepDownCounter := 0
 					break sleepdown
 				case 5:
 					casRunStop()
 					tipRefreshedClose()
-					tip("Operation aborted!")
+					tipRefreshed("Operation aborted!")
 					sleep, 1000
 					break sleepdown
 			}
 
 			if (sleepDownCounter <= 0){
-				tipClose()
 				tipRefreshedClose()
 				break sleepdown
 			} else {

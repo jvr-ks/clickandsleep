@@ -1,6 +1,6 @@
 ; clickandsleep_test4.txt
 
-sleepLong,4, Test^ comma-test
+sleepLong,4,long text: xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx 
 
 
 //loadset,clickandsleep
