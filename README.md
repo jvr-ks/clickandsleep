@@ -338,7 +338,7 @@ Allowed "autorun" values are:
 #### Loadset command:  
 Command | Parameter | Action | Remarks | like AHK command
 ------------ | ------------- | ------------- | ------------- | -------------  
-**loadset** | ,\[fileset-prefix] | Loads the 2 files: command-file: "fileset-prefix.txt" and \[Configuration-file] : "fileset-prefix.ini". | The running operation (runOnce etc. ) is continued with the new commands. | no 
+**loadset** | ,\[fileset-prefix] | Loads the 2 files: Command-file: "fileset-prefix.txt" and Configuration-file:  "fileset-prefix.ini". | The running operation (runOnce etc. ) is continued with the new commands. | no 
   
 #### Requirements  
 * Windows 10 or later.  
