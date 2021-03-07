@@ -9,6 +9,8 @@ In the following ClickAndSleep is called "app" or "CAS/cas".
 #### Status
 **Beta, under construction!**
 
+#### Drawbacks
+* App often cannot close Firefox
 
 #### [-> Latest changes/ bug fixes](latest_changes.md)
 
@@ -387,6 +389,6 @@ Copyright (c) 2020 J. v. Roos
 
 
 ##### Viruscheck at Virustotal 
-[Check here](https://www.virustotal.com/gui/url/6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798/detection/u-6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798-1615040925
+[Check here](https://www.virustotal.com/gui/url/6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798/detection/u-6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798-1615109134
 )  
 Use [CTRL] + Click to open in a new window! 

@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.286"
+appVersion := "0.287"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -1312,6 +1312,8 @@ casRunAfterDelayCountdown(){
 	global runDoLoop
 	
 	errorLevelMemo := false
+	
+	textWidth := 200
 
 	if (runCasAfterDelay){
 	
@@ -1319,14 +1321,16 @@ casRunAfterDelayCountdown(){
 		{
 			case 0:
 				delayDownCounter := delayDownCounter - 1
-				tipRefreshed("Until Start: " . formatTimeSeconds(delayDownCounter))
+				tipTopTransp("Until Start: " . formatTimeSeconds(delayDownCounter),textWidth)
 			case 1:
-				tipRefreshed("Until Start (hold on): " . formatTimeSeconds(delayDownCounter))
+				tipTopTransp("Until Start (hold on): " . formatTimeSeconds(delayDownCounter),textWidth)
 			case 3:
+				tipTopTranspClose()
 				tip("Wait until start finished by user interaction!")
 				delayDownCounter := 0
 			case 5:
 				casRunStop()
+				tipTopTranspClose()
 				tip("Operation aborted!")
 				showWindowRefreshed()
 		}
@@ -1377,20 +1381,24 @@ casRunAfterDelayStandbyCountdown(){
 	global delayDownCounter
 	global runDoLoop
 	
+	textWidth := 300
+	
 	if (runCasAfterDelayStandby){
 	
 		switch getKeyboardState()
 		{
 			case 0:
 				delayDownCounter := delayDownCounter - 1
-				tipRefreshed("Until Start (with standby): " . formatTimeSeconds(delayDownCounter))
+				tipTopTransp("Until Start (with standby): " . formatTimeSeconds(delayDownCounter),textWidth)
 			case 1:
-				tipRefreshed("Until Start (with standby) (hold on): " . formatTimeSeconds(delayDownCounter))
+				tipTopTransp("Until Start (with standby) (hold on): " . formatTimeSeconds(delayDownCounter),textWidth)
 			case 3:
+				tipTopTranspClose()
 				tipTop("Wait until start (with standby) finished by user interaction!")
 				delayDownCounter := 0
 			case 5:
 				casRunStop()
+				tipTopTranspClose()
 				tip("Operation aborted!")
 				showWindowRefreshed()
 				return

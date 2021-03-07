@@ -1,9 +1,7 @@
 ; clickandsleep_test1.txt
 
 //debugOn
-
 tipTop, file: clickandsleep_test1
-
 openfirefox,https://www.jvr.de/testimage.html
 sleepLong,5,Next test should fail ...
 mouseClickLikelinessTimesDelay,1197,847,105510,should fail,2,3

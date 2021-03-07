@@ -178,7 +178,8 @@ tipTopTransp(msg, widthPixel){
 	tipTranspHwnd := WinExist("tipTopTranspWindow")
 	
 	if ( tipTranspHwnd == 0){
-		tipTopTranspCreate()
+		Gui, tipTopTransp:New,-Caption +AlwaysOnTop
+		Gui, tipTopTransp:Font, s10, Calibri
 		Gui, tipTopTransp:Add, Text, vTipTopTranspText Center h17 w%widthPixel%
 	}
 
@@ -189,13 +190,6 @@ tipTopTransp(msg, widthPixel){
 	WinSet, Transparent, 150, ahk_id %tipTranspHwnd%
 
 	return
-}
-;---------------------------- tipTopTranspCreate ----------------------------
-tipTopTranspCreate(){
-	global TipTopTransp
-
-	Gui, tipTopTransp:New,-Caption +AlwaysOnTop
-	Gui, tipTopTransp:Font, s10, Calibri
 }
 ;---------------------------- tipTopTranspRemove ----------------------------
 tipTopTranspClose(){

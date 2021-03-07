@@ -2,7 +2,7 @@
 
 //debugOn
 scriptcoordinates,3840,2160
-savewin
+pushWin
 openChrome,https://www.jvr.de
 //closeChrome
 //activateChrome
@@ -27,7 +27,6 @@ sleeplong,5,hopefully browser is open!
 sleep,3000,sleep is for short sleeptimes
 
 showHint,script finished!,2000
-restorewin
-showCasWin
+popWin
 
 //loadset,clickandsleep
