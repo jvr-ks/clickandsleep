@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.288"
+appVersion := "0.289"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -566,10 +566,6 @@ mainWindow() {
 	Gui, guiMain:Add, Button, x%deltaX% yp+%deltaY% gopenGitHubPage, HELP at Github
 	
 	Gui, guiMain:Add, Button, Center x%deltaX2% yp+0 0x100 gShowHistory, System / history
-	
-
-	
-	
 
 		
 	exitHotkeyText := "Exit: " . hotkeyToText(exitHotkey)
@@ -1135,17 +1131,18 @@ countDown(){
 	global runCasOnceOnly
 	global repeatTime
 
-	textWidth := 200
-	
 	switch getKeyboardState()
 	{
 		case 0:
 			downCounter := downCounter - 1
 			msg := "Next execution in: " . formatTimeSeconds(downCounter)
-			tipTopTransp(msg, textWidth)
+			n := StrLen(msg)
+			tipTopTransp(msg, 7 * n - ((n+20)/10))
 			Gui, guiMain:Hide
 		case 1:
-			tipTopTransp("Next execution in (hold on): " . formatTimeSeconds(downCounter), textWidth)
+			msg := "Next execution in (hold on): " . formatTimeSeconds(downCounter)
+			n := StrLen(msg)
+			tipTopTransp(msg, 7 * n - ((n+20)/10))
 		case 3:
 			tipTopTranspClose()
 			tip("Execution wait finished by user!")
@@ -1329,17 +1326,19 @@ casRunAfterDelayCountdown(){
 	
 	errorLevelMemo := false
 	
-	textWidth := 200
-
 	if (runCasAfterDelay){
 	
 		switch getKeyboardState()
 		{
 			case 0:
 				delayDownCounter := delayDownCounter - 1
-				tipTopTransp("Until Start: " . formatTimeSeconds(delayDownCounter),textWidth)
+				msg := "Until Start: " . formatTimeSeconds(delayDownCounter)
+				n := StrLen(msg)
+				tipTopTransp(msg, 7 * n - ((n+20)/10))
 			case 1:
-				tipTopTransp("Until Start (hold on): " . formatTimeSeconds(delayDownCounter),textWidth)
+				msg := "Until Start (hold on): " . formatTimeSeconds(delayDownCounter)
+				n := StrLen(msg)
+				tipTopTransp(msg, 7 * n - ((n+20)/10))
 			case 3:
 				tipTopTranspClose()
 				tip("Wait until start finished by user interaction!")
@@ -1397,17 +1396,19 @@ casRunAfterDelayStandbyCountdown(){
 	global delayDownCounter
 	global runDoLoop
 	
-	textWidth := 300
-	
 	if (runCasAfterDelayStandby){
 	
 		switch getKeyboardState()
 		{
 			case 0:
 				delayDownCounter := delayDownCounter - 1
-				tipTopTransp("Until Start (with standby): " . formatTimeSeconds(delayDownCounter),textWidth)
+				msg := "Until Start (with standby): " . formatTimeSeconds(delayDownCounter)
+				n := StrLen(msg)
+				tipTopTransp(msg, 7 * n - ((n+20)/10))
 			case 1:
-				tipTopTransp("Until Start (with standby) (hold on): " . formatTimeSeconds(delayDownCounter),textWidth)
+				msg := "Until Start (with standby) (hold on): " . formatTimeSeconds(delayDownCounter)
+				n := StrLen(msg)
+				tipTopTransp(msg, 7 * n - ((n+20)/10))
 			case 3:
 				tipTopTranspClose()
 				tipTop("Wait until start (with standby) finished by user interaction!")

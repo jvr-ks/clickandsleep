@@ -111,19 +111,23 @@ tipRefreshed(msg){
 
 	tipHwnd := WinExist("tipRefreshedWindow")
 	if ( tipHwnd == 0){
-		tipRefreshedCreate()
+		tipRefreshedCreate(msg)
 	}
 	s := StrReplace(msg,"^",",")
 	Guicontrol,tipRefreshed:,TipRefreshed,%s%
 	return
 }
 ;---------------------------- tipRefreshedCreate ----------------------------
-tipRefreshedCreate(){
+tipRefreshedCreate(msg){
 	global TipRefreshed
 
+	n := StrLen(msg)
+	nn := 7 * n - ((n+20)/10)
+	nnn := Min(300, nn)
+			
 	Gui, tipRefreshed:New,-Caption +AlwaysOnTop
 	Gui, tipRefreshed:Font, s11, Calibri
-	Gui, tipRefreshed:Add, Text, vTipRefreshed h20 w300 Center
+	Gui, tipRefreshed:Add, Text, vTipRefreshed h20 w%nnn% Center
 	Gui,tipRefreshed:Show, xCenter y0 Autosize NoActivate,tipRefreshedWindow
 }
 ;----------------------------- tipRefreshedClose -----------------------------
