@@ -3,6 +3,8 @@
 ;----------------------------------- StrQ -----------------------------------
 ; from https://www.autohotkey.com/boards/viewtopic.php?t=57295#p328684
 
+tipTranspHwnd := 0
+
 StrQ(Q, I, Max:=10, D:="|") { ;          StrQ v.0.90,  By SKAN on D09F/D34N @ tiny.cc/strq
 Local LQ:=StrLen(Q), LI:=StrLen(I), LD:=StrLen(D), F:=0
 Return SubStr(Q:=(I)(D)StrReplace(Q,InStr(Q,(I)(D),,0-LQ+LI+LD)?(I)(D):InStr(Q,(D)(I),0,LQ
@@ -176,7 +178,7 @@ tipTopClose(){
 ;------------------------------- tipTopTransp -------------------------------
 tipTopTransp(msg, widthPixel){
 	global TipTopTranspText
-	static tipTranspHwnd
+	global tipTranspHwnd
 	
 	s := StrReplace(msg,"^",",")
 	tipTranspHwnd := WinExist("tipTopTranspWindow")
@@ -198,8 +200,10 @@ tipTopTransp(msg, widthPixel){
 ;---------------------------- tipTopTranspRemove ----------------------------
 tipTopTranspClose(){
 	global TipTopTransp
+	global tipTranspHwnd
 
 	Gui, tipTopTransp:destroy
+	tipTranspHwnd := 0
 }
 ;******************************** GuiGetSize ********************************
 GuiGetSize( ByRef W, ByRef H, GuiID=1 ) {
