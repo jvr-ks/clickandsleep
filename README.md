@@ -15,19 +15,24 @@ In the following ClickAndSleep is called "app" or "CAS/cas".
 #### [-> Latest changes/ bug fixes](latest_changes.md)
 
 #### Start:
-"clickandsleep.exe" \[command-file (or path to)]  \[configuration-file (or path to)]  
-**First file must be the command-file.**  
-"autorun" values are NOT commandline parameters, but part of the Configuration-file (see blow).  
+"clickandsleep.exe"  
   
-Path to the command-file can be relativ (subdirectory of running directorie) i.e. "dirXYZ\clickandsleep.txt" or  
+#### Startparameter  
+"clickandsleep.exe" \[Command-file (or path to)] \[Configuration-file (or path to)]
+"remove" to remove CAS-exe from memory (used to compile a new one).  
+  
+The Command-file has extension ".txt", defaults to "clickandsleep.txt".  
+The Configuration-file has extension ".ini", defaults to "clickandsleep.ini".   
+
+If Configuration-file is missing, "clickandsleep.ini" is used.  
+  
+"autorun" values are NOT commandline parameters, but part of the Configuration-file  (see blow).  
+  
+Path to the Command-file can be relativ (subdirectory of running directorie) i.e. "dirXYZ\clickandsleep.txt" or  
 absolut, i.e. "C:\dir1\dir2\clickandsleep.txt"  
-   
-Command-file default is **"clickandsleep.txt"**.  
-Configuration-file default is **"clickandsleep.ini"**.   
+      
 \[Download from github](https://github.com/jvr-ks/clickandsleep/raw/master/clickandsleep.exe)  
 Viruscheck see below.  
-   
-The Command-file must have the extension ".txt", configuration-file must have the extension ".ini". (see "loadset" command).  
   
 If you want to use the standby/wakeup-feature,  
 you must run "clickandsleep.exe" as an "**administrator**"!  
@@ -36,13 +41,13 @@ you must run "clickandsleep.exe" as an "**administrator**"!
   
 Hotkey | Action | Remarks
 ------------ | ------------- | -------------
-**\[ALT] + \[q]** | open app menu | Hotkeys are changeable -> configuration-file
+**\[ALT] + \[q]** | open app menu | Hotkeys are changeable -> Configuration-file 
 **\[SHIFT] + \[ALT] + \[q]** | remove app from memory | **Does not remove any wakeup tasks!** \*1)
-**\[CTRL] + \[ALT] + \[q]** | record mouseposition \*2) | appended to the command-file  
+**\[CTRL] + \[ALT] + \[q]** | record mouseposition \*2) | appended to the Command-file  
   
 \*1) Use Windows Taskscheduler (menu-button) instead to remove "wakup" task if necessary.     
-\*2) Appends "//mouseClick,x,y" and "//mouseClickLikeliness,x,y,ca" to the command-file if clicked.  
-Recording of the 2nd command can be turned of by setting recordlikeliness="OFF" -> configuration-file.   
+\*2) Appends "//mouseClick,x,y" and "//mouseClickLikeliness,x,y,ca" to the Command-file if clicked.  
+Recording of the 2nd command can be turned of by setting recordlikeliness="OFF" -> Configuration-file .   
 To stop the Mouserecord-mode, push the hotkey again or make a right-click anywhere on the screen!  
   
 #### App menu:
@@ -63,7 +68,7 @@ hold down \[STRG] and click on the \[Single Command] Button.
 To comment out a command, click on the \[Single Command] Button, while holding the \[ALT] Button down.  
   
 #### Commands:  
-On click on one of the Run-buttons, the commands in the command-file are executed sequentially, i.e. line by line.  
+On click on one of the Run-buttons, the commands in the Command-file are executed sequentially, i.e. line by line.  
 
 Commands are based on the underlying Autohotkey language.  
   
@@ -120,7 +125,7 @@ Command | Action | like AHK command
  
 
 #### Web-Browser:  
-Browser pathsto apps -> configuration-file->\[external]
+see -> Configuration-file -> \[external]
 
 Command | Parameter | Action | Remarks | like AHK command
 ------------ | ------------- | ------------- | ------------- | -------------
@@ -205,8 +210,8 @@ Use mouseClickAround to click at multible points around x,y incremented by optio
 #### Sleep: 
 Command | Parameter | Action | Remarks | like AHK command
 ------------ | ------------- | ------------- | ------------- | -------------
-**Sleep** | ,time, message  | t: delay execution for time t (milliseconds) | t defaults to "defaultShowTime" (default is 4000 -> configuration-file) i.e. 4 seconds \*1) | no
-**sleeplong** | ,time, message  | t: delay execution for time t (seconds) | t defaults to "defaultShowTime" (default is 4000 -> configuration-file) i.e. 4 seconds \*2) | no  
+**Sleep** | ,time, message  | t: delay execution for time t (milliseconds) | t defaults to "defaultShowTime" (default is 4000 -> Configuration-file ) i.e. 4 seconds \*1) | no
+**sleeplong** | ,time, message  | t: delay execution for time t (seconds) | t defaults to "defaultShowTime" (default is 4000 -> Configuration-file ) i.e. 4 seconds \*2) | no  
 **KeyWait** | , KeyName |  , Options  | has additional default values  
 KeyName: defaults to ESCAPE  
 See [List of Keys](https://www.autohotkey.com/docs/KeyList.htm)  
@@ -276,16 +281,16 @@ Command | Parameter | Action | Remarks | like AHK command
 **tipTop** | ,text | Show ToolTip at top/center \*2) | Automatically removed after 3 seconds | no  
 **tipAt** | ,x ,y ,text | Show ToolTip at x, y | Automatically removed after 5 seconds | no 
 
-**showHint** | ,message,**time to display** (milliseconds) | Popup with message, time defaults to "defaultShowTime" -> configuration-file |  | no 
+**showHint** | ,message,**time to display** (milliseconds) | Popup with message, time defaults to "defaultShowTime" -> Configuration-file  |  | no 
 **showHintError** | ,hint-message to show,**time to display** (milliseconds) | Show popup | Only shown if errorLevelMemo is set | no 
 
 **showvar** | ,n | ToolTip (at top, center, 10 seconds displayed) with content of the variable | n is name of variable to show | no 
-**showPid** | ,t | Popup with the PID (runPID) from the last "run" command | t is time to display (milliseconds, defaults to "defaultShowTime" -> configuration-file | no 
+**showPid** | ,t | Popup with the PID (runPID) from the last "run" command | t is time to display (milliseconds, defaults to "defaultShowTime" -> Configuration-file  | no 
   
 \*1) Uses the function-call mechanismn.  
 **No comma is allowed in function-call-parameters!**  
 (Because it is used as the delimiter!)  
-\*2) Tooltips with system-messages are shifted to the right/left, parameter is tipOffsetDeltaX -> Configuration-file
+\*2) Tooltips with system-messages are shifted to the right/left, parameter is tipOffsetDeltaX -> Configuration-file 
 
 
 ##### Multiline text:  
@@ -294,7 +299,7 @@ Quotationmarks -> as \"
 Linebreaks -> as "%0A" \[% zero A] 
   
 #### Configuration-file:  
-The configuration-file (default is "clickandsleep.ini") contains the configuration-parameters.  
+The Configuration-file  (default is "clickandsleep.ini") contains the configuration-parameters.  
 
 The configuration-parameters are divided into sections:  
 
@@ -329,23 +334,18 @@ Allowed "autorun" values are:
 
 **"autorun" is inhibited if Capslock-key is activated during app-start!**
   
-#### Startparameter  
-"clickandsleep.exe" \[command-file]  \[configuration-file]  
-Filenames or the path to the files or  
-"remove" to remove CAS-exe from memory (used to compile a new one).  
-  
   
 #### Loadset command:  
 Command | Parameter | Action | Remarks | like AHK command
 ------------ | ------------- | ------------- | ------------- | -------------  
-**loadset** | ,\[fileset-prefix] | Loads the 2 files: command-file: "fileset-prefix.txt" and configuration-file: "fileset-prefix.ini". | The running operation (runOnce etc. ) is continued with the new commands. | no 
+**loadset** | ,\[fileset-prefix] | Loads the 2 files: command-file: "fileset-prefix.txt" and \[Configuration-file] : "fileset-prefix.ini". | The running operation (runOnce etc. ) is continued with the new commands. | no 
   
 #### Requirements  
 * Windows 10 or later.  
 * To use sleep-mode suspend-mode must be turned off: "hibernate_off.cmd"  
 * [Notepad ++](https://notepad-plus-plus.org/) to edit the commands-file (**not in the source!**)  
 * **clickandsleep.txt** command-file (UTF-8 or ANSI)   
-* **clickandsleep.ini** configuration-file (UTF-8 or ANSI)   
+* **clickandsleep.ini** \[Configuration-file]  (UTF-8 or ANSI)   
 * Directory must be writable, created files:  
 "wakeup.xml"  
     
@@ -389,6 +389,6 @@ Copyright (c) 2020 J. v. Roos
 
 
 ##### Viruscheck at Virustotal 
-[Check here](https://www.virustotal.com/gui/url/6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798/detection/u-6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798-1615109134
+[Check here](https://www.virustotal.com/gui/url/6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798/detection/u-6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798-1615111425
 )  
 Use [CTRL] + Click to open in a new window! 

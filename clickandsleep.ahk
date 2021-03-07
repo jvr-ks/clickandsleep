@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.287"
+appVersion := "0.288"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -198,14 +198,30 @@ if (hasParams == 1){
 		showHint("Removed!", 1000)
 		ExitApp
 	}
+	
+	cmdFile := A_Args[1]
+	FoundPos := InStr(cmdFile, ".txt")
+	if (FoundPos < 1){
+		msgbox, Incorrect Command-file extension, exiting app!
+		ExitApp
+	}
 }
 	
 if (hasParams == 2){
 	cmdFile := A_Args[1]
 	iniFile := A_Args[2]
-}
-if (hasParams == 1){
-	cmdFile := A_Args[1]
+	
+	FoundPos := InStr(cmdFile, ".txt")
+	if (FoundPos < 1){
+		msgbox, Incorrect Command-file extension, exiting app!
+		ExitApp
+	}
+	
+	FoundPos := InStr(iniFile, ".ini")
+	if (FoundPos < 1){
+		msgbox, Incorrect Configuration-file extension, exiting app!
+		ExitApp
+	}
 }
 
 cmdFile := resolvepath(wrkDir,cmdFile)
