@@ -3,7 +3,9 @@
 ; up to 6 parameters -> cascommands.ahk
 
 showHintColored(s, n, fg, bg){
-	Gui, hintColored:Font, s14, Calibri
+	global font
+	global fontsize
+	Gui, hintColored:Font, s%fontsize%, %font%
 	Gui, hintColored:Font, %fg%
 	Gui, hintColored:Color, %bg%
 	Gui, hintColored:Add, Text,, %s%

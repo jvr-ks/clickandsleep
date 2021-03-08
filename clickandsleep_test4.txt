@@ -1,6 +1,6 @@
 ; clickandsleep_test4.txt
 
-sleepLong,4,long text: xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx 
-
-
+sleepLong,4,long text: the quick brown fox jumps over the lazy dog
+sleepLong,4,long text: the quick brown 
+showHintColored, Script finished!, 3000, c00FF00, c000000
 //loadset,clickandsleep

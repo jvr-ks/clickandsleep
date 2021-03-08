@@ -3,8 +3,6 @@
 ;----------------------------------- StrQ -----------------------------------
 ; from https://www.autohotkey.com/boards/viewtopic.php?t=57295#p328684
 
-tipTranspHwnd := 0
-
 StrQ(Q, I, Max:=10, D:="|") { ;          StrQ v.0.90,  By SKAN on D09F/D34N @ tiny.cc/strq
 Local LQ:=StrLen(Q), LI:=StrLen(I), LD:=StrLen(D), F:=0
 Return SubStr(Q:=(I)(D)StrReplace(Q,InStr(Q,(I)(D),,0-LQ+LI+LD)?(I)(D):InStr(Q,(D)(I),0,LQ
@@ -66,33 +64,39 @@ removeMessage(){
 }
 ;******************************** getLenPixel ********************************
 ;---- generate hidden gui to get pixelsize of string
-getLenPixel(EditTxt){
+getLenPixel(EditTxt,font,fontsize){
 	global MyText
 
-	Gui, New
-	Gui, Add, Text, vMyText, %EditTxt%
-	GuiControlGet, TextLen, Pos, MyText
-	GuiControl, Hide, MyText
-	Gui, Show, x0 y-10 Autosize
-	Gui,destroy
-	return TextLenW
+	Gui StringWidth:font, s%fontsize%, %font%
+  Gui StringWidth: +DPIScale
+	Gui StringWidth:Add, Text, R1, %EditTxt%
+	GuiControlGet T, StringWidth:Pos, Static1
+	Gui StringWidth:Destroy
+	
+	return TW
 }
 ;--------------------------------- tipCreate ---------------------------------
 tipCreate(){
+	global font
+	global fontsize
+	
 ; ToolTip window
 
 	global Tip
 
 	Gui, tip:New,-Caption +AlwaysOnTop
-	Gui, tip:Font, s11, Calibri
+	Gui, tip:Font, s%fontsize%, %font%
 }
 ;------------------------------------ tip ------------------------------------
 tip(msg){
+	global font
+	global fontsize
+	
 	; allways create new
 	
 	Gui, tip:destroy
 	Gui, tip:New,-Caption +AlwaysOnTop
-	Gui, tip:Font, s11, Calibri
+	Gui, tip:Font,  s%fontsize%, %font%
 	
 	s := StrReplace(msg,"^",",")
 	Gui, tip:Add, Text, vTip h20 Center,%s%
@@ -109,7 +113,7 @@ tipClose(){
 }
 ;------------------------------- tipRefreshed -------------------------------
 tipRefreshed(msg){
-	;created only once,fixed width
+	;created only once,fixed width of text of first call
 
 	tipHwnd := WinExist("tipRefreshedWindow")
 	if ( tipHwnd == 0){
@@ -121,14 +125,14 @@ tipRefreshed(msg){
 }
 ;---------------------------- tipRefreshedCreate ----------------------------
 tipRefreshedCreate(msg){
+	global font
+	global fontsize
 	global TipRefreshed
-
-	n := StrLen(msg)
-	nn := 7 * n - ((n+20)/10)
-			
+	
 	Gui, tipRefreshed:New,-Caption +AlwaysOnTop
-	Gui, tipRefreshed:Font, s11, Calibri
-	Gui, tipRefreshed:Add, Text, vTipRefreshed h20 w%nn% Center
+	Gui, tipRefreshed:Font, s%fontsize%, %font%
+	widthPixel := getLenPixel(msg,"Calibri",11)
+	Gui, tipRefreshed:Add, Text, vTipRefreshed h20 w%widthPixel% Center
 	Gui,tipRefreshed:Show, xCenter y0 Autosize NoActivate,tipRefreshedWindow
 }
 ;----------------------------- tipRefreshedClose -----------------------------
@@ -138,53 +142,21 @@ tipRefreshedClose(){
 	
 	return
 }
-;********************************** tipTop **********************************
-tipTop(msg){
-	
-	toolX := Max(0,Floor(A_ScreenWidth / 2) - getLenPixel(msg))
-	toolY := 2
-	
-	s := StrReplace(msg,"^",",")
-	ToolTip, %s%,toolX,toolY,3
-	SetTimer,tipTopClose,-6000
-}
-;******************************** tipTopTime ********************************
-tipTopTime(msg, t := 2000){
-	
-	toolX := Max(0,Floor(A_ScreenWidth / 2) - getLenPixel(msg))
-	toolY := 2
-	
-	s := StrReplace(msg,"^",",")
-	ToolTip, %s%,toolX,toolY,3
-	SetTimer,tipTopClose,%t%
-}
-;******************************* tipTopEternal *******************************
-tipTopEternal(msg){
-	
-	toolX := Max(0,Floor(A_ScreenWidth / 2) - getLenPixel(msg))
-	toolY := 2
-	
-	s := StrReplace(msg,"^",",")
-
-	ToolTip, %s%,toolX,toolY,3
-}
-;-------------------------------- tipTopClose --------------------------------
-tipTopClose(){
-	ToolTip,,,,1
-	ToolTip,,,,2
-	ToolTip,,,,3
-}
 ;------------------------------- tipTopTransp -------------------------------
 tipTopTransp(msg, widthPixel){
 	global TipTopTranspText
-	global tipTranspHwnd
+	static tipTranspHwnd
+	global font
+	global fontsize
 	
 	s := StrReplace(msg,"^",",")
 	tipTranspHwnd := WinExist("tipTopTranspWindow")
 	
 	if ( tipTranspHwnd == 0){
+	
+		widthPixel := getLenPixel(msg,font,fontsize)
 		Gui, tipTopTransp:New,-Caption +AlwaysOnTop
-		Gui, tipTopTransp:Font, s10, Calibri
+		Gui, tipTopTransp:Font, s%fontsize%, %font%
 		Gui, tipTopTransp:Add, Text, vTipTopTranspText Center h17 w%widthPixel%
 	}
 
@@ -199,10 +171,50 @@ tipTopTransp(msg, widthPixel){
 ;---------------------------- tipTopTranspRemove ----------------------------
 tipTopTranspClose(){
 	global TipTopTransp
-	global tipTranspHwnd
 
 	Gui, tipTopTransp:destroy
-	tipTranspHwnd := 0
+}
+;********************************** tipTop **********************************
+tipTop(msg){
+	global font
+	global fontsize
+	
+	toolX := Max(0,Floor(A_ScreenWidth / 2) - getLenPixel(msg,font,fontsize))
+	toolY := 2
+	
+	s := StrReplace(msg,"^",",")
+	ToolTip, %s%,toolX,toolY,3
+	SetTimer,tipTopClose,-6000
+}
+;******************************** tipTopTime ********************************
+tipTopTime(msg, t := 2000){
+	global font
+	global fontsize
+	
+	toolX := Max(0,Floor(A_ScreenWidth / 2) - getLenPixel(msg,font,fontsize))
+	toolY := 2
+	
+	s := StrReplace(msg,"^",",")
+	ToolTip, %s%,toolX,toolY,3
+	SetTimer,tipTopClose,%t%
+}
+;******************************* tipTopEternal *******************************
+tipTopEternal(msg){
+	global font
+	global fontsize
+	
+	toolX := Max(0,Floor(A_ScreenWidth / 2) - getLenPixel(msg,font,fontsize))
+	toolY := 2
+	
+	s := StrReplace(msg,"^",",")
+
+	ToolTip, %s%,toolX,toolY,3
+}
+;-------------------------------- tipTopClose --------------------------------
+tipTopClose(){
+	ToolTip,,,,1
+	ToolTip,,,,2
+	ToolTip,,,,3
 }
 ;******************************** GuiGetSize ********************************
 GuiGetSize( ByRef W, ByRef H, GuiID=1 ) {
@@ -274,6 +286,37 @@ GetProcessMemoryUsage(ProcessID)
 		return Round(NumGet(PMC_EX, 8 + A_PtrSize * 8, "uptr") / 1024**2, 2)
 	}
 	return (ErrorLevel := 1) & 0
+}
+;--------------------------------- showHint ---------------------------------
+showHint(s, n){
+	global font
+	global fontsize
+	
+	Gui, hint:Font, s%fontsize%, %font%
+	Gui, hint:Add, Text,, %s%
+	Gui, hint:-Caption
+	Gui, hint:+ToolWindow
+	Gui, hint:+AlwaysOnTop
+	Gui, hint:Show
+	sleep, n
+	Gui, hint:Destroy
+	return
+}
+;-------------------------------- showHintAt --------------------------------
+showHintAt(s, n, x, y){
+	global font
+	global fontsize
+	
+	Gui, hint:Font, s%fontsize%, %font%
+	Gui, hint:Add, Text,, %s%
+	Gui, hint:-Caption
+	Gui, hint:+ToolWindow
+	Gui, hint:+AlwaysOnTop
+	Gui, hint:Show, x%x% y%y%
+	Sleep, n
+	Gui, hint:Destroy
+	
+	return
 }
 
 

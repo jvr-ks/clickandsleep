@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.291"
+appVersion := "0.292"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -115,6 +115,9 @@ allcmdsArr := []
 notepadpath := notepadpathDefault
 emailpath := emailpathDefault
 recordlikeliness := recordlikelinessDefault
+
+fontDefault := "Calibri"
+font := fontDefault
 
 fontsizeDefault := 10
 fontsize := fontsizeDefault
@@ -322,6 +325,8 @@ readIni(){
 	global edge
 	global edgeDefault
 	global tipOffsetDeltaX
+	global fontDefault
+	global font
 	global fontsizeDefault
 	global fontsize
 	global linesInListDefault
@@ -362,7 +367,9 @@ readIni(){
 	IniRead, mouserecordHotkey, %iniFile%, hotkeys, mouserecordhotkey , %mouserecordhotkeyDefault%
 	Hotkey, %mouserecordHotkey%, mouserecordToggle
 
+	IniRead, font, %iniFile%, config, font, %fontDefault%
 	IniRead, fontsize, %iniFile%, config, fontsize, %fontsizeDefault%
+	
 	IniRead, linesInList, %iniFile%, config, linesInList, %linesInListDefault%
 	
 	IniRead, hintTimeShort, %iniFile%, timing, hintTimeShort , %hintTimeShortDefault%
@@ -376,32 +383,6 @@ readIni(){
 	IniRead, chrome, %iniFile%, external, chrome, %chromeDefault%
 	IniRead, firefox, %iniFile%, external, firefox, %firefoxDefault%
 	IniRead, edge, %iniFile%, external, edge, %edgeDefault%
-	
-	return
-}
-;********************************* showHint *********************************
-showHint(s, n){
-	Gui, hint:Font, s12, Calibri
-	Gui, hint:Add, Text,, %s%
-	Gui, hint:-Caption
-	Gui, hint:+ToolWindow
-	Gui, hint:+AlwaysOnTop
-	Gui, hint:Show
-	Sleep, n
-	Gui, hint:Destroy
-	
-	return
-}
-;******************************** showHintAt ********************************
-showHintAt(s, n, x, y){
-	Gui, hint:Font, s12, Calibri
-	Gui, hint:Add, Text,, %s%
-	Gui, hint:-Caption
-	Gui, hint:+ToolWindow
-	Gui, hint:+AlwaysOnTop
-	Gui, hint:Show, x%x% y%y%
-	Sleep, n
-	Gui, hint:Destroy
 	
 	return
 }
@@ -495,13 +476,15 @@ mainWindow() {
 	global OwnPID
 	global msgDefault
 	global cmdSelected
+	global font
+	global fontsize
 	
 	readIni()
 	
 	Gui, guiMain:Destroy
 
 	Gui, guiMain:New,+hWndguiMainHandle +OwnDialogs
-	Gui, guiMain:Font, s%fontsize%, Calibri
+	Gui, guiMain:Font, s%fontsize%, %font%
 	Gui, guiMain:Color,cF0F0F0
 	
 	timeInterval := formatTimeSeconds(repeatTime)
