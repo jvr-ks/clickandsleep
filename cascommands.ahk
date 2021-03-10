@@ -395,14 +395,14 @@ doAction(commandsArr){
 	if(eq(commandsArr[1], "mouseclick")){
 
 		updown := ""
-		if (commandsArr[5] != "U")
+		if (commandsArr[5] == "U")
 			updown := "U"
 			
-		if (commandsArr[5] != "D")
+		if (commandsArr[5] == "D")
 			updown := "D"
 			
 		relativ := ""
-		if (commandsArr[6] != "R")
+		if (commandsArr[6] == "R")
 			relativ := "R"
 			
 		MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY),,commandsArr[4],%updown%,%relativ%
@@ -413,14 +413,14 @@ doAction(commandsArr){
 	if(eq(commandsArr[1], "mousedblclick")){
 	
 		updown := ""
-		if (commandsArr[5] != "U")
+		if (commandsArr[5] == "U")
 			updown := "U"
 			
-		if (commandsArr[5] != "D")
+		if (commandsArr[5] == "D")
 			updown := "D"
 			
 		relativ := ""
-		if (commandsArr[6] != "R")
+		if (commandsArr[6] == "R")
 			relativ := "R"
 			
 		MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY),2,commandsArr[5],%updown%,%relativ%

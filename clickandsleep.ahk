@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.295"
+appVersion := "0.296"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
