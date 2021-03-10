@@ -405,7 +405,11 @@ doAction(commandsArr){
 		if (commandsArr[6] == "R")
 			relativ := "R"
 			
-		MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY),,commandsArr[4],%updown%,%relativ%
+		x := Floor(commandsArr[2] * scaleX)
+		y := Floor(commandsArr[3] * scaleY)
+		speed := commandsArr[4]
+		
+		MouseClick,Left,%x%,%y%,,%speed%,%updown%,%relativ%
 						
 		enhancedCommand := true
 	}
@@ -423,7 +427,11 @@ doAction(commandsArr){
 		if (commandsArr[6] == "R")
 			relativ := "R"
 			
-		MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY),2,commandsArr[5],%updown%,%relativ%
+		x := Floor(commandsArr[2] * scaleX)
+		y := Floor(commandsArr[3] * scaleY)
+		speed := commandsArr[4]
+		
+		MouseClick,Left,%x%,%y%,2,%speed%,%updown%,%relativ%
 			
 		enhancedCommand := true
 	}
