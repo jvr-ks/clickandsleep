@@ -386,7 +386,11 @@ doAction(commandsArr){
 	}
 	
 	if(eq(commandsArr[1], "mousemove")){
-		MouseMove, Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY) , commandsArr[4]
+		x := Floor(commandsArr[2] * scaleX)
+		y := Floor(commandsArr[3] * scaleY)
+		speed := commandsArr[4]
+		
+		MouseMove, %x%,%y%,%speed%
 		enhancedCommand := true
 	}
 	
@@ -445,17 +449,21 @@ doAction(commandsArr){
 		if (commandsArr[5] != "")
 			increment := commandsArr[5]
 		
-		MouseClick,Left,x, y
+		MouseClick,Left,%x%,%y%
 		while (delta < offset)
 		{
-			MouseClick,Left,x + delta, y
-			MouseClick,Left,x + delta, y + delta
-			MouseClick,Left,x, y + delta
-			MouseClick,Left,x - delta, y + delta
-			MouseClick,Left,x - delta, y
-			MouseClick,Left,x - delta, y - delta
-			MouseClick,Left,x, y - delta
-			MouseClick,Left,x + delta, y - delta
+			a := x + delta
+			b := y + delta
+			c := x - delta
+			d := y - delta
+			MouseClick,Left,%a%, %y%
+			MouseClick,Left,%a%, %b%
+			MouseClick,Left,%x%, %b%
+			MouseClick,Left,%c%, %b%
+			MouseClick,Left,%c%, %y%
+			MouseClick,Left,%c%, %d%
+			MouseClick,Left,%x%, %d%
+			MouseClick,Left,%a%, %d%
 			
 			delta := delta + 5
 		}
@@ -463,7 +471,22 @@ doAction(commandsArr){
 	}
 	
 	if(eq(commandsArr[1], "mouseclickright")){
-		MouseClick,Right,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY)
+		x := Floor(commandsArr[2] * scaleX)
+		y := Floor(commandsArr[3] * scaleY)
+		speed := commandsArr[4]
+		
+		updown := ""
+		if (commandsArr[5] == "U")
+			updown := "U"
+			
+		if (commandsArr[5] == "D")
+			updown := "D"
+			
+		relativ := ""
+		if (commandsArr[6] == "R")
+			relativ := "R"
+		
+		MouseClick,Right,%x%,%y%,,%speed%,%updown%,%relativ%
 		enhancedCommand := true
 	}
 	
@@ -473,17 +496,23 @@ doAction(commandsArr){
 		switch rnd
 		{
 			case 1:
-				MouseClick,,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY)
+				x := Floor(commandsArr[2] * scaleX)
+				y := Floor(commandsArr[3] * scaleY)
+				MouseClick,Left,%y%, %y%
 				if (debug)
-					showHint("Selectd random 1", hintTimeShort)
+					showHint("Selecteed random 1", hintTimeShort)
 			case 2:
-				MouseClick,,Floor(commandsArr[4] * scaleX), Floor(commandsArr[5] * scaleY)
+				x := Floor(commandsArr[4] * scaleX)
+				y := Floor(commandsArr[5] * scaleY)
+				MouseClick,Left,%y%, %y%
 				if (debug)
-					showHint("Selectd random 2", hintTimeShort)
+					showHint("Selected random 2", hintTimeShort)
 			case 3:
-				MouseClick,,Floor(commandsArr[6] * scaleX), Floor(commandsArr[7] * scaleY)
+				x := Floor(commandsArr[6] * scaleX)
+				y := Floor(commandsArr[7] * scaleY)
+				MouseClick,Left,%y%, %y%
 				if (debug)
-					showHint("Selectd random 3", hintTimeShort)
+					showHint("Selected random 3", hintTimeShort)
 		}
 		enhancedCommand := true
 	}
