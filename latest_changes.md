@@ -1,5 +1,6 @@
 #### Latest changes: [-> README](README.md)
 
+* bug closing app after a few seconds
 * **Sleep** and **sleeplong**: ToolTip only shown if the paramter "message" is not empty.
 * "autorun" is inhibited if Capslock-key is activated during app-start!
 * Next excution time-display is transparent

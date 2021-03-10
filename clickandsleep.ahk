@@ -1393,7 +1393,7 @@ casRunAfterDelayStandbyCountdown(){
 				tipTopTransp(msg, 7 * n - ((n+20)/10))
 			case 3:
 				tipTopTranspClose()
-				tipTop("Wait until start (with standby) finished by user interaction!")
+				tipTopTime("Wait until start (with standby) finished by user interaction!", 4000)
 				delayDownCounter := 0
 			case 5:
 				casRunStop()
