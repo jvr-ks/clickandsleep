@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.292"
+appVersion := "0.293"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -115,6 +115,8 @@ allcmdsArr := []
 notepadpath := notepadpathDefault
 emailpath := emailpathDefault
 recordlikeliness := recordlikelinessDefault
+
+dpiScale := "on"
 
 fontDefault := "Calibri"
 font := fontDefault
@@ -244,20 +246,23 @@ if (getKeyboardState() != 1){
 		
 	switch autorun
 	{
-	case "off":
+	case "runOnce":
 		mainWindow()
+		casRunStartOnceOnly()
 	case "runRepeated":
-		readIni()
+		mainWindow()
 		casRunStartRepeated()
 	case "runAfterDelay":
-		readIni()
+		mainWindow()
 		casRunAfterDelay()
 	case "runStandby":
-		readIni()
+		mainWindow()
 		casRunStandby()
 	case "runAfterDelayStandby":
-		readIni()
+		mainWindow()
 		casRunAfterDelayStandby()
+	case "off":
+		mainWindow()
 	default:
 		mainWindow()
 	}
@@ -463,22 +468,18 @@ mainWindow() {
 	global allcmdsArr
 	global cmdSeleted
 	
-	
 	global Text1Desciption,Text1,Text2Desciption,Text2,Text3,Text4,Text5
 	global Lb1
 	global Errormessage
 	global ButtonSingestep
-
-	global fontsizeDefault
+	global font
 	global fontsize
 	global linesInList
 	global appVersion
 	global OwnPID
 	global msgDefault
 	global cmdSelected
-	global font
-	global fontsize
-	
+
 	readIni()
 	
 	Gui, guiMain:Destroy
@@ -566,6 +567,7 @@ mainWindow() {
 	mrhk := " Record-hotkey: " . hotkeyToText(mouserecordHotkey)
 	mem := GetProcessMemoryUsage(OwnPID) " MB"	
 	msgDefault := "Hotkey: " . showHotkeyText . mrhk . " Res.: " . screen . " [" . mem . "]"
+	SB_SetText("  " . msgDefault,1,1)
 	
 	checkVersionFromGithub()
 	
@@ -1128,15 +1130,13 @@ countDown(){
 			tipTopTransp(msg, 7 * n - ((n+20)/10))
 		case 3:
 			tipTopTranspClose()
-			tip("Execution wait finished by user!")
-			sleep,2000
+			tipTimed("Execution wait finished by user!")
 			downCounter := 0
-			tipClose()
 		case 5:
 			tipTopTranspClose()
-			tip("Operation aborted!")
-			mainWindow()
+			tipTimed("Operation aborted!")
 			casRunStop()
+			showWindow()
 			return
 	}	
 	
@@ -1151,7 +1151,6 @@ countDown(){
 			casRunOnce()
 			downCounter := repeatTime
 			setTimer,countDown,delete
-			
 			setTimer,countDown,1000
 		}
 	}
@@ -1206,15 +1205,15 @@ casRunStandby(continue := false){
 						waitUntilCorrectTime()
 					} else {
 						casRunStop()
-						tip("Operation aborted!")
-						showWindowRefreshed()
+						tipTimed("Operation aborted!")
+						showWindow()
 						break casRunStandbyLoop
 					}
 
 				case 3,4:
 					casRunStop()
-					tip("Operation aborted!")
-					showWindowRefreshed()
+					tipTimed("Operation aborted!")
+					showWindow()
 					break casRunStandbyLoop
 			}
 		}
@@ -1257,8 +1256,8 @@ waitUntilCorrectTime(){
 					break waitUntilCorrectTimeLoop
 				case 5:
 					casRunStop()
-					tip("Operation aborted!")
-					showWindowRefreshed()
+					tipTimed("Operation aborted!")
+					showWindow()
 					return
 			}
 			sleep, 1000
@@ -1329,8 +1328,8 @@ casRunAfterDelayCountdown(){
 			case 5:
 				casRunStop()
 				tipTopTranspClose()
-				tip("Operation aborted!")
-				showWindowRefreshed()
+				tipTimed("Operation aborted!")
+				showWindow()
 		}
 
 		if(delayDownCounter <= 0){
@@ -1399,8 +1398,8 @@ casRunAfterDelayStandbyCountdown(){
 			case 5:
 				casRunStop()
 				tipTopTranspClose()
-				tip("Operation aborted!")
-				showWindowRefreshed()
+				tipTimed("Operation aborted!")
+				showWindow()
 				return
 		}
 	
@@ -1449,7 +1448,7 @@ casRunStop(){
 	runCasAfterDelay := false
 	runCasAfterDelayStandby := false
 	
-	showWindowRefreshed()
+	showWindow()
 	
 	return
 }

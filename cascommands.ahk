@@ -56,14 +56,15 @@ doAction(commandsArr){
 				tipRefreshed("ClickandSleep paused ...")
 				sleep,1000
 			case 3:
-				tip("Jumped over this command: " . commandsArr[1])
+				tipRefreshedClose()
+				tipTimed("Jumped over this command: " . commandsArr[1])
 				sleep,1000
 				enhancedCommand := true
-				tipRefreshedClose()
+				
 				return
 			case 5:
-				tip("Operation aborted!")
-				sleep,1000
+				tipRefreshedClose()
+				tipTimed("Operation aborted!")
 				runDoLoop := false
 				casRunStop()
 				break capslockWaitLoop
@@ -370,7 +371,7 @@ doAction(commandsArr){
 				case 5:
 					casRunStop()
 					tipRefreshedClose()
-					tipRefreshed("Operation aborted!")
+					tipTimed("Operation aborted!")
 					sleep, 1000
 					break sleepdown
 			}

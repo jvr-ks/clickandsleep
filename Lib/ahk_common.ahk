@@ -66,9 +66,11 @@ removeMessage(){
 ;---- generate hidden gui to get pixelsize of string
 getLenPixel(EditTxt,font,fontsize){
 	global MyText
+	global dpiScale
 
 	Gui StringWidth:font, s%fontsize%, %font%
-  Gui StringWidth: +DPIScale
+	if (StrLower(dpiScale) == "on")
+  	Gui StringWidth: +DPIScale
 	Gui StringWidth:Add, Text, R1, %EditTxt%
 	GuiControlGet T, StringWidth:Pos, Static1
 	Gui StringWidth:Destroy
@@ -99,7 +101,7 @@ tip(msg){
 	Gui, tip:Font,  s%fontsize%, %font%
 	
 	s := StrReplace(msg,"^",",")
-	Gui, tip:Add, Text, vTip h20 Center,%s%
+	Gui, tip:Add, Text, vTip R1 Center,%s%
 	Gui,tip:Show, xCenter y0 Autosize NoActivate,tip-Window
 
 	return
@@ -109,6 +111,14 @@ tipClose(){
 
 	Gui,tip:Destroy
 	
+	return
+}
+;--------------------------------- tipTimed ---------------------------------
+tipTimed(msg){
+	
+	setTimer,tipClose,-3000
+	tip(msg)
+
 	return
 }
 ;------------------------------- tipRefreshed -------------------------------
@@ -132,7 +142,7 @@ tipRefreshedCreate(msg){
 	Gui, tipRefreshed:New,-Caption +AlwaysOnTop
 	Gui, tipRefreshed:Font, s%fontsize%, %font%
 	widthPixel := getLenPixel(msg,"Calibri",11)
-	Gui, tipRefreshed:Add, Text, vTipRefreshed h20 w%widthPixel% Center
+	Gui, tipRefreshed:Add, Text, vTipRefreshed R1 w%widthPixel% Center
 	Gui,tipRefreshed:Show, xCenter y0 Autosize NoActivate,tipRefreshedWindow
 }
 ;----------------------------- tipRefreshedClose -----------------------------
@@ -157,7 +167,7 @@ tipTopTransp(msg, widthPixel){
 		widthPixel := getLenPixel(msg,font,fontsize)
 		Gui, tipTopTransp:New,-Caption +AlwaysOnTop
 		Gui, tipTopTransp:Font, s%fontsize%, %font%
-		Gui, tipTopTransp:Add, Text, vTipTopTranspText Center h17 w%widthPixel%
+		Gui, tipTopTransp:Add, Text, vTipTopTranspText Center R1 w%widthPixel%
 	}
 
 	GuiControl,tipTopTransp:,TipTopTranspText,%s%
