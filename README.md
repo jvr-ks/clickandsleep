@@ -179,8 +179,8 @@ All mouse-move-commands support the coordinate-transformation.
 Command | Parameter | Action | Remarks | like AHK command
 ------------ | ------------- | ------------- | ------------- | -------------  
 **mouseMove** | ,x,y , \[Speed] | Move to coordinate x, y |  | no
-**mouseClick** | ,x,y | Click with the left mousebutton at coordinate x, y  | Click at current cursor-position if x,y are empty | no 
-**mousedblClick** | ,x,y | Click with the left mousebutton twice at coordinate x, y  | Click at current cursor-position if x,y are empty | no 
+**mouseClick** | ,x,y,Speed,DownOrUp,Relative | Click with the left mousebutton at coordinate x, y  | Click at current cursor-position if x,y are empty | no (no ClickCount paramter)
+**mousedblClick** | ,x,y | Click with the left mousebutton twice at coordinate x, y  | Click at current cursor-position if x,y are empty | no (no ClickCount paramter, ClickCount is set to 2)
 **mouseClickLikeliness** | ,x,y,ca,comment | Click left if screenarea is equal ca | use mouserecord-hotkey to get actual screenarea in clipboard  \*1) | no 
 **mouseClickLikelinessTimesDelay** | ,x,y,ca,comment,n,d | Click left if screenarea is equal ca | use mouserecord-hotkey to get actual screenarea in clipboard \*2) | no 
 **mouseClickRight** | ,x,y | Click with the right mousebutton at coordinate x, y  | Click at current cursor-position if x,y are empty| no 
@@ -390,6 +390,6 @@ Copyright (c) 2020 J. v. Roos
 
 
 ##### Viruscheck at Virustotal 
-[Check here](https://www.virustotal.com/gui/url/6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798/detection/u-6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798-1615396671
+[Check here](https://www.virustotal.com/gui/url/6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798/detection/u-6e5e4abb359844bf8917884a42c929d19f5d94f7fe0a60ac716da372a2a5d798-1615401946
 )  
 Use [CTRL] + Click to open in a new window! 

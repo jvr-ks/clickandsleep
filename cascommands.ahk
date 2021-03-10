@@ -339,7 +339,6 @@ doAction(commandsArr){
 			
 		Sleep, dst
 
-		tipTimed("")
 		enhancedCommand := true
 	}
 	
@@ -392,28 +391,39 @@ doAction(commandsArr){
 	}
 	
 	;MouseClick , WhichButton, X, Y, ClickCount, Speed, DownOrUp, Relative
+	;1           ,X          ,2 , 3, 4          5      6         7
 	if(eq(commandsArr[1], "mouseclick")){
-	
-		if (commandsArr[6] == ""){
-			if (commandsArr[7] == "")
-				MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY), commandsArr[4], commandsArr[5]
+
+		updown := ""
+		if (commandsArr[5] != "U")
+			updown := "U"
 			
-			if (commandsArr[7] == "R")
-				MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY), commandsArr[4], commandsArr[5],,R
-				
-		} else {
-			msgbox, DownOrUp not supported!
-		}
+		if (commandsArr[5] != "D")
+			updown := "D"
+			
+		relativ := ""
+		if (commandsArr[6] != "R")
+			relativ := "R"
+			
+		MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY),,commandsArr[4],%updown%,%relativ%
 						
 		enhancedCommand := true
 	}
 	
 	if(eq(commandsArr[1], "mousedblclick")){
-		if (commandsArr[7] == "")
-			MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY),2,commandsArr[5]
+	
+		updown := ""
+		if (commandsArr[5] != "U")
+			updown := "U"
 			
-		if (commandsArr[7] == "R")
-			MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY),2,commandsArr[5],,R		
+		if (commandsArr[5] != "D")
+			updown := "D"
+			
+		relativ := ""
+		if (commandsArr[6] != "R")
+			relativ := "R"
+			
+		MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY),2,commandsArr[5],%updown%,%relativ%
 			
 		enhancedCommand := true
 	}

@@ -10,7 +10,7 @@ mouseMove,0,0,20
 mouseClickLikeliness,1197,847,116511,This test should be ok, i.e. click the button!
 sleepLong,3, Next click "Ok" ...
 mouseClick,2391,425
-sleepLong,3, mouseclickrandom3 ...
+sleepLong,3, Next: mouseclickrandom3 ...
 mouseclickrandom3,0,0,1000,1000,2000,2000
 sleepLong,3,Finished! close Chrome
 closeChrome
@@ -21,3 +21,12 @@ showHintColored, Script finished!, 1500, c00FF00, c000000
 
 
 
+//mouseClick,2368,431
+
+//mouseClickLikeliness,2368,431,252525
+//mouseClick,1297,817
+
+//mouseClickLikeliness,1297,817,171717
+//mouseClick,1721,1470
+
+//mouseClickLikeliness,1721,1470,252525
