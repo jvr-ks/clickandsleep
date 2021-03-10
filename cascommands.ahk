@@ -69,7 +69,7 @@ doAction(commandsArr){
 				casRunStop()
 				break capslockWaitLoop
 			default:
-				tipClose()
+				
 				tipRefreshedClose()
 				break capslockWaitLoop
 		}
@@ -132,9 +132,9 @@ doAction(commandsArr){
 			Options := commandsArr[3]
 	
 		s := "Waiting for key: " . KeyName
-		tip(s)	
+		tipTimed(s)	
 		KeyWait,%KeyName%,%Options%
-		tipClose()
+		
 		
 		enhancedCommand := true
 		return
@@ -335,11 +335,11 @@ doAction(commandsArr){
 			dst := commandsArr[2]
 			
 		if (commandsArr[3] != "")
-			tip("Sleep " . dst . " milliseconds!" . " " . commandsArr[3])
+			tipTimed("Sleep " . dst . " milliseconds!" . " " . commandsArr[3])
 			
 		Sleep, dst
 
-		tip("")
+		tipTimed("")
 		enhancedCommand := true
 	}
 	
@@ -695,7 +695,7 @@ doAction(commandsArr){
 		if (winCon){
 			WinActivate,ahk_class Chrome_WidgetWin_1 
 		} else {
-			tip("Error, Chrome not running!")
+			tipTimed("Error, Chrome not running!")
 		}
 		WinGet, runPID, PID, ahk_exe chrome.exe
 		if (debug)
@@ -715,7 +715,7 @@ doAction(commandsArr){
 		if (winCon){
 			WinActivate,ahk_class Chrome_WidgetWin_1 
 		} else {
-			tip("Error, Chrome not running!")
+			tipTimed("Error, Chrome not running!")
 		}	
 			
 		enhancedCommand := true
@@ -749,7 +749,7 @@ doAction(commandsArr){
 		if (winCon){
 			WinActivate,ahk_class Chrome_WidgetWin_1 
 		} else {
-			tip("Error, Chrome not running!")
+			tipTimed("Error, Chrome not running!")
 		}
 		WinGet, runPID, PID, ahk_exe msedge.exe
 		if (debug)
@@ -769,7 +769,7 @@ doAction(commandsArr){
 		if (winCon){
 			WinActivate,ahk_exe msedge.exe
 		} else {
-			tip("Error, Edge not running!")
+			tipTimed("Error, Edge not running!")
 		}	
 			
 		enhancedCommand := true
@@ -804,7 +804,7 @@ doAction(commandsArr){
 		if (winCon){
 			WinActivate,ahk_id %winCon% 
 		} else {
-			tip("Error, Firefox not running!")
+			tipTimed("Error, Firefox not running!")
 		}
 		WinGet, runPID, PID, ahk_id %winCon%
 		if (debug)
@@ -824,7 +824,7 @@ doAction(commandsArr){
 		if (winCon){
 			WinActivate,ahk_class MozillaWindowClass 
 		} else {
-			tip("Error, Firefox not running!")
+			tipTimed("Error, Firefox not running!")
 		}	
 			
 		enhancedCommand := true
@@ -911,7 +911,7 @@ doAction(commandsArr){
 		samplepoints := Floor(deltaX * deltaY)
 		
 
-		tip("Calculating ... " . commandsArr[5])
+		tipTimed("Calculating ... " . commandsArr[5])
 		MouseMove, posX, posY,10
 		
 		sumR := 0
@@ -937,12 +937,12 @@ doAction(commandsArr){
 				rG := "0x" . SubStr(cs,5,2)
 				rB := "0x" . SubStr(cs,7,2)
 				
-				;tip(x . "|" . y . "|" . cs . "|" . rR . "|" . rG . "|" . rB)
+				;tipTimed(x . "|" . y . "|" . cs . "|" . rR . "|" . rG . "|" . rB)
 				sumR := (0 + rB) + sumR
 				sumG := (0 + rG) + sumG
 				sumB := (0 + rB) + sumB
 				;sleep,1500
-				;tip(cs . "|" . sumR . "|" . sumG . "|" . sumB . "|")
+				;tipTimed(cs . "|" . sumR . "|" . sumG . "|" . sumB . "|")
 				;sleep,1500
 			}
 		}
@@ -950,7 +950,7 @@ doAction(commandsArr){
 		sumG := Floor(sumG/samplepoints)
 		sumB := Floor(sumB/samplepoints)
 		
-		tip("" . sumR . " " . sumG . " " . sumB)
+		tipTimed("" . sumR . " " . sumG . " " . sumB)
 		sR := SubStr("" sumR,1,2)
 		sG := SubStr("" sumG,1,2)
 		sB := SubStr("" sumR,1,2)
@@ -958,9 +958,9 @@ doAction(commandsArr){
 
 		if (commandsArr[4] == s){
 			MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY)
-			tip("Likeliness is ok!")
+			tipTimed("Likeliness is ok!")
 		} else {
-			tip("Likeliness is bad: " . s . " should be: " . commandsArr[4])
+			tipTimed("Likeliness is bad: " . s . " should be: " . commandsArr[4])
 			sleep, %delay%
 		}
 
@@ -990,10 +990,10 @@ doAction(commandsArr){
 		TrialsLoop:		
 		Loop, %trials%
 		{
-			tip("Calculating (trial: " . A_Index . " of " . trials . ") ... " . commandsArr[5])
+			tipTimed("Calculating (trial: " . A_Index . " of " . trials . ") ... " . commandsArr[5])
 			
 			if (getkeystate("Capslock","T")=1){
-				tip("Operation canceled, please release the Capslock-key!")
+				tipTimed("Operation canceled, please release the Capslock-key!")
 				sleep,2000
 				Break TrialsLoop
 			}
@@ -1022,12 +1022,12 @@ doAction(commandsArr){
 					rG := "0x" . SubStr(cs,5,2)
 					rB := "0x" . SubStr(cs,7,2)
 					
-					;tip(x . "|" . y . "|" . cs . "|" . rR . "|" . rG . "|" . rB)
+					;tipTimed(x . "|" . y . "|" . cs . "|" . rR . "|" . rG . "|" . rB)
 					sumR := (0 + rB) + sumR
 					sumG := (0 + rG) + sumG
 					sumB := (0 + rB) + sumB
 					;sleep,1500
-					;tip(cs . "|" . sumR . "|" . sumG . "|" . sumB . "|")
+					;tipTimed(cs . "|" . sumR . "|" . sumG . "|" . sumB . "|")
 					;sleep,1500
 				}
 			}
@@ -1035,7 +1035,7 @@ doAction(commandsArr){
 			sumG := Floor(sumG/samplepoints)
 			sumB := Floor(sumB/samplepoints)
 			
-			tip("" . sumR . " " . sumG . " " . sumB)
+			tipTimed("" . sumR . " " . sumG . " " . sumB)
 			sR := SubStr("" sumR,1,2)
 			sG := SubStr("" sumG,1,2)
 			sB := SubStr("" sumR,1,2)
@@ -1043,15 +1043,14 @@ doAction(commandsArr){
 
 			if (commandsArr[4] == s){
 				MouseClick,Left,Floor(commandsArr[2] * scaleX), Floor(commandsArr[3] * scaleY)
-				tip("Likeliness is ok!")
+				tipTimed("Likeliness is ok!")
 				Break TrialsLoop
 			} else {
 				if (A_Index < trials)
-					tip("Likeliness is bad: " . s . " should be: (" . commandsArr[4]  . ") , try it again ...")
+					tipTimed("Likeliness is bad: " . s . " should be: (" . commandsArr[4]  . ") , try it again ...")
 				else
-					tip("Likeliness is bad: " . s . " should be: (" . commandsArr[4]  . ")")
+					tipTimed("Likeliness is bad: " . s . " should be: (" . commandsArr[4]  . ")")
 				sleep, %delay%
-				tipClose()
 			}
 		}
 		enhancedCommand := true

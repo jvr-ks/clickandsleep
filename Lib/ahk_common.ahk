@@ -110,7 +110,6 @@ tip(msg){
 tipClose(){
 
 	Gui,tip:Destroy
-	
 	return
 }
 ;--------------------------------- tipTimed ---------------------------------
@@ -194,7 +193,6 @@ tipTop(msg){
 	
 	s := StrReplace(msg,"^",",")
 	ToolTip, %s%,toolX,toolY,3
-	SetTimer,tipTopClose,-6000
 }
 ;******************************** tipTopTime ********************************
 tipTopTime(msg, t := 2000){
@@ -206,7 +204,7 @@ tipTopTime(msg, t := 2000){
 	
 	s := StrReplace(msg,"^",",")
 	ToolTip, %s%,toolX,toolY,3
-	SetTimer,tipTopClose,%t%
+	SetTimer,tipTopClose,-1 * %t%
 }
 ;******************************* tipTopEternal *******************************
 tipTopEternal(msg){

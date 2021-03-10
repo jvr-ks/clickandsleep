@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.293"
+appVersion := "0.294"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -422,8 +422,6 @@ refreshGui(){
 	GuiControl,guiMain:,cmdSelected,|%cmdList% ; prefix the list with the delimiter (|) to replace the control's contents
 	
 	cmdselectSetEntry()
-
-	tipClose()
 	
 	return
 }
@@ -1075,7 +1073,7 @@ casRunStartOnceOnly(){
 	}
 	
 	if (debug)
-		tip("Execution finished!")
+		tipTimed("Execution finished!")
 		
 	showWindowRefreshed()
 	
@@ -1323,7 +1321,7 @@ casRunAfterDelayCountdown(){
 				tipTopTransp(msg, 7 * n - ((n+20)/10))
 			case 3:
 				tipTopTranspClose()
-				tip("Wait until start finished by user interaction!")
+				tipTimed("Wait until start finished by user interaction!")
 				delayDownCounter := 0
 			case 5:
 				casRunStop()
@@ -1333,7 +1331,7 @@ casRunAfterDelayCountdown(){
 		}
 
 		if(delayDownCounter <= 0){
-			tipClose()
+			
 			runCasAfterDelay := false
 			setTimer,casRunAfterDelayCountdown,delete
 			setTimer,countDown,delete
@@ -1404,7 +1402,7 @@ casRunAfterDelayStandbyCountdown(){
 		}
 	
 		if(delayDownCounter <= 0){
-			tipClose()
+			
 			runCasAfterDelayStandby := false
 
 			setTimer,casRunAfterDelayStandbyCountdown,delete
@@ -1545,7 +1543,7 @@ mouserecordClick(){
 		
 	
 	MouseGetPos, posX, posY
-	tip("Recorded: " . posX . "/" . posY)
+	tipTimed("Recorded: " . posX . "/" . posY)
 			
 	if (doubleClick)
 		FileAppend , `//mousedblClick`,%posX%`,%posY%`n, %cmdFile%, UTF-8-RAW
@@ -1564,7 +1562,7 @@ mouserecordClick(){
 		ypos := Floor(posY - deltaY/2)
 		samplepoints := Floor(deltaX * deltaY)
 		
-		tip("Calculating ...")
+		tipTimed("Calculating ...")
 		Loop, %deltaY%
 		{
 			j := A_Index
@@ -1589,14 +1587,14 @@ mouserecordClick(){
 		sumR := Floor(sumR/samplepoints)
 		sumG := Floor(sumG/samplepoints)
 		sumB := Floor(sumB/samplepoints)
-		;tip("" . sumR . " " . sumG . " " . sumB)
+		;tipTimed("" . sumR . " " . sumG . " " . sumB)
 		
 		sR := SubStr("" sumR,1,2)
 		sG := SubStr("" sumG,1,2)
 		sB := SubStr("" sumR,1,2)
 		s := sR . sG . sB
 		FileAppend , `n`//mouseClickLikeliness`,%posX%`,%posY%`,%s%`n, %cmdFile%, UTF-8-RAW
-		tip(sR . "|" . sG . "|" . sB)
+		tipTimed(sR . "|" . sG . "|" . sB)
 	}
 	
 	SetTimer, Update, 250
@@ -1790,7 +1788,7 @@ FileAppend,
 ), %wakeUpFile%, CP1200
 	
 	downCounterShutdown := 20
-	tip("Last chance to holdon/cancel Shutdown/Wakeup, press [Capslock] within " . downCounterShutdown . " seconds!")
+	tipTimed("Last chance to holdon/cancel Shutdown/Wakeup, press [Capslock] within " . downCounterShutdown . " seconds!")
 	
 	cancelShutdown := false
 	countDownShutdown()
@@ -1843,11 +1841,11 @@ countDownShutdown(){
 			case 1:
 				tipRefreshed("Shutdown in (hold on), press Ctrl to cancel shutdown, Alt to immediately start shutdown: " . formatTimeSeconds(downCounterShutdown))
 			case 3:
-				tip("Shutdown wait finished by user, immediate shutdown now!")
+				tipTimed("Shutdown wait finished by user, immediate shutdown now!")
 				downCounterShutdown := 0
 				Break countDownShutdownLoop
 			case 5:
-				tip("Shutdown canceled by user, no shutdown, direct goto wakeup!")
+				tipTimed("Shutdown canceled by user, no shutdown, direct goto wakeup!")
 				cancelShutdown := true
 				Break countDownShutdownLoop
 		}	
@@ -1889,7 +1887,7 @@ getKeyboardState(){
 showpixelcolor(){
 	MouseGetPos, xpos, ypos
 	PixelGetColor, cl, xpos, ypos , Slow RGB
-	tip(cl)
+	tipTimed(cl)
 	
 	return
 }
