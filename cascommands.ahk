@@ -133,7 +133,7 @@ doAction(commandsArr){
 	
 		s := "Waiting for key: " . KeyName
 		tipTimed(s)	
-		KeyWait,%KeyName%,%Options%
+		KeyWait, %KeyName%, %Options%
 		
 		
 		enhancedCommand := true
@@ -302,7 +302,7 @@ doAction(commandsArr){
 		param1 := commandsArr[2]
 		param2 := commandsArr[3]
 		WinMaximize, %param1%, %param2%
-		PostMessage, 0x112, 0xF030,,,%param1%,%param2%
+		PostMessage, 0x112, 0xF030,,, %param1%, %param2%
 		enhancedCommand := true
 	}
 	
@@ -390,7 +390,7 @@ doAction(commandsArr){
 		y := Floor(commandsArr[3] * scaleY)
 		speed := commandsArr[4]
 		
-		MouseMove, %x%,%y%,%speed%
+		MouseMove, %x%, %y%, %speed%
 		enhancedCommand := true
 	}
 	
@@ -413,7 +413,7 @@ doAction(commandsArr){
 		y := Floor(commandsArr[3] * scaleY)
 		speed := commandsArr[4]
 		
-		MouseClick,Left,%x%,%y%,,%speed%,%updown%,%relativ%
+		MouseClick,Left, %x%, %y%,, %speed%, %updown%, %relativ%
 						
 		enhancedCommand := true
 	}
@@ -435,7 +435,7 @@ doAction(commandsArr){
 		y := Floor(commandsArr[3] * scaleY)
 		speed := commandsArr[4]
 		
-		MouseClick,Left,%x%,%y%,2,%speed%,%updown%,%relativ%
+		MouseClick,Left, %x%, %y%,2, %speed%, %updown%, %relativ%
 			
 		enhancedCommand := true
 	}
@@ -449,21 +449,21 @@ doAction(commandsArr){
 		if (commandsArr[5] != "")
 			increment := commandsArr[5]
 		
-		MouseClick,Left,%x%,%y%
+		MouseClick,Left, %x%, %y%
 		while (delta < offset)
 		{
 			a := x + delta
 			b := y + delta
 			c := x - delta
 			d := y - delta
-			MouseClick,Left,%a%, %y%
-			MouseClick,Left,%a%, %b%
-			MouseClick,Left,%x%, %b%
-			MouseClick,Left,%c%, %b%
-			MouseClick,Left,%c%, %y%
-			MouseClick,Left,%c%, %d%
-			MouseClick,Left,%x%, %d%
-			MouseClick,Left,%a%, %d%
+			MouseClick,Left, %a%, %y%
+			MouseClick,Left, %a%, %b%
+			MouseClick,Left, %x%, %b%
+			MouseClick,Left, %c%, %b%
+			MouseClick,Left, %c%, %y%
+			MouseClick,Left, %c%, %d%
+			MouseClick,Left, %x%, %d%
+			MouseClick,Left, %a%, %d%
 			
 			delta := delta + 5
 		}
@@ -486,7 +486,7 @@ doAction(commandsArr){
 		if (commandsArr[6] == "R")
 			relativ := "R"
 		
-		MouseClick,Right,%x%,%y%,,%speed%,%updown%,%relativ%
+		MouseClick,Right, %x%, %y%,, %speed%, %updown%, %relativ%
 		enhancedCommand := true
 	}
 	
@@ -498,19 +498,19 @@ doAction(commandsArr){
 			case 1:
 				x := Floor(commandsArr[2] * scaleX)
 				y := Floor(commandsArr[3] * scaleY)
-				MouseClick,Left,%y%, %y%
+				MouseClick,Left, %y%, %y%
 				if (debug)
 					showHint("Selecteed random 1", hintTimeShort)
 			case 2:
 				x := Floor(commandsArr[4] * scaleX)
 				y := Floor(commandsArr[5] * scaleY)
-				MouseClick,Left,%y%, %y%
+				MouseClick,Left, %y%, %y%
 				if (debug)
 					showHint("Selected random 2", hintTimeShort)
 			case 3:
 				x := Floor(commandsArr[6] * scaleX)
 				y := Floor(commandsArr[7] * scaleY)
-				MouseClick,Left,%y%, %y%
+				MouseClick,Left, %y%, %y%
 				if (debug)
 					showHint("Selected random 3", hintTimeShort)
 		}
@@ -564,7 +564,7 @@ doAction(commandsArr){
 					appPath := cvtPath(commandsArr[2])
 					param2 := commandsArr[3]
 					param3 := commandsArr[4]
-					Run %appPath%,%param2%,%param3%,runPID
+					Run %appPath%, %param2%, %param3%,runPID
 					
 			}	
 		} else {
@@ -725,7 +725,7 @@ doAction(commandsArr){
 		winCon := WinExist("ahk_exe chrome.exe")
 		if (!winCon){
 			url := commandsArr[2]
-			Run,%chrome% %url%,,,runPID 
+			Run, %chrome% %url%,,,runPID 
 			WinWait,ahk_exe chrome.exe,,20
 			errorLevelMemo := ErrorLevel
 		} else {
@@ -779,7 +779,7 @@ doAction(commandsArr){
 		winCon := WinExist("ahk_exe msedge.exe")
 		if (!winCon){
 			url := commandsArr[2]
-			Run,%chrome% %url%,,,runPID 
+			Run, %chrome% %url%,,,runPID 
 			WinWait,ahk_exe msedge.exe,,20
 			errorLevelMemo := ErrorLevel
 		} else {
@@ -837,7 +837,7 @@ doAction(commandsArr){
 			MsgBox, Error, could not close Firefox (%winCon%), continuing ...`n(with possible wrong URL)
 		}
 		url := commandsArr[2]
-		Run,%firefox% %url%
+		Run, %firefox% %url%
 		WinWait,ahk_class MozillaWindowClass,,20
 		errorLevelMemo := ErrorLevel
 
