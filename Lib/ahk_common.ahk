@@ -204,7 +204,8 @@ tipTopTime(msg, t := 2000){
 	
 	s := StrReplace(msg,"^",",")
 	ToolTip, %s%,toolX,toolY,3
-	SetTimer,tipTopClose,-1 * %t%
+	tvalue := -1 * t
+	SetTimer,tipTopClose,%tvalue%
 }
 ;******************************* tipTopEternal *******************************
 tipTopEternal(msg){
