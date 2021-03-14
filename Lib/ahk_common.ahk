@@ -122,66 +122,60 @@ tipTimed(msg){
 }
 ;------------------------------- tipRefreshed -------------------------------
 tipRefreshed(msg){
+	global TipRefreshed
+	global font
+	global fontsize
+	
 	;created only once,fixed width of text of first call
+	s := StrReplace(msg,"^",",")
 
 	tipHwnd := WinExist("tipRefreshedWindow")
 	if ( tipHwnd == 0){
-		tipRefreshedCreate(msg)
+			widthPixel := getLenPixel(s,font,fontsize)
+			Gui, tipRefreshed:New,-Caption +AlwaysOnTop
+			Gui, tipRefreshed:Font, s%fontsize%, %font%
+			Gui, tipRefreshed:Add, Text, vTipRefreshed R1 w%widthPixel% Center
+			Gui, tipRefreshed:Show, xCenter y0 Autosize NoActivate,tipRefreshedWindow
 	}
-	s := StrReplace(msg,"^",",")
+	
 	Guicontrol,tipRefreshed:,TipRefreshed,%s%
 	return
 }
-;---------------------------- tipRefreshedCreate ----------------------------
-tipRefreshedCreate(msg){
-	global font
-	global fontsize
-	global TipRefreshed
-	
-	Gui, tipRefreshed:New,-Caption +AlwaysOnTop
-	Gui, tipRefreshed:Font, s%fontsize%, %font%
-	widthPixel := getLenPixel(msg,"Calibri",11)
-	Gui, tipRefreshed:Add, Text, vTipRefreshed R1 w%widthPixel% Center
-	Gui,tipRefreshed:Show, xCenter y0 Autosize NoActivate,tipRefreshedWindow
-}
 ;----------------------------- tipRefreshedClose -----------------------------
 tipRefreshedClose(){
+	global TipRefreshed
 
 	Gui,tipRefreshed:Destroy
 	
 	return
 }
-;------------------------------- tipTopTransp -------------------------------
-tipTopTransp(msg, widthPixel){
-	global TipTopTranspText
-	static tipTranspHwnd
+;------------------------------- tipTransp -------------------------------
+tipTransp(msg){
+	global TipTransp
 	global font
 	global fontsize
 	
 	s := StrReplace(msg,"^",",")
-	tipTranspHwnd := WinExist("tipTopTranspWindow")
+	tipTranspHwnd := WinExist("tipTranspWindow")
 	
 	if ( tipTranspHwnd == 0){
-	
-		widthPixel := getLenPixel(msg,font,fontsize)
-		Gui, tipTopTransp:New,-Caption +AlwaysOnTop
-		Gui, tipTopTransp:Font, s%fontsize%, %font%
-		Gui, tipTopTransp:Add, Text, vTipTopTranspText Center R1 w%widthPixel%
+		widthPixel := getLenPixel(s,font,fontsize)
+		Gui, tipTransp:New,-Caption +AlwaysOnTop
+		Gui, tipTransp:Font, s%fontsize%, %font%
+		Gui, tipTransp:Add, Text, vTipTransp Center R1 w%widthPixel%
+		Gui, tipTransp:Show, xCenter y0 Autosize NoActivate,tipTranspWindow
 	}
 
-	GuiControl,tipTopTransp:,TipTopTranspText,%s%
-	Gui, tipTopTransp:Show, xCenter y0 Autosize NoActivate,tipTopTranspWindow
-	
-	tipTranspHwnd := WinExist("tipTopTranspWindow")
+	GuiControl,tipTransp:,TipTransp,%s%
 	WinSet, Transparent, 150, ahk_id %tipTranspHwnd%
 
 	return
 }
-;---------------------------- tipTopTranspRemove ----------------------------
-tipTopTranspClose(){
-	global TipTopTransp
+;---------------------------- tipTranspRemove ----------------------------
+tipTranspClose(){
+	global TipTransp
 
-	Gui, tipTopTransp:destroy
+	Gui, tipTransp:destroy
 }
 ;********************************** tipTop **********************************
 tipTop(msg){

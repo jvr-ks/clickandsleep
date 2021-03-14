@@ -44,7 +44,6 @@ doAction(commandsArr){
 	global errormessage
 	global listBoxEntry
 	
-	
 	enhancedCommand := false
 			
 	capslockWaitLoop:
@@ -53,6 +52,7 @@ doAction(commandsArr){
 		switch getKeyboardState()
 		{
 			case 1:
+				tipTranspClose()
 				tipRefreshed("ClickandSleep paused ...")
 				sleep,1000
 			case 3:
@@ -69,7 +69,6 @@ doAction(commandsArr){
 				casRunStop()
 				break capslockWaitLoop
 			default:
-				
 				tipRefreshedClose()
 				break capslockWaitLoop
 		}
@@ -104,9 +103,15 @@ doAction(commandsArr){
 	if(eq(SubStr(commandsArr[1], 1, 2), "//")){
 		if (runSingleOp) {
 			; remove "//"
+			if (debug)
+				showHint("runSingleOp is activ, executing: " . commandsArr[1], hintTimeShort)
+				
 			commandsArr[1] := Trim(RegExReplace(Trim(commandsArr[1]),"^\/\/ *",""))
 		} else {
 			enhancedCommand := true
+			if (debug)
+				showHint("Comment ignored: " . commandsArr[1], hintTimeShort)
+				
 			return
 		}
 	}

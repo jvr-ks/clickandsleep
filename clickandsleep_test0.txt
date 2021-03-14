@@ -19,14 +19,3 @@ showHintColored, Script finished!, 1500, c00FF00, c000000
 
 //loadset,clickandsleep
 
-
-
-//mouseClick,2368,431
-
-//mouseClickLikeliness,2368,431,252525
-//mouseClick,1297,817
-
-//mouseClickLikeliness,1297,817,171717
-//mouseClick,1721,1470
-
-//mouseClickLikeliness,1721,1470,252525
