@@ -95,7 +95,7 @@ tipOffsetDeltaX := tipOffsetDeltaXDefault
 
 ; *********************************** constants ****************************
 appName := "ClickAndSleep"
-appVersion := "0.300"
+appVersion := "0.301"
 app := appName . " " . appVersion
 iniFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
@@ -1102,7 +1102,6 @@ casRunStartRepeated(continue := false){
 		runCas := true
 		casRunOnce()
 		downCounter := repeatTime
-		tipTranspClose()
 		setTimer,countDown,delete
 		setTimer,countDown,1000
 	}
@@ -1121,17 +1120,15 @@ countDown(){
 	{
 		case 0:
 			downCounter := downCounter - 1
-			msg := "Countdown: " . formatTimeSeconds(downCounter)
-			tipTransp(msg)
+			tipWindow("Countdown: " . formatTimeSeconds(downCounter),150,0,false)
 			Gui, guiMain:Hide
 		case 1:
-			msg := "Hold on!"
-			tipTransp(msg)
+			tipWindow("Hold on!",150,0,false)
 		case 3:
-			tipTimed("Aborted!")
+			tipWindow("Aborted!",150,2000)
 			downCounter := 0
 		case 5:
-			tipTimed("Operation stopped!")
+			tipWindow("Operation stopped!",0,2000)
 			casRunStop()
 			showWindow()
 			return
@@ -1140,7 +1137,6 @@ countDown(){
 		
 	if(downCounter <= 0){
 		if (runCasOnceOnly){
-			tipTranspClose()
 			setTimer,countDown,delete
 			casRunOnce()
 			casRunStop()
@@ -1148,7 +1144,6 @@ countDown(){
 		if (runCas){
 			casRunOnce()
 			downCounter := repeatTime
-			tipTranspClose()
 			setTimer,countDown,delete
 			setTimer,countDown,1000
 		}
@@ -1204,14 +1199,14 @@ casRunStandby(continue := false){
 						waitUntilCorrectTime()
 					} else {
 						casRunStop()
-						tipTimed("Operation aborted!")
+						tipWindow("Operation aborted!",0,2000)
 						showWindow()
 						break casRunStandbyLoop
 					}
 
 				case 3,4:
 					casRunStop()
-					tipTimed("Operation aborted!")
+					tipWindow("Operation aborted!",0,2000)
 					showWindow()
 					break casRunStandbyLoop
 			}
@@ -1247,15 +1242,15 @@ waitUntilCorrectTime(){
 						return
 					}
 					
-					tipRefreshed("Wakeup early, waiting: " . formatTimeSeconds(counter))
+					tipWindow("Wakeup early, waiting: " . formatTimeSeconds(counter),0,0,false)
 				case 1:
-					tipRefreshed("Wakeup early, waiting (hold on): " . formatTimeSeconds(counter))
+					tipWindow("Wakeup early, (hold on): " . formatTimeSeconds(counter),0,0,false)
 				case 3:
-					tipTop("Wakeup early waiting finished by user interaction!")
+					tipWindow("Wakeup early waiting finished by user interaction!",0,2000)
 					break waitUntilCorrectTimeLoop
 				case 5:
 					casRunStop()
-					tipTimed("Operation aborted!")
+					tipWindow("Operation aborted!",0,2000)
 					showWindow()
 					return
 			}
@@ -1314,18 +1309,16 @@ casRunAfterDelayCountdown(){
 			case 0:
 				delayDownCounter := delayDownCounter - 1
 				msg := "Until Start: " . formatTimeSeconds(delayDownCounter)
-				tipTransp(msg)
+				tipWindow(msg,150,0,false)
 			case 1:
 				msg := "Until Start (hold on): " . formatTimeSeconds(delayDownCounter)
-				tipTransp(msg)
+				tipWindow(msg,150,0,false)
 			case 3:
-				tipTranspClose()
-				tipTimed("Wait until start finished by user interaction!")
+				tipWindow("Wait until start finished by user interaction!",0,2000)
 				delayDownCounter := 0
 			case 5:
 				casRunStop()
-				tipTranspClose()
-				tipTimed("Operation aborted!")
+				tipWindow("Operation aborted!",0,2000)
 				showWindow()
 		}
 
@@ -1333,7 +1326,6 @@ casRunAfterDelayCountdown(){
 			
 			runCasAfterDelay := false
 			setTimer,casRunAfterDelayCountdown,delete
-			tipTranspClose()
 			setTimer,countDown,delete
 			
 			casRunStartRepeated(true)
@@ -1383,20 +1375,17 @@ casRunAfterDelayStandbyCountdown(){
 			case 0:
 				delayDownCounter := delayDownCounter - 1
 				msg := "Until Start (with standby): " . formatTimeSeconds(delayDownCounter)
-				tipTransp(msg)
+				tipWindow(msg,150,0,false)
 			case 1:
 				
 				msg := "Until Start (with standby) (hold on): " . formatTimeSeconds(delayDownCounter)
-				tipTranspClose()
-				tipTransp(msg)
+				tipWindow(msg,150,0,false)
 			case 3:
-				tipTranspClose()
-				tipTopTime("Wait until start (with standby) finished by user interaction!", 4000)
+				tipWindow("Wait until start (with standby) finished by user interaction!",0,2000)
 				delayDownCounter := 0
 			case 5:
 				casRunStop()
-				tipTranspClose()
-				tipTimed("Operation aborted!")
+				tipWindow("Operation aborted!",0,2000)
 				showWindow()
 				return
 		}
@@ -1435,7 +1424,6 @@ casRunStop(){
 	counter := 0
 	delayDownCounter := 0
 	
-	tipTranspClose()
 	setTimer,countDown,delete
 	setTimer,casRunAfterDelayCountdown,delete
 	setTimer,casRunAfterDelayStandbyCountdown,delete
@@ -1838,15 +1826,15 @@ countDownShutdown(){
 		{
 			case 0:
 				downCounterShutdown := downCounterShutdown - 1
-				tipRefreshed("Shutdown in: " . formatTimeSeconds(downCounterShutdown))
+				tipWindow("Shutdown in: " . formatTimeSeconds(downCounterShutdown),150,0,false)
 			case 1:
-				tipRefreshed("Shutdown in (hold on), press Ctrl to cancel shutdown, Alt to immediately start shutdown: " . formatTimeSeconds(downCounterShutdown))
+				tipWindow("Shutdown in (hold on), press Ctrl to cancel shutdown, Alt to immediately start shutdown: " . formatTimeSeconds(downCounterShutdown),150,0,false)
 			case 3:
-				tipTimed("Shutdown wait finished by user, immediate shutdown now!")
+				tipWindow("Shutdown wait finished by user, immediate shutdown now!",0,2000)
 				downCounterShutdown := 0
 				Break countDownShutdownLoop
 			case 5:
-				tipTimed("Shutdown canceled by user, no shutdown, direct goto wakeup!")
+				tipWindow("Shutdown canceled by user, no shutdown, direct goto wakeup!",0,2000)
 				cancelShutdown := true
 				Break countDownShutdownLoop
 		}	
@@ -1966,8 +1954,7 @@ exit(){
 	Gui, guiMain:Destroy
 	showHint("""" . app . """ removed from memory!", hintTimeShort)
 	ToolTip
-	tipTranspClose()
-	tipRefreshedClose()
+	tipWindowClose()
 	
 	ExitApp
 }

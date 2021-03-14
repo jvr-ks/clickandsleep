@@ -120,62 +120,46 @@ tipTimed(msg){
 
 	return
 }
-;------------------------------- tipRefreshed -------------------------------
-tipRefreshed(msg){
-	global TipRefreshed
+;------------------------------- tipWindow -------------------------------
+tipWindow(msg, transp := 0, timeout := 0, refresh := true){
+	global TipWindow
 	global font
 	global fontsize
 	
 	;created only once,fixed width of text of first call
 	s := StrReplace(msg,"^",",")
 
-	tipHwnd := WinExist("tipRefreshedWindow")
-	if ( tipHwnd == 0){
+	if (refresh)
+		tipWindowClose()
+		
+	tipWindowhwnd := WinExist("tipWindowNam")
+	if ( tipWindowhwnd == 0 || refresh){
 			widthPixel := getLenPixel(s,font,fontsize)
-			Gui, tipRefreshed:New,-Caption +AlwaysOnTop
-			Gui, tipRefreshed:Font, s%fontsize%, %font%
-			Gui, tipRefreshed:Add, Text, vTipRefreshed R1 w%widthPixel% Center
-			Gui, tipRefreshed:Show, xCenter y0 Autosize NoActivate,tipRefreshedWindow
+			Gui, tipWindow:New,-Caption +AlwaysOnTop
+			Gui, tipWindow:Font, s%fontsize%, %font%
+			Gui, tipWindow:Add, Text, vTipWindow R1 w%widthPixel% Center
+			Gui, tipWindow:Show, xCenter y0 Autosize NoActivate,tipWindowNam
 	}
 	
-	Guicontrol,tipRefreshed:,TipRefreshed,%s%
-	return
-}
-;----------------------------- tipRefreshedClose -----------------------------
-tipRefreshedClose(){
-	global TipRefreshed
-
-	Gui,tipRefreshed:Destroy
+	Guicontrol,tipWindow:,TipWindow,%s%
 	
-	return
-}
-;------------------------------- tipTransp -------------------------------
-tipTransp(msg){
-	global TipTransp
-	global font
-	global fontsize
+	if (transp != 0)
+		WinSet, Transparent, %transp%, ahk_id %tipWindowhwnd%
 	
-	s := StrReplace(msg,"^",",")
-	tipTranspHwnd := WinExist("tipTranspWindow")
-	
-	if ( tipTranspHwnd == 0){
-		widthPixel := getLenPixel(s,font,fontsize)
-		Gui, tipTransp:New,-Caption +AlwaysOnTop
-		Gui, tipTransp:Font, s%fontsize%, %font%
-		Gui, tipTransp:Add, Text, vTipTransp Center R1 w%widthPixel%
-		Gui, tipTransp:Show, xCenter y0 Autosize NoActivate,tipTranspWindow
+	if (timeout != 0){
+		t := -1 * timeout
+		setTimer,tipWindowClose,%t%
 	}
 
-	GuiControl,tipTransp:,TipTransp,%s%
-	WinSet, Transparent, 150, ahk_id %tipTranspHwnd%
-
 	return
 }
-;---------------------------- tipTranspRemove ----------------------------
-tipTranspClose(){
-	global TipTransp
+;----------------------------- tipWindowClose -----------------------------
+tipWindowClose(){
+	global TipWindow
 
-	Gui, tipTransp:destroy
+	Gui,tipWindow:Destroy
+	
+	return
 }
 ;********************************** tipTop **********************************
 tipTop(msg){

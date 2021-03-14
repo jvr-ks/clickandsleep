@@ -52,24 +52,20 @@ doAction(commandsArr){
 		switch getKeyboardState()
 		{
 			case 1:
-				tipTranspClose()
-				tipRefreshed("ClickandSleep paused ...")
+				tipWindow("ClickandSleep paused ...",0,0)
 				sleep,1000
 			case 3:
-				tipRefreshedClose()
-				tipTimed("Jumped over this command: " . commandsArr[1])
+				tipWindow("Jumped over this command: " . commandsArr[1],0,3000)
 				sleep,1000
 				enhancedCommand := true
 				
 				return
 			case 5:
-				tipRefreshedClose()
-				tipTimed("Operation aborted!")
+				tipWindow("Operation aborted!")
 				runDoLoop := false
 				casRunStop()
 				break capslockWaitLoop
 			default:
-				tipRefreshedClose()
 				break capslockWaitLoop
 		}
 
@@ -353,8 +349,7 @@ doAction(commandsArr){
 			dst := commandsArr[2]
 			
 		sleepDownCounter := 0 . dst
-		
-		tipRefreshedClose()
+
 		
 		sleepdown:
 		Loop
@@ -364,24 +359,21 @@ doAction(commandsArr){
 				case 0:
 					sleepDownCounter := sleepDownCounter - 1
 					if (commandsArr[3] != "")
-						tipRefreshed("Sleeplong: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
+						tipWindow("Sleeplong: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3],0,sleepDownCounter * 1000,false)
 				case 1:
-					tipRefreshed("Sleeplong hold on: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3])
+					tipWindow("Sleeplong hold on: " . formatTimeSeconds(sleepDownCounter) . " " . commandsArr[3],0,0,false)
 				case 3:
-					tipRefreshedClose()
-					tipRefreshed("Sleeplong finished by user interaction!")
+					tipWindow("Sleeplong finished by user interaction!",0,2000)
 					sleepDownCounter := 0
 					break sleepdown
 				case 5:
 					casRunStop()
-					tipRefreshedClose()
-					tipTimed("Operation aborted!")
+					tipWindow("Operation aborted!",0,2000)
 					sleep, 1000
 					break sleepdown
 			}
 
 			if (sleepDownCounter <= 0){
-				tipRefreshedClose()
 				break sleepdown
 			} else {
 				sleep, 1000
@@ -747,7 +739,7 @@ doAction(commandsArr){
 		if (winCon){
 			WinActivate,ahk_class Chrome_WidgetWin_1 
 		} else {
-			tipTimed("Error, Chrome not running!")
+			tipWindow("Error, Chrome not running!")
 		}
 		WinGet, runPID, PID, ahk_exe chrome.exe
 		if (debug)

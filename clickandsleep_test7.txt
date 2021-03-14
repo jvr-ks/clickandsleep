@@ -1,6 +1,6 @@
 ; clickandsleep_test7.txt
 ;debugOn
-//sleepLong,5,goto background test
+sleepLong,5,goto background test
 
 ;//loadset,clickandsleep
 
