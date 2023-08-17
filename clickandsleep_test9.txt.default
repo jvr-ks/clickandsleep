@@ -1,0 +1,19 @@
+; clickandsleep_test9.txt
+//debugON
+//debugShowMouseMoveON
+
+//chrome should already be loaded with picture!
+//openChrome,https://xit.jvr.de/testimage.html
+activateChrome
+
+sleepLikenessFast,393,607,59281a,1,Check mean-color-value
+
+sleepLikenessFast,720,1018,512117,1,Check mean-color-value
+
+sleepLikenessFast,784,1370,511a0b,1,Check mean-color-value
+
+mouseClickLikeness,1540,1394,968787
+
+
+//loadset,clickandsleep
+
