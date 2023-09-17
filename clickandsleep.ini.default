@@ -19,7 +19,7 @@ internalDebug="no"
 font="Calibri"
 fontsize=10
 deviationMax=20
-repeatCounter=10
+repeatCounter=1
 defaultMouseSpeed=10
 showCLSOpener="yes"
 openerDeltaX=250
@@ -34,7 +34,7 @@ recordlikeness="ON"
 [external]
 notepadpath="C:\Program Files\Notepad++\notepad++.exe"
 emailpath="C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe"
-chrome="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+chrome="C:\Program Files\Google\Chrome\Application\chrome.exe"
 firefox="C:\Program Files\Mozilla Firefox\firefox.exe"
 edge="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --profile-directory=Default
 

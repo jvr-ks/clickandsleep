@@ -3,8 +3,6 @@
  * 
  * clickandsleep.ahk
  * 
- * 
- * 
  * Version -> appVersion
  * 
  * Copyright (c) 2020 jvr.de. All rights reserved.
@@ -57,8 +55,9 @@
 
 FileEncoding, UTF-8-RAW
 internalDebug := false
-;runningState: see file:///runningState.md
-runningState := 0
+mode := 0
+; 0 => idle
+; 0 => idle
 ;------------------------------- Gui parameter -------------------------------
 windowPosX := 0
 windowPosY := 0
@@ -72,8 +71,8 @@ buttonHeight := 20 ; TODO depends on fontsize
 #Include, %A_ScriptDir%\cascommands.ahk
 
 ; *********************************** prepare *******************************
-SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
+SendMode Input
+SetWorkingDir %A_ScriptDir%
 
 wrkDir := A_ScriptDir . "\"
 
@@ -119,7 +118,7 @@ MainStatusBarHwnd := 0
 appName := "ClickAndSleep"
 appnameLower := "clickandsleep"
 appExtension:= ".exe"
-appVersion := "0.436"
+appVersion := "0.437"
 
 bit := (A_PtrSize=8 ? "64" : "32")
 
@@ -131,7 +130,7 @@ bitName := (bit="64" ? "" : bit)
 app := appName . " " . appVersion . " " . bit . "-bit"
 
 
-iniFile := "clickandsleep.ini"
+configFile := "clickandsleep.ini"
 cmdFile := "clickandsleep.txt"
 
 guiFileDefault := wrkDir . "clickandsleep.gui"
@@ -145,7 +144,7 @@ downLoadURLrestart := server . restartFilename
 
 notepadpathDefault := "C:\Program Files\Notepad++\notepad++.exe"
 emailpathDefault := "C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe"
-chromeDefault := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+chromeDefault := "C:\Program Files\Google\Chrome\Application\chrome.exe"
 firefoxDefault := "C:\Program Files\Mozilla Firefox\firefox.exe"
 recordlikenessDefault:= "ON"
 quot := """"
@@ -251,21 +250,20 @@ Loop % A_Args.Length()
   }
   
   if(InStr(A_Args[A_index], ".ini")){
-    iniFile := A_Args[A_index]
+    configFile := A_Args[A_index]
   }
   
 }
 
-cmdFile := resolvepath(wrkDir,cmdFile)
-iniFile := resolvepath(wrkDir,iniFile)
-
+cmdFile := resolvepath(wrkDir, cmdFile)
+configFile := resolvepath(wrkDir, configFile)
 
 Lb1 := 0
 
 ; ********** autorun
 if (getKeyboardState() != 1){
 ;Capslock is off
-  IniRead, autorun, %iniFile%, run, autorun , "off"
+  IniRead, autorun, %configFile%, run, autorun , "off"
   
   autorun := StrLower(autorun)
   switch autorun
@@ -300,62 +298,26 @@ return
 
 ;-------------------------------- mainWindow --------------------------------
 mainWindow() {
-	global appName
-  global HMainHwnd
-  global buttonHeight
-  global hintTime
-  global iniFile
-  global app
-  global runCas
-  global cmdFile
-  
-  global exitHotkey
-  global menuHotkey
-  global mouserecordHotkey
-  
-  global repeatTime
-  global delayTime
-  global allcmdsArr
-  global cmdSeleted
-  
-  global Lb1
-
-  global font
-  global fontsize
-  global listBoxWidth
-  global listBoxHeight
-  global appVersion
-  global msgDefault
-  global cmdSelected
-  global windowPosX
-  global windowPosY
-  global MainStatusBarHwnd
-  global repeatCounterDefault
-  global repeatCounterStart
-  
-  global Element3_1
-  global Element3_2
-  global Element3_3
-  global Element3_4
-  global Element3_5
-  global Element3_6
-  global Element3_7
-  global Element3_8
-  global Element3_9
-  global Element3_10
-  global Element3_11
-  global Element3_12
-  global Element3_13
-  
+  global appName, HMainHwnd, buttonHeight, hintTime
+  global configFile, app, runCas, cmdFile, Lb1
+  global exitHotkey, menuHotkey, mouserecordHotkey
+  global repeatTime, delayTime, allcmdsArr, cmdSeleted
+  global font, fontsize
+  global listBoxWidth, listBoxHeight
+  global appVersion, msgDefault, cmdSelected
+  global windowPosX, windowPosY
+  global MainStatusBarHwnd, repeatCounterDefault, repeatCounterStart
+  global Element3_1, Element3_2, Element3_3, Element3_4, Element3_5, Element3_6
+  global Element3_7, Element3_8, Element3_9, Element3_10, Element3_11, Element3_12, Element3_13
   global openerDeltaX
   
   prepare()
   
-  Gui,guiMain:Destroy
+  Gui, guiMain:Destroy
 
-  Gui,guiMain:New, +OwnDialogs +LastFound hwndHMainHwnd, %app%
-  Gui,guiMain:Font,s%fontsize%,%font%
-  Gui,guiMain:Color,cF0F0F0
+  Gui, guiMain:New, +OwnDialogs +LastFound hwndHMainHwnd, %app%
+  Gui, guiMain:Font,s%fontsize%,%font%
+  Gui, guiMain:Color,cF0F0F0
   
   timeInterval := formatTimeSeconds(repeatTime)
   timeDelay := formatTimeSeconds(delayTime)
@@ -382,74 +344,74 @@ mainWindow() {
   
   cmdList := getCmdList()
   
-  Gui,guiMain:Add, ListBox, 0x100 hwndLb1 x3 y3 w%listBoxWidth% h%listBoxHeight% vcmdSelected gcmdselectGetEntry, %cmdList%
+  Gui, guiMain:Add, ListBox, 0x100 hwndLb1 x3 y3 w%listBoxWidth% h%listBoxHeight% vcmdSelected gcmdselectGetEntry, %cmdList%
 
-  Gui,guiMain:Add, Button, x+m section w%buttonWidthLarge% gcasRunStartRepeated, RUN at Repeat-interval
+  Gui, guiMain:Add, Button, x+m section w%buttonWidthLarge% gcasRunStartRepeated, RUN at Repeat-interval
   
-  Gui,guiMain:Add, Button, xs w%buttonWidthLarge% gcasRunStandby, RUN/STANDBY at Repeat-interval
+  Gui, guiMain:Add, Button, xs w%buttonWidthLarge% gcasRunStandby, RUN/STANDBY at Repeat-interval
   
-  Gui,guiMain:Add, Button, xs w%buttonWidthLarge% gcasRunAfterDelay, RUN delayed at Repeat-interval
+  Gui, guiMain:Add, Button, xs w%buttonWidthLarge% gcasRunAfterDelay, RUN delayed at Repeat-interval
   
-  Gui,guiMain:Add, Button, xs w%buttonWidthLarge% gcasRunAfterDelayStandby, RUN/STANDBY delayed at Repeat-interval
+  Gui, guiMain:Add, Button, xs w%buttonWidthLarge% gcasRunAfterDelayStandby, RUN/STANDBY delayed at Repeat-interval
   
-  Gui,guiMain:Add, Button, xs w%buttonWidthLarge% r2 geditCmdFile, &Edit Command-file
+  Gui, guiMain:Add, Button, xs w%buttonWidthLarge% r2 geditCmdFile, &Edit Command-file
   
   column2 := buttonWidth + 10
-  Gui,guiMain:Add, Button, xs w%buttonWidth% r2 geditSingleOp, Edit selected command
-  Gui,guiMain:Add, Button, xs+%column2% yp+0 w%buttonWidth% r2 gdeleteSingleOp, Delete selected command
+  Gui, guiMain:Add, Button, xs w%buttonWidth% r2 geditSingleOp, Edit selected command
+  Gui, guiMain:Add, Button, xs+%column2% yp+0 w%buttonWidth% r2 gdeleteSingleOp, Delete selected command
   
-  Gui,guiMain:Add, Button, xs w%buttonWidth% gfileInsertEmpty, Prepend command
-  Gui,guiMain:Add, Button, xs+%column2% yp+0 w%buttonWidth% gfileAppendEmpty, Append command
+  Gui, guiMain:Add, Button, xs w%buttonWidth% gfileInsertEmpty, Prepend command
+  Gui, guiMain:Add, Button, xs+%column2% yp+0 w%buttonWidth% gfileAppendEmpty, Append command
   
-  Gui,guiMain:Add, Button, xs gToogleComment, Toggle comment //
-  Gui,guiMain:Add, Button, xs+%column2% yp+0 gToogleCommentSemi, Toggle comment `;
+  Gui, guiMain:Add, Button, xs gToogleComment, Toggle comment //
+  Gui, guiMain:Add, Button, xs+%column2% yp+0 gToogleCommentSemi, Toggle comment `;
   
-  Gui,guiMain:Add, Button, xs w%buttonWidth% gopenTaskschd, Windows Taskscheduler  
-  Gui,guiMain:Add, Button, xs+%column2% w%buttonWidth% yp+0 gcheckUpdate, Update-check
+  Gui, guiMain:Add, Button, xs w%buttonWidth% gopenTaskschd, Windows Taskscheduler  
+  Gui, guiMain:Add, Button, xs+%column2% w%buttonWidth% yp+0 gcheckUpdate, Update-check
   
-  Gui,guiMain:Add, Button, xs w%buttonWidth% gopenGitHubPage, HELP at Github
-  Gui,guiMain:Add, Button, xs+%column2% w%buttonWidth% yp+0 gShowHistory, System / history
+  Gui, guiMain:Add, Button, xs w%buttonWidth% gopenGitHubPage, HELP at Github
+  Gui, guiMain:Add, Button, xs+%column2% w%buttonWidth% yp+0 gShowHistory, System / history
   
-  Gui,guiMain:Add, Button, xs w%buttonWidth% gmouserecordOnce, Record a mouse-click
-  Gui,guiMain:Add, Button, xs+%column2% yp+0 w%buttonWidth% gloadset, Loadset
+  Gui, guiMain:Add, Button, xs w%buttonWidth% gmouserecordOnce, Record a mouse-click
+  Gui, guiMain:Add, Button, xs+%column2% yp+0 w%buttonWidth% gloadset, Loadset
     
   mouserecordHotkeyText := "Record mouse-clicks `n(" . hotkeyToText(mouserecordHotkey) . ")"
-  Gui,guiMain:Add, Button, xs r2 w%buttonWidth% gmouserecordToggle, %mouserecordHotkeyText%
+  Gui, guiMain:Add, Button, xs r2 w%buttonWidth% gmouserecordToggle, %mouserecordHotkeyText%
 
-  Gui,guiMain:Add, Button, xs+%column2% yp+0 w%buttonWidth% r2 geditIniFile, &Edit Config-file
+  Gui, guiMain:Add, Button, xs+%column2% yp+0 w%buttonWidth% r2 geditconfigFile, &Edit Config-file
   
   ;left row below listbox
-  Gui,guiMain:Add, Button,x3 w%buttonWidthLarge% r2 vElement3_1 gguiAction_singleOp, Singlestep
+  Gui, guiMain:Add, Button,x3 w%buttonWidthLarge% r2 vElement3_1 gguiAction_singleOp, Singlestep
   
-  Gui,guiMain:Add, Button,x+m yp+0 w%buttonWidth% r2 vElement3_2 gcasRunStartOnceOnly, RUN once only
+  Gui, guiMain:Add, Button,x+m yp+0 w%buttonWidth% r2 vElement3_2 gcasRunStartOnceOnly, RUN once only
   
-  Gui,guiMain:Add, Button, x+m yp+0 w%buttonWidth% r2 gcasRunStopStart, STOP RUN  
+  Gui, guiMain:Add, Button, x+m yp+0 w%buttonWidth% r2 gcasRunStopStart, STOP RUN  
   
   exitHotkeyText := "Kill this app `n(" . hotkeyToText(exitHotkey) . ")"
-  Gui,guiMain:Add, Button, x+m yp+0 w%buttonWidth% r2 gexit, %exitHotkeyText%
+  Gui, guiMain:Add, Button, x+m yp+0 w%buttonWidth% r2 gexit, %exitHotkeyText%
   
 
-  Gui,guiMain:Add, Button,x3 w%buttonWidth% genterInterval vElement3_3, Set Repeat-interval
-  Gui,guiMain:Add, Text,w90 xp+%deltaX3% yp+0 vElement3_4, [%timeInterval%]
+  Gui, guiMain:Add, Button,x3 w%buttonWidth% genterInterval vElement3_3, Set Repeat-interval
+  Gui, guiMain:Add, Text,w90 xp+%deltaX3% yp+0 vElement3_4, [%timeInterval%]
   
 
-  Gui,guiMain:Add, Button,x+m w%buttonWidth% genterWaitDelay vElement3_5, Set Start-delay
-  Gui,guiMain:Add, Text,w90 xp+%deltaX3% yp+0 vElement3_6, [%timeDelay%]
+  Gui, guiMain:Add, Button,x+m w%buttonWidth% genterWaitDelay vElement3_5, Set Start-delay
+  Gui, guiMain:Add, Text,w90 xp+%deltaX3% yp+0 vElement3_6, [%timeDelay%]
   
-  Gui,guiMain:Add, Button,x+m w%buttonWidth% genterCount vElement3_12, Set Repeat-Count
-  Gui,guiMain:Add, Text,w90 xp+%deltaX3% yp+0 vElement3_13, [%repeatCounterStart%]
+  Gui, guiMain:Add, Button,x+m w%buttonWidth% genterCount vElement3_12, Set Repeat-Count
+  Gui, guiMain:Add, Text,w90 xp+%deltaX3% yp+0 vElement3_13, [%repeatCounterStart%]
   
   
-  Gui,guiMain:Add, Text,x3 vElement3_7,Command-file:
-  Gui,guiMain:Add, Text,w%textWidth% xp+%deltaX3% yp+0 vElement3_8, %cmdFile%
+  Gui, guiMain:Add, Text,x3 vElement3_7,Command-file:
+  Gui, guiMain:Add, Text,w%textWidth% xp+%deltaX3% yp+0 vElement3_8, %cmdFile%
   
-  Gui,guiMain:Add, Text,x3 vElement3_9,Config-file:
-  Gui,guiMain:Add, Text,w%textWidth% xp+%deltaX3% yp+0 vElement3_10, %iniFile%
+  Gui, guiMain:Add, Text,x3 vElement3_9,Config-file:
+  Gui, guiMain:Add, Text,w%textWidth% xp+%deltaX3% yp+0 vElement3_10, %configFile%
   
   ; Errormessage
-  Gui,guiMain:Add, Text,w400 r2 cRed x3 vElement3_11
+  Gui, guiMain:Add, Text,w400 r2 cRed x3 vElement3_11
 
-  Gui,guiMain:Add, StatusBar, hwndMainStatusBarHwnd -Theme +BackgroundSilver
+  Gui, guiMain:Add, StatusBar, hwndMainStatusBarHwnd -Theme +BackgroundSilver
   
   Gui, guiMain:Menu, MainMenu
   
@@ -462,7 +424,7 @@ mainWindow() {
   
   Gui,guiOpener:Show,x%openerDeltaX% y2 hide autosize
   
-  OnMessage(515, "OnDblClick")	;Intercept WM_LBUTTONDBLCLK notifications
+  OnMessage(515, "OnDblClick")  ;Intercept WM_LBUTTONDBLCLK notifications
   
   showWindow()
   
@@ -479,18 +441,13 @@ openOpener(){
 
 ;-------------------------------- showWindow --------------------------------
 showWindow(){
-  global listBoxWidth
-  global listBoxHeight
-  global buttonHeight
-  global windowPosX
-  global windowPosY
-  global xPosActu
-  global yPosActu
+  global listBoxWidth, listBoxHeight, buttonHeight, windowPosX, windowPosY
+  global xPosActu, yPosActu
   
   setTimer,checkFocus,delete
   setTimer,checkFocus,3000
 
-  Gui,guiMain:Show,autosize
+  Gui, guiMain:Show,autosize
   
   ControlGetPos, X, Y, Width, bH, Button1
   
@@ -502,19 +459,11 @@ showWindow(){
 
 ;-------------------------------- refreshGui --------------------------------
 refreshGui(){
-  global buttonHeight
-  global cmdSelected
-  global HMainHwnd
-  
-  global repeatTime
-  global delayTime
-  global repeatCounterStart
-  
-  global Element3_4
-  global Element3_6
-  global Element3_13
+  global buttonHeight, cmdSelected, HMainHwnd
+  global repeatTime, delayTime, repeatCounterStart
+  global Element3_4, Element3_6, Element3_13
 
-  Gui,guiMain: Default
+  Gui, guiMain: Default
   cmdList := getCmdList()
   GuiControl,guiMain:,cmdSelected,|%cmdList% ; prefix the list with the delimiter (|) to replace the control's contents
   
@@ -540,87 +489,50 @@ prepare() {
 
 ;********************************** readIni **********************************
 readIni(){
-  global internalDebug
-  global repeatTime
-  global repeattimeDefault
-  global delayTime
-  global delayTimeDefault
-  global repeatCounterDefault
-  global repeatCounterStart
-  global wakeupbeforeeMinutesDefault
-  global wakeupbeforeeMinutes
-  global defaultShowTimeDefault
-  global defaultShowTime
-  global menuHotkey
-  global menuhotkeyDefault
-  global exitHotkey
-  global exitHotkeyDefault
-  global menuhotkeyDefault
-  global mouserecordHotkey
-  global mouserecordhotkeyDefault
-  global hintTimeShort
-  global hintTimeShortDefault
-  global hintTimeMedium
-  global hintTimeMediumDefault
-  global hintTime
-  global hintTimeDefault
-  global hintTimeLong
-  global hintTimeLongDefault
-  global wrkDir
-  global iniFile
-  global guiFile
-  global guiFileDefault
-  global autorun
-  global notepadpath
-  global notepadpathDefault
-  global emailpath
-  global emailpathDefault
-  global systemNeededMillisToShutdown
-  global systemNeededMillisToShutdownDefault
-  global recordlikenessDefault
-  global recordlikeness
-  global chrome
-  global chromeDefault
-  global firefox
-  global firefoxDefault
-  global edge
-  global edgeDefault
-
-  global fontDefault
-  global font
-  global fontsizeDefault
-  global fontsize
-  global deviationMaxDefault
-  global deviationMax
-  global defaultMouseSpeedDefault
-  global defaultMouseSpeed
-  
+  global internalDebug, repeatTime, repeattimeDefault
+  global delayTime, delayTimeDefault
+  global repeatCounterDefault, repeatCounterStart
+  global wakeupbeforeeMinutesDefault, wakeupbeforeeMinutes
+  global defaultShowTimeDefault, defaultShowTime
+  global menuHotkey, menuhotkeyDefault
+  global exitHotkey, exitHotkeyDefault
+  global mouserecordHotkey, mouserecordhotkeyDefault, hintTimeShort
+  global hintTimeShortDefault, hintTimeMedium, hintTimeMediumDefault, hintTime, hintTimeDefault, hintTimeLong, hintTimeLongDefault
+  global wrkDir, configFile, guiFile, guiFileDefault
+  global autorun, notepadpath, notepadpathDefault, emailpath, emailpathDefault
+  global systemNeededMillisToShutdown, systemNeededMillisToShutdownDefault
+  global recordlikenessDefault, recordlikeness
+  global chrome, chromeDefault
+  global firefox, firefoxDefault
+  global edge, edgeDefault
+  global fontDefault, font, fontsizeDefault, fontsize
+  global deviationMaxDefault, deviationMax
+  global defaultMouseSpeedDefault, defaultMouseSpeed
   global showOpener
   global openerDeltaX
   global openerDeltaXDefault
-  
 
-  IniRead, guiFileRead, %iniFile%, setup, guiFile ,%guiFileDefault%
+  guiFileRead := iniReadSave("guiFileRead", "setup", guiFileDefault)
   if (guiFileRead != "")
-    guiFile := resolvepath(wrkDir,guiFileRead)
+    guiFile := resolvepath(wrkDir, guiFileRead)
   
-  IniRead, autorun, %iniFile%, run, autorun ,off
+  autorun := iniReadSave("autorun", "run", "off")
   
-  IniRead, recordlikeness, %iniFile%, run, recordlikeness , recordlikenessDefault
+  recordlikeness := iniReadSave("recordlikeness", "run", recordlikenessDefault)
   
-  IniRead, repeatTime, %iniFile%, timing, repeatTime, %repeattimeDefault%
+  repeatTime := iniReadSave("repeatTime", "timing", repeattimeDefault)
   
-  IniRead, delayTime, %iniFile%, timing, delayTime, %delaytimeDefault%
+  delayTime := iniReadSave("delayTime", "timing", delaytimeDefault)
   
-  IniRead, repeatCounterStart, %iniFile%, config, repeatCounter, %repeatCounterDefault% 
+  repeatCounterStart := iniReadSave("repeatCounterStart", "config", repeatCounterDefault )
   
-  IniRead, wakeupbeforeeMinutes, %iniFile%, timing, wakeupbeforeeMinutes, %wakeupbeforeeMinutesDefault%
+  wakeupbeforeeMinutes := iniReadSave("wakeupbeforeeMinutes", "timing", wakeupbeforeeMinutesDefault)
   
-  IniRead, defaultShowTime, %iniFile%, timing, defaultShowTime, %defaultShowTimeDefault%
+  defaultShowTime := iniReadSave("defaultShowTime", "timing", defaultShowTimeDefault)
   
-  IniRead, systemNeededMillisToShutdown, %iniFile%, timing, systemNeededMillisToShutdown, %systemNeededMillisToShutdownDefault%
+  systemNeededMillisToShutdown := iniReadSave("systemNeededMillisToShutdown", "timing", systemNeededMillisToShutdownDefault)
   
-  IniRead, menuHotkey, %iniFile%, hotkeys, menuHotkey, %menuhotkeyDefault%
+  menuHotkey := iniReadSave("menuHotkey", "hotkeys", menuhotkeyDefault)
   if (InStr(menuHotkey, "off") > 0){
     s := StrReplace(menuHotkey, "off" , "")
     Hotkey, %s%, showWindowRefreshed, off
@@ -628,7 +540,7 @@ readIni(){
     Hotkey, %menuHotkey%, showWindowRefreshed
   }
 
-  IniRead, exitHotkey, %iniFile%, hotkeys, exitHotkey, %exitHotkeyDefault%
+  exitHotkey := iniReadSave("exitHotkey", "hotkeys", exitHotkeyDefault)
   if (InStr(exitHotkey, "off") > 0){
     s := StrReplace(exitHotkey, "off" , "")
     Hotkey, %s%, exit, off
@@ -636,33 +548,35 @@ readIni(){
     Hotkey, %exitHotkey%, exit
   }
 
-  IniRead, mouserecordHotkey, %iniFile%, hotkeys, mouserecordhotkey , %mouserecordhotkeyDefault%
+  mouserecordHotkey := iniReadSave("mouserecordHotkey", "hotkeys", mouserecordhotkeyDefault)
+  
   Hotkey, %mouserecordHotkey%, mouserecordToggle
   
-  IniRead, hintTimeShort, %iniFile%, timing, hintTimeShort , %hintTimeShortDefault%
-  IniRead, hintTimeMedium, %iniFile%, timing, hintTimeMedium , %hintTimeMediumDefault%
-  IniRead, hintTime, %iniFile%, timing, hintTime , %hintTimeDefault%
-  IniRead, hintTimeLong, %iniFile%, timing, hintTimeLong , %hintTimeLongDefault%
+  ;IniRead, hintTimeShort, %configFile%, timing, hintTimeShort , %hintTimeShortDefault%
+  hintTimeShort := iniReadSave("hintTimeShort", "timing", hintTimeShortDefault)
   
-  IniRead, notepadpath, %iniFile%, external, notepadpath, %notepadpathDefault%
-  IniRead, emailpath, %iniFile%, external, emailpath, %emailpathDefault%
+  hintTimeMedium := iniReadSave("hintTimeMedium", "timing", hintTimeMediumDefault)
+  hintTime := iniReadSave("hintTime", "timing", hintTimeDefault)
+  hintTimeLong := iniReadSave("hintTimeLong", "timing", hintTimeLongDefault)
   
-  IniRead, chrome, %iniFile%, external, chrome, %chromeDefault%
-  IniRead, firefox, %iniFile%, external, firefox, %firefoxDefault%
-  IniRead, edge, %iniFile%, external, edge, %edgeDefault%
+  notepadpath := iniReadSave("notepadpath", "external", notepadpathDefault)
+  emailpath := iniReadSave("emailpath", "external", emailpathDefault)
   
-  IniRead, deviationMax, %iniFile%, config, deviationMax, %deviationMaxDefault%
+  chrome := iniReadSave("chrome", "external", chromeDefault)
+  firefox := iniReadSave("firefox", "external", firefoxDefault)
+  edge := iniReadSave("edge", "external", edgeDefault)
   
-  IniRead, debugRead, %iniFile%, config, internalDebug, off
+  deviationMax := iniReadSave("deviationMax", "config", deviationMaxDefault)
+  debugRead := iniReadSave("debugRead", "config", "off")
   if (StrLower(debugRead) == "on" || StrLower(debugRead) == "yes" || StrLower(debugRead) == "y")
     internalDebug := true
     
-  IniRead, defaultMouseSpeed, %iniFile%, config, defaultMouseSpeed, %defaultMouseSpeedDefault%
+  IniRead, defaultMouseSpeed, %configFile%, config, defaultMouseSpeed, %defaultMouseSpeedDefault%
   SetDefaultMouseSpeed, defaultMouseSpeed
   SendMode Event
 
-  IniRead, openerDeltaX, %iniFile%, config, openerDeltaX , openerDeltaXDefault
-  IniRead, showCLSOpener, %iniFile%, config, showCLSOpener, "no"
+  openerDeltaX := iniReadSave("openerDeltaX", "config", openerDeltaXDefault)
+  showCLSOpener := iniReadSave("showCLSOpener", "config", "no")
   if(showCLSOpener == "yes")
     showOpener := true
 
@@ -672,21 +586,15 @@ readIni(){
 
 ;------------------------------- readGuiParam -------------------------------
 readGuiParam(){
-  global iniFile
-  global guiFile
-  global fontDefault
-  global font
-  global fontsizeDefault
-  global fontsize
-  global windowPosX
-  global windowPosY
+  global configFile, guiFile, fontDefault, font, fontsizeDefault, fontsize
+  global windowPosX, windowPosY
   
   IniRead, windowPosX, %guiFile%, window, windowPosX, 0
   
   IniRead, windowPosY, %guiFile%, window, windowPosY, 0
   
-  IniRead, font, %iniFile%, config, font, %fontDefault%
-  IniRead, fontsize, %iniFile%, config, fontsize, %fontsizeDefault%
+  IniRead, font, %configFile%, config, font, %fontDefault%
+  IniRead, fontsize, %configFile%, config, fontsize, %fontsizeDefault%
   
   fontsize := Min(16,fontsize)
   fontsize := Max(6,fontsize)
@@ -706,16 +614,9 @@ formatTimeSeconds(timeSeconds){
 
 ;---------------------------- casRunStartOnceOnly ----------------------------
 casRunStartOnceOnly(){
-  global runDoLoop
-  global runCas
-  global runCasOnceOnly
-  global runCasStandby
-  global hintTimeMedium
+  global runDoLoop, runCas, runCasOnceOnly, runCasStandby, hintTimeMedium
   
-  global downCounter
-  global repeatTime
-  global debug
-  global errorLevelMemo
+  global downCounter, repeatTime, debug, errorLevelMemo
   
   errorLevelMemo := false
   
@@ -747,11 +648,7 @@ showOpRunning(){
 
 ;-------------------------------- casRunOnce --------------------------------
 casRunOnce(){
-  global cmdFile
-  global runCas
-  global runDoLoop
-  global debug
-  global errorLevelMemo
+  global cmdFile, runCas, runDoLoop, debug, errorLevelMemo
   
   errorLevelMemo := false
   
@@ -798,19 +695,9 @@ casRunStopStart(){
 
 ;-------------------------------- casRunStop --------------------------------
 casRunStop(){
-  global runDoLoop
-  global runCas
-  global runCasOnceOnly
-  global runCasStandby
-  global runCasAfterDelay
-  global runCasAfterDelayStandby
-  global errorLevelMemo
-  
-  global downCounter
-  global sleepDownCounter
-  global counter
-  global delayDownCounter
-  global likenessCheckLoopLongRun
+  global runDoLoop, runCas, runCasOnceOnly, runCasStandby, runCasAfterDelay, runCasAfterDelayStandby
+  global errorLevelMemo, downCounter, sleepDownCounter
+  global counter, delayDownCounter, likenessCheckLoopLongRun
   
   errorLevelMemo := false
     
@@ -842,11 +729,7 @@ casRunStop(){
 
 ;---------------------------- showWindowRefreshed ----------------------------
 showWindowRefreshed(posCursor := false){
-  global menuHotkey
-  global mouserecordHotkey
-  global xPosActu
-  global yPosActu
-  global defaultMouseSpeed
+  global menuHotkey, mouserecordHotkey, xPosActu, yPosActu, defaultMouseSpeed
 
   prepare()
   
@@ -870,7 +753,7 @@ hideWindow(){
   global showOpener
   
   setTimer,checkFocus,delete
-  Gui,guiMain:Hide
+  Gui, guiMain:Hide
   
   sleep,1000
   
@@ -887,8 +770,7 @@ hideWindow(){
 
 ;-------------------------- cmdselectSetEntryReset --------------------------
 cmdselectSetEntryReset(){
-  global listBoxEntry
-  global ListBox1
+  global listBoxEntry, ListBox1
 
   listBoxEntry := 1
 
@@ -901,8 +783,7 @@ cmdselectSetEntryReset(){
 
 ;--------------------------- showMessageDefaultCAS ---------------------------
 showMessageDefaultCAS(){
-  global menuHotkey
-  global mouserecordHotkey
+  global menuHotkey, mouserecordHotkey
   
   msg1 := "Hotkey: " . hotkeyToText(menuHotkey)
   msg2 := " Record-hotkey (on/off): " . hotkeyToText(mouserecordHotkey) . ", off: Right-click"
@@ -929,8 +810,7 @@ showMessageCAS(hk1, hk2, reso, memory){
 
 ;----------------------------- cmdselectSetEntry -----------------------------
 cmdselectSetEntry(){
-  global listBoxEntry
-  global ListBox1
+  global listBoxEntry, ListBox1
 
   GuiControl,guiMain:Choose,ListBox1,%listBoxEntry%
   updateSingleStepButton()
@@ -939,8 +819,7 @@ cmdselectSetEntry(){
 }
 ;-------------------------- updateSingleStepButton --------------------------
 updateSingleStepButton(){
-  global Element3_1
-  global listBoxEntry
+  global Element3_1, listBoxEntry
   
   GuiControl,guiMain:, Element3_1, Singestep (%listBoxEntry%)
   
@@ -957,12 +836,8 @@ showCapslock(){
 
 ;-------------------------------- checkFocus --------------------------------
 checkFocus(){
-  global internalDebug
-  global HMainHwnd
-  global iniFile
-  global guiFile
-  global windowPosX
-  global windowPosY
+  global internalDebug, HMainHwnd, configFile, guiFile
+  global windowPosX, windowPosY
 
   h := WinActive("A")
   Gui +LastFound
@@ -1015,8 +890,7 @@ checkFocus(){
 
 ;***************************** cmdselectGetEntry *****************************
 cmdselectGetEntry(){
-  global listBoxEntry
-  global ListBox1
+  global listBoxEntry, ListBox1
 
   if(listBoxEntry == 0){
     listBoxEntry := 1
@@ -1054,10 +928,8 @@ removeErrorMessage(){
 
 ;**************************** guiAction_singleOp ****************************
 guiAction_singleOp(showOp := false){
-  global cmdSelected
-  global listBoxEntry
-  global xPosActu
-  global yPosActu
+  global cmdSelected, listBoxEntry
+  global xPosActu, yPosActu
   
   MouseGetPos, xPosActu, yPosActu
   
@@ -1070,10 +942,8 @@ guiAction_singleOp(showOp := false){
 
 ;------------------------------- editSingleOp -------------------------------
 editSingleOp(){
-  global cmdSelected
-  global listBoxEntry
-  global xPosActu
-  global yPosActu
+  global cmdSelected, listBoxEntry
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -1088,23 +958,12 @@ editSingleOp(){
 
 ;------------------------------- singleOpEdit -------------------------------
 singleOpEdit(){
-  global cmdFile
-  global hintTimeShort
-  global hintTimeMedium
-  global hintTime
-  global runDoLoop
-  global debug
+  global cmdFile, hintTimeShort, hintTimeMedium, hintTime
+  global runDoLoop, debug
 
-  global allcmdsArr
-  global cmdSelected
-  global listBoxEntry
+  global allcmdsArr, cmdSelected, listBoxEntry
   
-  global runDoLoop
-  global runCas
-  global runCasOnceOnly
-  global runCasStandby
-  global runCasAfterDelay
-  global runCasAfterDelayStandby
+  global runDoLoop, runCas, runCasOnceOnly, runCasStandby, runCasAfterDelay, runCasAfterDelayStandby
 
   cmd:= ""
 
@@ -1148,24 +1007,12 @@ singleOpEdit(){
 
 ;------------------------------ deleteSingleOp ------------------------------
 deleteSingleOp(){
-  global cmdFile
-  global hintTimeShort
-  global hintTimeMedium
-  global hintTime
-  global debug
+  global cmdFile, hintTimeShort, hintTimeMedium, hintTime, debug
 
-  global allcmdsArr
-  global cmdSelected
-  global listBoxEntry
+  global allcmdsArr, cmdSelected, listBoxEntry
   
-  global runDoLoop
-  global runCas
-  global runCasOnceOnly
-  global runCasStandby
-  global runCasAfterDelay
-  global runCasAfterDelayStandby
-  global xPosActu
-  global yPosActu
+  global runDoLoop, runCas, runCasOnceOnly, runCasStandby, runCasAfterDelay, runCasAfterDelayStandby
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -1206,9 +1053,7 @@ deleteSingleOp(){
 
 ;************************* ToogleComment *************************
 ToogleComment(){
-  global cmdSelected
-  global xPosActu
-  global yPosActu
+  global cmdSelected, xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -1224,9 +1069,7 @@ ToogleComment(){
 
 ;************************* ToogleCommentSemi *************************
 ToogleCommentSemi(){
-  global cmdSelected
-  global xPosActu
-  global yPosActu
+  global cmdSelected, xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -1241,8 +1084,7 @@ ToogleCommentSemi(){
 }
 ;*************************** ShowHistory ***************************
 ShowHistory(){
-  global xPosActu
-  global yPosActu
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -1253,8 +1095,7 @@ ShowHistory(){
 
 ;******************************** getCmdList ********************************
 getCmdList(){
-  global cmdFile
-  global allcmdsArr
+  global cmdFile, allcmdsArr
   
   allcmdsArr := []
   r := ""
@@ -1296,12 +1137,7 @@ openTaskschd(){
 
 ;********************************* isRunning *********************************
 isRunning(force := false){
-  global runDoLoop
-  global runCas
-  global runCasOnceOnly
-  global runCasStandby
-  global runCasAfterDelay
-  global runCasAfterDelayStandby
+  global runDoLoop, runCas, runCasOnceOnly, runCasStandby, runCasAfterDelay, runCasAfterDelayStandby
   
   retValue := false
   
@@ -1316,17 +1152,10 @@ isRunning(force := false){
 
 ;********************************* singleOp *********************************
 singleOp(showOp := false){
-  global cmdFile
-  global hintTimeShort
-  global hintTimeMedium
-  global runDoLoop
-  global debug
-  global runSingleOp
-  global allcmdsArr
-  global cmdSelected
-  global listBoxEntry
-  global xPosActu
-  global yPosActu
+  global cmdFile, hintTimeShort, hintTimeMedium
+  global runDoLoop, debug, runSingleOp
+  global allcmdsArr, cmdSelected, listBoxEntry
+  global xPosActu, yPosActu
 
   commandArr := []
 
@@ -1399,17 +1228,9 @@ MoveCursorToEnd(){
 
 ;*************************** singleOpToogleComment ***************************
 singleOpToogleComment(){
-  global cmdFile
-  global hintTimeShort
-  global hintTimeMedium
-  global runDoLoop
-  global debug
-  global runSingleOp
-  global allcmdsArr
-  global cmdSelected
-  global listBoxEntry
-  global ListBox1
-  global Lb1
+  global cmdFile, hintTimeShort, hintTimeMedium
+  global runDoLoop, debug, runSingleOp
+  global allcmdsArr, cmdSelected, listBoxEntry, ListBox1, Lb1
 
   commandArr := []
   
@@ -1455,15 +1276,9 @@ singleOpToogleComment(){
 
 ;*************************** singleOpToogleCommentSemi ***************************
 singleOpToogleCommentSemi(){
-  global cmdFile
-  global hintTimeShort
-  global hintTimeMedium
-  global runDoLoop
-  global debug
-  global runSingleOp
-  global allcmdsArr
-  global cmdSelected
-  global listBoxEntry
+  global cmdFile, hintTimeShort, hintTimeMedium
+  global runDoLoop, debug, runSingleOp
+  global allcmdsArr, cmdSelected, listBoxEntry
   global Lb1
 
   commandArr := []
@@ -1510,19 +1325,10 @@ singleOpToogleCommentSemi(){
 
 ;**************************** casRunStartRepeated ****************************
 casRunStartRepeated(continue := false){
-  global runDoLoop
-  global runCas
-  global runCasOnceOnly
-  global runCasStandby
+  global runDoLoop, runCas, runCasOnceOnly, runCasStandby
   
-  global hintTimeMedium
-  global downCounter
-  global repeatTime
-  global repeatCounterStart
-  global repeatCounter
-  global errorLevelMemo
-  global xPosActu
-  global yPosActu
+  global hintTimeMedium, downCounter, repeatTime, repeatCounterStart, repeatCounter, errorLevelMemo
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -1561,13 +1367,8 @@ casRunStartRepeated(continue := false){
 
 ;--------------------------------- countDown ---------------------------------
 countDown(){
-  global hintTime
-  global downCounter
-  global runCas
-  global runCasOnceOnly
-  global repeatTime
-  global repeatCounter
-  global repeatCounterStart
+  global hintTime, downCounter
+  global runCas, runCasOnceOnly, repeatTime, repeatCounter, repeatCounterStart
 
 
   switch getKeyboardState()
@@ -1576,7 +1377,7 @@ countDown(){
       downCounter -= 1
       
       tipWindow("Countdown: " . formatTimeSeconds(downCounter) . " (" . repeatCounter . ")",150,0,false)
-      Gui,guiMain:Hide
+      Gui, guiMain:Hide
       
       if(downCounter < 1){
         if (runCasOnceOnly){
@@ -1585,7 +1386,7 @@ countDown(){
           casRunStop()
         }
         if (runCas){
-					setTimer,countDown,delete
+          setTimer,countDown,delete
           casRunOnce()
           downCounter := repeatTime
           
@@ -1605,7 +1406,7 @@ countDown(){
     case 1:
       tipWindow("Hold on!",150,0,false)
     case 5:
-			setTimer,countDown,delete
+      setTimer,countDown,delete
       casRunStop()
       tipWindow("All operations aborted!",0,2000)
       
@@ -1617,22 +1418,10 @@ countDown(){
 
 ;******************************* casRunStandby *******************************
 casRunStandby(continue := false){
-  global runDoLoop
-  global runCas
-  global runCasOnceOnly
-  global runCasStandby
-  global repeatCounterStart
-  global repeatCounter
+  global runDoLoop, runCas, runCasOnceOnly, runCasStandby, repeatCounterStart, repeatCounter
   
-  global hintTime
-  global hintTimeMedium
-  global downCounter
-  global repeatTime
-  global systemNeededMillisToShutdown
-  global errorLevelMemo
-  global cancelShutdown
-  global xPosActu
-  global yPosActu
+  global hintTime, hintTimeMedium, downCounter, repeatTime, systemNeededMillisToShutdown, errorLevelMemo, cancelShutdown
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -1696,12 +1485,7 @@ casRunStandby(continue := false){
 
 ;*************************** waitUntilCorrectTime ***************************
 waitUntilCorrectTime(){
-  global runDoLoop
-  global hintTime
-  global hintTimeMedium
-  global startTime
-  global repeatTime
-  global counter
+  global runDoLoop, hintTime, hintTimeMedium, startTime, repeatTime, counter
   
   t := A_TickCount
   
@@ -1742,14 +1526,9 @@ waitUntilCorrectTime(){
 
 ;***************************** casRunAfterDelay *****************************
 casRunAfterDelay(){
-  global runDoLoop
-  global hintTimeMedium
-  global runCasAfterDelay
-  global delayDownCounter
-  global delayTime
-  global errorLevelMemo
-  global xPosActu
-  global yPosActu
+  global runDoLoop, hintTimeMedium, runCasAfterDelay
+  global delayDownCounter, delayTime, errorLevelMemo
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -1772,17 +1551,7 @@ casRunAfterDelay(){
 
 ;************************* casRunAfterDelayCountdown *************************
 casRunAfterDelayCountdown(){
-  global runDoLoop
-  global downCounter
-  global runCas
-  global runCasOnceOnly
-  global delayTime
-  global runCasAfterDelay
-  global delayDownCounter
-  global hintTime
-  global repeatTime
-  global errorLevelMemo
-  global runDoLoop
+  global runDoLoop, downCounter, runCas, runCasOnceOnly, delayTime, runCasAfterDelay, delayDownCounter, hintTime, repeatTime, errorLevelMemo, runDoLoop
   
   errorLevelMemo := false
   
@@ -1821,17 +1590,11 @@ casRunAfterDelayCountdown(){
 
 ;************************** casRunAfterDelayStandby **************************
 casRunAfterDelayStandby(){
-  global runDoLoop
-  global hintTimeMedium
-  global runCasAfterDelayStandby
-  global delayDownCounter
-  global delayTime
+  global runDoLoop, hintTimeMedium, runCasAfterDelayStandby, delayDownCounter, delayTime
   global errorLevelMemo
-  global xPosActu
-  global yPosActu
+  global xPosActu, yPosActu
   
-  global repeatCounterStart
-  global repeatCounter
+  global repeatCounterStart, repeatCounter
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -1878,11 +1641,8 @@ casRunAfterDelayStandby(){
 
 ;********************* casRunAfterDelayStandbyCountdown *********************
 casRunAfterDelayStandbyCountdown(){
-  global downCounter
-  global runCasStandby
-  global runCasAfterDelayStandby
-  global delayDownCounter
-  global runDoLoop
+  global downCounter, runCasStandby, runCasAfterDelayStandby
+  global delayDownCounter, runDoLoop
   
   if (runCasAfterDelayStandby){
   
@@ -1924,15 +1684,13 @@ casRunAfterDelayStandbyCountdown(){
 
 ;******************************* enterInterval *******************************
 enterInterval(){
-  global repeatTime
-  global iniFile
-  global Element3_4
+  global repeatTime, configFile, Element3_4
   
   ;InputBox, inp , Edit command, Prompt, HIDE, Width, Height, X, Y, Locale, Timeout, Default
   InputBox, delaySeconds, Repeat-Delay, Please enter interval in seconds:,,,120,,,,,%repeatTime%
   if(!ErrorLevel){
     repeatTime := delaySeconds
-    IniWrite, %repeatTime%, %iniFile%, timing, repeatTime
+    IniWrite, %repeatTime%, %configFile%, timing, repeatTime
   }
   timeInterval := formatTimeSeconds(repeatTime)
 
@@ -1945,14 +1703,12 @@ enterInterval(){
 
 ;****************************** enterWaitDelay ******************************
 enterWaitDelay(){
-  global delayTime
-  global iniFile
-  global Element3_6
+  global delayTime, configFile, Element3_6
   
   InputBox, delaySeconds, Delay time first run, Please enter delay in seconds:,,,120,,,,,%delayTime%
   if(!ErrorLevel) {
     delayTime := delaySeconds
-    IniWrite, %delayTime%, %iniFile%, timing, delayTime
+    IniWrite, %delayTime%, %configFile%, timing, delayTime
   }
   timeDelay := formatTimeSeconds(delayTime)
   GuiControl,guiMain:, Element3_6, [%timeDelay%]
@@ -1964,17 +1720,14 @@ enterWaitDelay(){
 
 ;-------------------------------- enterCount --------------------------------
 enterCount(){
-  global repeatCounterDefault
-  global repeatCounterStart
+  global repeatCounterDefault, repeatCounterStart
 
-  global repeatTime
-  global iniFile
-  global Element3_13
+  global repeatTime, configFile, Element3_13
   
   InputBox, repeatCounterIn, Repeat-count, Please enter Repeat-count:,,,120,,,,,%repeatCounterStart%
   if(!ErrorLevel){
     repeatCounterStart := repeatCounterIn
-    IniWrite, %repeatCounterStart%, %iniFile%, config, repeatCounter
+    IniWrite, %repeatCounterStart%, %configFile%, config, repeatCounter
   }
 
   GuiControl,guiMain:, Element3_13, [%repeatCounterStart%]
@@ -1986,8 +1739,7 @@ enterCount(){
 
 ;------------------------------ mouserecordOnce ------------------------------
 mouserecordOnce(){
-  global xPosActu
-  global yPosActu
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -2042,10 +1794,7 @@ mouserecordClickOnce(){
 
 ;----------------------------- mouserecordClick -----------------------------
 mouserecordClick(onlyOnce := false){
-  global cmdFile
-  global hintTimeShort
-  global hintTime
-  global recordlikeness
+  global cmdFile, hintTimeShort, hintTime, recordlikeness
   
   if(!onlyOnce){
     Hotkey, LBUTTON, mouserecordClick, OFF
@@ -2178,10 +1927,8 @@ mouserecordClick(onlyOnce := false){
 
 ;------------------------------ fileInsertEmpty ------------------------------
 fileInsertEmpty() {
-  global listBoxEntry
-  global cmdFile
-  global xPosActu
-  global yPosActu
+  global listBoxEntry, cmdFile
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -2206,10 +1953,8 @@ fileInsertEmpty() {
 
 ;------------------------------ fileAppendEmpty ------------------------------
 fileAppendEmpty() {
-  global listBoxEntry
-  global cmdFile
-  global xPosActu
-  global yPosActu
+  global listBoxEntry, cmdFile
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -2234,13 +1979,8 @@ fileAppendEmpty() {
 
 ;******************************** editCmdFile ********************************
 editCmdFile() {
-  global wrkDir
-  global cmdFile
-  global iniFile
-  global notepadpath
-  global notepadpathDefault
-  global xPosActu
-  global yPosActu
+  global wrkDir, cmdFile, configFile, notepadpath, notepadpathDefault
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
 
@@ -2255,14 +1995,11 @@ editCmdFile() {
   return
 }
 
-;******************************** editIniFile ********************************
-editIniFile() {
-  global iniFile
-  global notepadpath
-  global appName
-  global bitName
+;******************************** editconfigFile ********************************
+editconfigFile() {
+  global configFile, notepadpath, appName, bitName
 
-  f := notepadpath . " " . iniFile
+  f := notepadpath . " " . configFile
   runWait %f%,,max
   
   removeErrorMessage()
@@ -2282,17 +2019,10 @@ editIniFile() {
 
 ;****************************** activateWakeup ******************************
 activateWakeup(){
-  global wrkDir
-  global wakeUpFile
-  global hintTime
-  global hintTimeShort
-  global appName
-  global repeatTime
-  global wakeupbeforeeMinutes
-  global iniFile
-  global wakeupDateTime
-  global downCounterShutdown
-  global cancelShutdown
+  global wrkDir, wakeUpFile, hintTime, hintTimeShort
+  global appName, repeatTime, wakeupbeforeeMinutes
+  global configFile, wakeupDateTime
+  global downCounterShutdown, cancelShutdown
     
   StringLower, appn, appName
   exeToRun := wrkDir . appn . ".exe"
@@ -2402,10 +2132,7 @@ FileAppend,
 
 ;****************************** activateStandby ******************************
 activateStandby(){
-  global wrkDir
-  global startTime
-  global hintTime
-  global wakeUpFile
+  global wrkDir, startTime, hintTime, wakeUpFile
   
   startTime := A_TickCount
   
@@ -2417,13 +2144,8 @@ activateStandby(){
 
 ;***************************** countDownShutdown *****************************
 countDownShutdown(){
-  global hintTime
-  global downCounterShutdown
-  global runCas
-  global runCasOnceOnly
-  global repeatTime
-  global wrkDir
-  global wakeUpFile
+  global hintTime, downCounterShutdown, runCas, runCasOnceOnly
+  global repeatTime, wrkDir, wakeUpFile
   global cancelShutdown
 
   tipWindow("",0,0,true)
@@ -2505,11 +2227,8 @@ envVariConvert(s){
 
 ;********************************** loadset **********************************
 loadset(){
-  global wrkDir
-  global cmdFile
-  global iniFile
-  global xPosActu
-  global yPosActu
+  global wrkDir, cmdFile, configFile
+  global xPosActu, yPosActu
 
   MouseGetPos, xPosActu, yPosActu
   
@@ -2523,7 +2242,7 @@ loadset(){
     inif := StrReplace(path,".txt",".ini")
 
     if (FileExist(inif) != ""){
-      iniFile := inif
+      configFile := inif
     } else {
       showErrorMessage("Active Config-file not changed!")
       sleep,2000
@@ -2568,10 +2287,7 @@ waitUntilTaskbarHidden(){
 
 ;-------------------------------- startUpdate --------------------------------
 startUpdate(){
-  global wrkdir
-  global appname
-  global bitName
-  global appextension
+  global wrkdir, appname, bitName, appextension
 
   updaterExeVersion := "updater" . bitName . appextension
   
@@ -2583,19 +2299,28 @@ startUpdate(){
     msgbox, Updater not found, using old update mechanism is deprecated, please reinstall the app!
     ; updateApp()
   }
-	
+  
   showWindow()
 
   return
 }
-
+;-------------------------------- iniReadSave --------------------------------
+iniReadSave(name, section, defaultValue){
+  global configFile
+  
+  r := ""
+  IniRead, r, %configFile%, %section%, %name%, %defaultValue%
+  if (r == "" || r == "ERROR")
+    r := defaultValue
+    
+  return r
+}
 ;*********************************** exit ***********************************
 exit(){
-  global app
-  global hintTimeShort
+  global app, hintTimeShort
 
   casRunStop()
-  Gui,guiMain:Destroy
+  Gui, guiMain:Destroy
   showHint("""" . app . """ removed from memory!", hintTimeShort)
   ToolTip
   tipWindowClose()

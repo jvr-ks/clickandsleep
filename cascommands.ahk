@@ -2,54 +2,18 @@
 ; clickandsleep enhanced commands
 
 doAction(commandsArr, index){
-  global wrkDir
-  global winArr
-  global hintTime
-  global hintTimeShort
-  global debug
-  global showmousemove
-  global runCas
-
-  global casRunStart
-  global casRunStartStandby
-  
-  global runCasOnceOnly
-  global runCasStandby
-  global runCasAfterDelay
-  global runCasAfterDelayStandby
-
-  global runDoLoop
-  global debugShowSleep
-  
-  global downCounter
-  global sleepDownCounter
-  global counter
-  global delayDownCounter
-  
-  global winCon
-  global runPID
-  global runSingleOp
-  global errorLevelMemo
-  global defaultShowTime
-  global scriptcoordinateX
-  global scriptcoordinateY
-  global iniFile
-  global cmdFile
-  global chrome
-  global firefox
-  global edge
-  global errormessage
-  global listBoxEntry
-  global deviationMax
-  
+  global wrkDir, winArr, hintTime, hintTimeShort, debug, showmousemove, runCas
+  global casRunStart, casRunStartStandby
+  global runCasOnceOnly, runCasStandby, runCasAfterDelay, runCasAfterDelayStandby
+  global runDoLoop, debugShowSleep
+  global downCounter, sleepDownCounter, counter, delayDownCounter
+  global winCon, runPID, runSingleOp, errorLevelMemo
+  global defaultShowTime, scriptcoordinateX, scriptcoordinateY
+  global configFile, cmdFile, chrome, firefox, edge, errormessage
+  global listBoxEntry, deviationMax
   global defaultMouseSpeed
-  
-  global Element3_8
-  global Element3_10
-  global Element3_11
-  
-  global likenessCheckLoopLongRun
-  global showmousemoveSpeed
+  global Element3_8, Element3_10, Element3_11
+  global likenessCheckLoopLongRun, showmousemoveSpeed
   
   enhancedCommand := false
   theCommand := commandsArr[1]
@@ -803,14 +767,13 @@ doAction(commandsArr, index){
   } 
   
   
-  
   if(eq(theCommand,"openchrome")){
     winCon := 0
     errorlevelmemo := 0
     winCon := WinExist("ahk_exe chrome.exe")
     if (winCon){
       WinClose, ahk_exe chrome.exe,,10
-      sleep,1000
+      sleep, 1000
     }
     winCon := WinExist("ahk_exe chrome.exe")
     if (!winCon){
@@ -1007,8 +970,8 @@ doAction(commandsArr, index){
     }
     
     if (FileExist(p . ".ini") != ""){
-      iniFile := p . ".ini"
-      GuiControl,guiMain:,Element3_10,%iniFile%
+      configFile := p . ".ini"
+      GuiControl,guiMain:,Element3_10,%configFile%
       removeErrorMessage()
     } else {
       showErrorMessage("Active Config-file not changed!")
@@ -1607,8 +1570,7 @@ nearBy(a,b,d){
 ;------------------------------- tipWindowRun -------------------------------
 tipWindowRun(msg, transp, timeout, refresh := true){
   ; using own Gui
-  global font
-  global fontsize
+  global font, fontsize
   
   static text1Hwnd := 0
   static tipWindowTextWidth := 0

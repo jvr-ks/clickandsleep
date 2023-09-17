@@ -8,6 +8,13 @@
 ;----------------------------------- StrQ -----------------------------------
 ; from https://www.autohotkey.com/boards/viewtopic.php?t=57295#p328684
 
+; Parameters:
+
+    ; List The variable containing queue
+    ; Item A new (unique) string to be added to the top of list. An existing item will be bumped to the top.
+    ; Max String capacity of Queue
+    ; D Item Delimiter. Default is pipe "|".
+
 StrQ(Q, I, Max:=10, D:="|") { ;          StrQ v.0.90,  By SKAN on D09F/D34N @ tiny.cc/strq
 Local LQ:=StrLen(Q), LI:=StrLen(I), LD:=StrLen(D), F:=0
 Return SubStr(Q:=(I)(D)StrReplace(Q,InStr(Q,(I)(D),,0-LQ+LI+LD)?(I)(D):InStr(Q,(D)(I),0,LQ
@@ -627,7 +634,7 @@ center_MsgBox(P) {
   return true
 }
 ;-------------------------------- resolvepath --------------------------------
-resolvepath(wrkPath,path) {
+resolvepath(wrkPath, path) {
   r := ""
   c := ""
   
@@ -641,13 +648,5 @@ resolvepath(wrkPath,path) {
   return r
 }
 ; ----------------------------------------------------------------------------- 
-
-
-
-
-
-
-
-
 
 
