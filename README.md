@@ -453,8 +453,8 @@ Copyright (c) 2020 J. v. Roos
 
 
 ##### Virusscan at Virustotal 
-[Virusscan at Virustotal, clickandsleep.exe 64bit-exe, Check here](https://www.virustotal.com/gui/url/2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8/detection/u-2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8-1694955142
+[Virusscan at Virustotal, clickandsleep.exe 64bit-exe, Check here](https://www.virustotal.com/gui/url/2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8/detection/u-2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8-1697180129
 )  
-[Virusscan at Virustotal, clickandsleep32.exe 32bit-exe, Check here](https://www.virustotal.com/gui/url/84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341/detection/u-84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341-1694955143
+[Virusscan at Virustotal, clickandsleep32.exe 32bit-exe, Check here](https://www.virustotal.com/gui/url/84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341/detection/u-84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341-1697180130
 )  
 Use [CTRL] + Click to open in a new window! 
