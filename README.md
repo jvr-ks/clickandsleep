@@ -1,6 +1,6 @@
 # ClickAndSleep  
   
-Simple App (Windows > 10 only) to make mouse-clicks at user defined positions,  
+Simple App (Windows &gt; 10 only) to make mouse-clicks at user defined positions,  
 go to sleep (shutdown to sleep mode),  
 wake up and repeat all over again and again.  
 In the following ClickAndSleep is called "app" or "CAS/cas".  
@@ -12,7 +12,7 @@ If you have advanced requirements, consider to use a native [Autohotkey](https:/
 #### Status  
 **Alpha, under construction!**  
   
-#### [-> Latest changes/ bug fixes](latest_changes.md)  
+#### [-&gt; Latest changes/ bug fixes](latest_changes.md)  
   
 #### Known issues  
   
@@ -80,14 +80,14 @@ or
   
 Hotkey | Action | Remarks  
 ------------ | ------------- | -------------  
-**\[ALT] + \[m]** | open app menu | Hotkeys are changeable -> Configuration-file   
+**\[ALT] + \[m]** | open app menu | Hotkeys are changeable -&gt; Configuration-file   
 **\[SHIFT] + \[ALT] + \[m]** | remove app from memory | **Does not remove any wake up tasks!** \*1)  
 **\[CTRL] + \[ALT] + \[m]** | record mouseposition \*2) | appended to the Command-file  
   
 \*1) Use Windows Taskscheduler (menu-button) instead to remove "wakup" task if necessary.  
 \*2) Appends "//mouseClick,x,y", "//mouseClickLikeness,x,y,ca" and "//mouseClickLikenessFast,x,y,ca" to the Command-file if clicked. \[SHIFT] + mouse-click appends "//mouseDblClick,x,y" only.  
   
-Recording of the 2nd command can be turned of by setting recordlikeness="OFF" -> Configuration-file .   
+Recording of the 2nd command can be turned of by setting recordlikeness="OFF" -&gt; Configuration-file .   
 **To stop the Mouserecord-mode, push the hotkey again or make a right-click anywhere on the screen!**  
   
 #### App menu:  
@@ -167,7 +167,7 @@ Command | Action | like AHK command
   
   
 #### Web-Browser:  
-see -> Configuration-file -> \[external]  
+see -&gt; Configuration-file -&gt; \[external]  
   
 Command | Parameter | Action | Remarks | like AHK command  
 ------------ | ------------- | ------------- | ------------- | -------------  
@@ -204,7 +204,7 @@ Command | Parameter | Action | Remarks | like AHK command
 **popWin** | | Restore memorized window |  poped from a stack | no   
 **showCasWin** | ,WinTitle, WinText, ExcludeTitle, ExcludeText | Brings the ClickandSleep-Window to the front |  | no  
   
-\*1) "ahk_pid" can be use as a WinTitle, translates to: "ahk_pid runPID" -> runPID: Condition variables  
+\*1) "ahk_pid" can be use as a WinTitle, translates to: "ahk_pid runPID" -&gt; runPID: Condition variables  
 \*2) winCon is the "handle to window number HWND" (hex), interpreted as "true" if not zero.  
   
 #### CoordMode  
@@ -233,7 +233,7 @@ Command | Parameter | Action | Remarks | like AHK command
 **mouseClickRandom3** | ,x1,y1,x2,y2,x3,y3  | Click with the left mousebutton at coordinate x, y | Selects randomly one of three points to click on | no  
 **mouseClickAround** | ,x,y,maxoffset,\[increment] | Click aroud a point | *3) | no  
   
-To **record the current mouseposition** look at -> Default hotkeys section.  
+To **record the current mouseposition** look at -&gt; Default hotkeys section.  
 **All "*likeness"-commands copy the calculated value to the clipboard!**  
   
 \*1) Checks the colors in a 20 X 16 pixel area.  
@@ -261,8 +261,8 @@ The correct value is displayed in the Tooltip then!
 #### Sleep: 
 Command | Parameter | Action | Remarks | like AHK command  
 ------------ | ------------- | ------------- | ------------- | -------------  
-**Sleep** | ,time, message  | t: delay execution for time t (milliseconds) | t defaults to "defaultShowTime" (default is 4000 -> Configuration-file ) i.e. 4 seconds \*1) | no  
-**sleeplong** | ,time, message  | t: delay execution for time t (seconds) | t defaults to "defaultShowTime" (default is 4000 -> Configuration-file ) i.e. 4 seconds \*2) | no  
+**Sleep** | ,time, message  | t: delay execution for time t (milliseconds) | t defaults to "defaultShowTime" (default is 4000 -&gt; Configuration-file ) i.e. 4 seconds \*1) | no  
+**sleeplong** | ,time, message  | t: delay execution for time t (seconds) | t defaults to "defaultShowTime" (default is 4000 -&gt; Configuration-file ) i.e. 4 seconds \*2) | no  
 **KeyWait** | , KeyName |  , Options  | has additional default values  
 KeyName: defaults to ESCAPE  
 See [List of Keys](https://www.autohotkey.com/docs/KeyList.htm)  
@@ -338,23 +338,23 @@ Command | Parameter | Action | Remarks | like AHK command
 **tipAt** | ,x ,y ,text | Show ToolTip at x, y | Automatically removed after 5 seconds | no 
 **tipWindow** | text, transp,remove, "NoRefresh"| Show top-centered ToolTip | Removed after "remove" milli-seconds \*3) | no 
 **tipWindowClose** | | Forced close of tipWindow|  | no  
-**showHint** | ,message,**time to display** (milliseconds) | Popup with message, time defaults to "defaultShowTime" -> Configuration-file  |  | no  
+**showHint** | ,message,**time to display** (milliseconds) | Popup with message, time defaults to "defaultShowTime" -&gt; Configuration-file  |  | no  
 **showHintError** | ,hint-message to show,**time to display** (milliseconds) | Show popup | Only shown if errorLevelMemo is set | no 
   
 **showvar** | ,n | ToolTip (at top, center, 10 seconds displayed) with content of the variable | n is name of variable to show | no 
-**showPid** | ,t | Popup with the PID (runPID) from the last "run" command | t is time to display (milliseconds, defaults to "defaultShowTime" -> Configuration-file  | no  
+**showPid** | ,t | Popup with the PID (runPID) from the last "run" command | t is time to display (milliseconds, defaults to "defaultShowTime" -&gt; Configuration-file  | no  
   
 \*1) Uses the function-call mechanismn.  
 **No comma is allowed in function-call-parameters!**  
 (Because it is used as the delimiter!)  
-\*2) Tooltips with system-messages are shifted to the right/left, parameter is openerDeltaX -> Configuration-file 
+\*2) Tooltips with system-messages are shifted to the right/left, parameter is openerDeltaX -&gt; Configuration-file 
 \*3) transp : transparency, 0 (min) to 255 (max), default 0  
 Word "NoRefresh": do not delete previous tipWindow, avoids flickering, but keeps size of previous  
   
 ##### Multiline text:  
 In multiline text use (eMail etc.):  
-Quotationmarks -> as \"  
-Linebreaks -> as "%0A" \[% zero A]  
+Quotationmarks -&gt; as \"  
+Linebreaks -&gt; as "%0A" \[% zero A]  
   
 #### Configuration-file:  
 The Configuration-file  (default is "clickandsleep.ini") contains the configuration-parameters.  
@@ -437,7 +437,7 @@ Remove it in the tray or restart Windows instead.
   
 #### Gui-paramter  
 Window position and size are stored in the guiFile (default: "caswindow.cas").  
-The filename is configurable, Config-file: \[config] -> \[setup] -> guiFile="(path\)filename"  
+The filename is configurable, Config-file: \[config] -&gt; \[setup] -&gt; guiFile="(path\)filename"  
 The directory must be writable by the app!  
   
 #### License: MIT  
@@ -453,8 +453,8 @@ Copyright (c) 2020 J. v. Roos
 
 
 ##### Virusscan at Virustotal 
-[Virusscan at Virustotal, clickandsleep.exe 64bit-exe, Check here](https://www.virustotal.com/gui/url/2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8/detection/u-2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8-1697182719
+[Virusscan at Virustotal, clickandsleep.exe 64bit-exe, Check here](https://www.virustotal.com/gui/url/2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8/detection/u-2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8-1706974989
 )  
-[Virusscan at Virustotal, clickandsleep32.exe 32bit-exe, Check here](https://www.virustotal.com/gui/url/84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341/detection/u-84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341-1697182720
+[Virusscan at Virustotal, clickandsleep32.exe 32bit-exe, Check here](https://www.virustotal.com/gui/url/84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341/detection/u-84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341-1706974990
 )  
 Use [CTRL] + Click to open in a new window! 
