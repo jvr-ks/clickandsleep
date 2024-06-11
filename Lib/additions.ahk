@@ -5,7 +5,7 @@
 showTextFile(f,n){
   theSourceCode := ""
   if (FileExist(f) != ""){
-    f := FileOpen(f,"r")
+    f := FileOpen(f, "r `n")
     theSourceCode := f.Read()
     f.Close()
   }
