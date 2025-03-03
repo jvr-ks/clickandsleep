@@ -1,0 +1,8 @@
+; clickandsleep_emailtome.txt
+
+;need to configure your eMail program first -> ini-file, default is Mozilla Thunderbird 32 bit!
+
+sendEmail,info@jvr.de,ClickAndSleep,Hi there I tried out your \"ClickAndSleep\" app!%0A%0AMy suggestions for improvement are:
+
+
+//loadset,clickandsleep

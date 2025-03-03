@@ -1,0 +1,27 @@
+; clickandsleep_test10.txt
+//debugON
+//debugShowMouseMoveON
+
+activateChrome
+winConStop
+
+mouseClick,2918,602
+sleep,500
+
+mouseClick,3084,505
+sleep,500
+
+//mouseClick,3094,480
+//sleep,500
+
+mouseClick,3517,325
+sleep,3000
+
+mouseClickRandom3,1456,1223,1952,1289,1952,1289
+sleep,2000
+
+mouseClick,1938,1609
+
+
+//loadset,clickandsleep
+

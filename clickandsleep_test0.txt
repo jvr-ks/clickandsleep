@@ -1,0 +1,22 @@
+; clickandsleep_test0.txt
+//debugON
+//debugShowMouseMoveON
+
+openChrome,https://xit.jvr.de/testimage.html
+activateChrome
+mousemove,0,0,10
+sleepLong,5,Next test should fail ...
+sleepLikenessFast,240,440,703D28,1,This test should fail!
+mouseClickLikeness,1197,847,1a244e,This test should be ok^ i.e. click the button!
+
+sleepLong,3,Finished! close Chrome
+closeChrome
+showHintColored, Script finished!, 1500, c00FF00, c000000
+
+
+
+
+
+//loadset,clickandsleep
+
+
