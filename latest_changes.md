@@ -3,6 +3,7 @@
     
 Version (>=)| Change
 ------------ | -------------
+0.438 | Repeatcounter bug fixed
 0.437 | A32 version removed, some bugfixes
 0.428 | SingleStep with Doubleclick (or the Button)
 0.236 | sleepLong: Is always displayed, besides using "-" as text, example: sleepLong,5,-
