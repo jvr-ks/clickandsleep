@@ -1,0 +1,12 @@
+; clickandsleep_test5.txt
+
+//  standby test
+
+//sleep,2000,test xxxxxxxxxxxxxxxx
+//sleepLong,5,dummy for Standby-test
+sleep,1000,test1 
+
+//loadset,clickandsleep
+
+
+  
