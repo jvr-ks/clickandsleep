@@ -1,0 +1,6 @@
+; clickandsleep_test4a.txt
+
+
+showHintColored, ERROR - this step should only be reached with single-steps!, 5000, cFF0000, c009900
+
+loadset,clickandsleep_test4

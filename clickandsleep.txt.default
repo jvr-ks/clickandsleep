@@ -1,0 +1,23 @@
+; clickandsleep.txt
+tipAt,400,10,Please select one of the test files!
+
+//loadset,clickandsleep_test0
+//loadset,clickandsleep_test1
+//loadset,clickandsleep_test2
+//loadset,clickandsleep_test3
+//loadset,clickandsleep_test4
+//loadset,clickandsleep_test4a
+//loadset,clickandsleep_test5
+//loadset,clickandsleep_test6
+//loadset,clickandsleep_test7
+//loadset,clickandsleep_test8
+//loadset,clickandsleep_test9
+
+//loadset,clickandsleep_emailtome
+//loadset,clickandsleep
+
+loadset,clickandsleep_dev1
+
+//exit
+
+
