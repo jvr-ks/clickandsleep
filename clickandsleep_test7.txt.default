@@ -1,0 +1,9 @@
+; clickandsleep_test7.txt
+;debugOn
+
+sleepLong,5,goto background test
+keywait,Control
+//loadset,clickandsleep
+
+;//exit
+

@@ -1,0 +1,44 @@
+; clickandsleep_test3.txt
+//debugON
+//debugShowMouseMoveON
+
+pushWin
+openChrome,https://xit.jvr.de
+//closeChrome
+//activateChrome
+
+//openfirefox,https://www.autohotkey.com
+;winCon contains HWND afterwards (Firefox has multible HWND)
+//closefirefox, winCon must be false, i.e. "0" afterwards
+//activateFirefox
+
+//winConStop
+//winConExit
+
+//openedge,https://www.autohotkey.com
+//activateEdge
+//closeedge
+
+//showvar,wincon
+//resetWinCon
+//setWinCon
+
+//sleeplong,5,hopefully browser is open!
+//sleep,3000,sleep is for short sleeptimes
+
+mousemove,10,10
+sleep,1000
+mousemove,50,50
+sleep,1000
+mousemove,100,100
+sleep,1000
+mousemove,500,500
+sleep,1000
+mousemove,1000,1000
+sleep,1000
+
+
+
+popWin
+
+//loadset,clickandsleep

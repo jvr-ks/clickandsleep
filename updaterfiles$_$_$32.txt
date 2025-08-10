@@ -1,0 +1,16 @@
+clickandsleep32.exe
+clickandsleep.ini
+clickandsleep.txt
+clickandsleep_test0.txt
+clickandsleep_test1.txt
+clickandsleep_test2.txt
+clickandsleep_test3.txt
+clickandsleep_test4.txt
+clickandsleep_test5.txt
+clickandsleep_test6.txt
+clickandsleep_test7.txt
+clickandsleep_test8.txt
+clickandsleep_test9.txt
+clickandsleep_test10.txt
+
+

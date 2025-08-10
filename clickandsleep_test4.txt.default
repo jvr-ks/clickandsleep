@@ -1,0 +1,36 @@
+; clickandsleep_test4.txt
+
+//debugOn
+
+tipWindow,Hello world!
+sleep,3000
+tipWindowClose
+
+tipWindow,Hello world a!,0,3000
+sleep,3500
+
+tipWindow,Hello world aaa!,50,3000
+sleep,3500
+
+tipWindow,Hello world 1!,,1000
+sleep,1500
+tipWindow,Hello world 2!,,1000
+sleep,1500
+tipWindow,Hello world 3!,,1000
+sleep,1500
+tipWindow,Hello world 4!,,1000
+sleep,1500
+
+tipWindow,Hello world 1!,,1000,NoRefresh
+sleep,500
+tipWindow,Hello world 2!,,1000,NoRefresh
+sleep,500
+tipWindow,Hello world 3!,,1000,NoRefresh
+sleep,500
+tipWindow,Hello world 4!,,1000,NoRefresh
+sleep,500
+tipWindow,Hello world 5!,,1000,NoRefresh
+
+Mousemove, 300, 300 
+showHintColored, Script finished!, 3000, c00FF00, c000000
+//loadset,clickandsleep

@@ -1,0 +1,13 @@
+; clickandsleep_test6.txt
+
+keyWait,Escape,D
+showHint,Escape pressed!
+sleeplong,10
+keyWait,Control,D
+showHint,Control pressed!
+sleeplong,10
+showHint,END
+
+
+//loadset,clickandsleep
+

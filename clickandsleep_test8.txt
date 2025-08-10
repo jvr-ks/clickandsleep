@@ -1,0 +1,14 @@
+; clickandsleep_test8.txt
+
+openChrome,https://xit.jvr.de/testimage.html
+
+; ok
+sleepLikenessFastLong,75,564,162455,120
+
+; 2 hours test-duration, test every minute (fixed value), escape with Capslock-key
+sleepLikenessFastLong,75,564,ffffff,120
+
+
+//loadset,clickandsleep
+
+

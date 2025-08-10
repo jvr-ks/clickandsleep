@@ -1,0 +1,7 @@
+; clickandsleep_test2.txt
+
+showHint,try [CAPSLOCK]->[ALT] / [CAPSLOCK]_>[CTRL] on next sleeplong, 3000
+sleeplong,20, try [CAPSLOCK]->[ALT] or [CAPSLOCK] ->[CTRL] now
+showHint,script finished!,2000
+
+//loadset,clickandsleep

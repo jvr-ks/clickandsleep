@@ -1,0 +1,16 @@
+; clickandsleep_test1.txt
+//debugOn
+//debugShowMouseMoveON
+
+tipTop, file: clickandsleep_test1
+openfirefox,https://xit.jvr.de/testimage.html
+activateFirefox
+sleepLong,5,Next test should fail ...
+mouseClickLikenessTimesDelay,1197,847,105510,2,3000,should fail
+sleepLong,5,Next test should be ok ...
+mouseClickLikenessTimesDelay,1197,847,1e2c5a,2,3000,should be ok
+sleepLong,3, Finished!
+closeFirefox
+
+
+//loadset,clickandsleep
