@@ -2,7 +2,7 @@
 
 #### Status  
 **Development has been discontinued**  
-An alternative:[macrocreator](https://www.macrocreator.com/)
+An alternative: [macrocreator](https://www.macrocreator.com/)
   
 Simple App (Windows &gt; 10 only) to make mouse-clicks at user defined positions,  
 go to sleep (shutdown to sleep mode),  
