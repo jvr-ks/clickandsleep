@@ -119,7 +119,7 @@ MainStatusBarHwnd := 0
 appName := "ClickAndSleep"
 appnameLower := "clickandsleep"
 appExtension:= ".exe"
-appVersion := "0.442"
+appVersion := "0.443"
 
 bit := (A_PtrSize=8 ? "64" : "32")
 
