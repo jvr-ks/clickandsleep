@@ -1,4 +1,8 @@
 # ClickAndSleep  
+
+#### Status  
+**Development has been discontinued**  
+An alternative:[macrocreator](https://www.macrocreator.com/)
   
 Simple App (Windows &gt; 10 only) to make mouse-clicks at user defined positions,  
 go to sleep (shutdown to sleep mode),  
@@ -9,8 +13,6 @@ Commands are only a linear sequence, no variables, no loops, no queries etc., be
 Based on [Autohotkey](https://www.autohotkey.com).  
 If you have advanced requirements, consider to use a native [Autohotkey](https://www.autohotkey.com) script.  
   
-#### Status  
-**Alpha, under construction!**  
   
 #### [-&gt; Latest changes/ bug fixes](latest_changes.md)  
   
@@ -459,8 +461,8 @@ Copyright (c) 2020 J. v. Roos
 
 
 ##### Virusscan at Virustotal 
-[Virusscan at Virustotal, clickandsleep.exe 64bit-exe, Check here](https://www.virustotal.com/gui/url/2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8/detection/u-2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8-1790599292
+[Virusscan at Virustotal, clickandsleep.exe 64bit-exe, Check here](https://www.virustotal.com/gui/url/2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8/detection/u-2a5654dc761f9b8fe934591cc1d77634f4e91fd6d1377fea5af7de6604d699a8-1792583523
 )  
-[Virusscan at Virustotal, clickandsleep32.exe 32bit-exe, Check here](https://www.virustotal.com/gui/url/84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341/detection/u-84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341-1790599294
+[Virusscan at Virustotal, clickandsleep32.exe 32bit-exe, Check here](https://www.virustotal.com/gui/url/84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341/detection/u-84885749cfabdd66c74dfb4bf2b972761d244e4ca5d28f1695e3053838b16341-1792583525
 )  
 Use [CTRL] + Click to open in a new window! 
